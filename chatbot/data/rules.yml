@@ -1,0 +1,77 @@
+version: "3.1"
+
+rules:
+- rule: Responder inscripción a becas
+  steps:
+    - intent: becas_inscripcion
+    - action: utter_becas_inscripcion
+
+- rule: Informar tipos de becas
+  steps:
+    - intent: becas_tipos
+    - action: utter_becas_tipos
+
+- rule: Detallar requisitos de becas
+  steps:
+    - intent: becas_requisitos
+    - action: utter_becas_requisitos
+
+- rule: Explicar bolsa de trabajo
+  steps:
+    - intent: bolsa_trabajo_info
+    - action: utter_bolsa_trabajo_info
+
+- rule: Dar contacto bolsa de trabajo
+  steps:
+    - intent: bolsa_trabajo_contacto
+    - action: utter_bolsa_trabajo_contacto
+
+- rule: Horarios del comedor
+  steps:
+    - intent: comedor_horarios
+    - action: utter_comedor_horarios
+
+- rule: Opciones de comida
+  steps:
+    - intent: comedor_comidas
+    - action: utter_comedor_comidas
+
+- rule: Precios del comedor
+  steps:
+    - intent: comedor_precios
+    - action: utter_comedor_precios
+
+- rule: Gestión del comedor
+  steps:
+    - intent: comedor_gestion
+    - action: utter_comedor_gestion
+
+- rule: Información boleto estudiantil
+  steps:
+    - intent: boleto_info
+    - action: utter_boleto_info
+
+- rule: Trámite boleto estudiantil
+  steps:
+    - intent: boleto_tramite
+    - action: utter_boleto_tramite
+
+- rule: Listado de deportes
+  steps:
+    - intent: deportes_listado
+    - action: utter_deportes_listado
+
+- rule: Horarios de deportes
+  steps:
+    - intent: deportes_horarios
+    - action: utter_deportes_horarios
+
+- rule: Certificados académicos
+  steps:
+    - intent: administrativo_certificados
+    - action: utter_administrativo_certificados
+
+- rule: Gestión de materias
+  steps:
+    - intent: administrativo_materias
+    - action: utter_administrativo_materias

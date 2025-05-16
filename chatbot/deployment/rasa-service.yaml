@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rasa-service
+spec:
+  selector:
+    app: rasa
+  ports:
+    - protocol: TCP
+      port: 5005
+      targetPort: 5005
+      nodePort: 30001
+  type: NodePort  # Docker Desktop asignará una IP local (ej: 127.0.0.1)

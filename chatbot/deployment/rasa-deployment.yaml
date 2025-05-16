@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rasa
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rasa
+  template:
+    metadata:
+      labels:
+        app: rasa
+    spec:
+      containers:
+      - name: rasa
+        image: manuelmorullo/rasa-chatbot:latest
+        ports:
+        - containerPort: 5005
+        env:
+        - name: SANIC_WORKERS
+          value: "2"
+        - name: REDIS_URL
+          value: "redis://redis-service:6379"
+        resources:
+          requests:
+            cpu: "1"
+            memory: "900Mi"
+          limits:
+            cpu: "1"
+            memory: "900Mi"
+        volumeMounts:
+        - name: models-volume
+          mountPath: /app/models
+      volumes:
+      - name: models-volume
+        hostPath:
+          path: /home/manuel/chatbot/models
+          type: Directory

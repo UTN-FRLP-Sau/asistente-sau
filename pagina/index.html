@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SAU BOT</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary-color: #4e91fc;
+      --secondary-color: #6a7c8a;
+      --background-gradient-start: #eef2f3;
+      --background-gradient-end: #8e9eab;
+      --card-background: white;
+      --rw-message-bot-bg: #ebeced;
+      --text-dark: #333;
+      --text-medium: #666;
+      --shadow-light: rgba(0, 0, 0, 0.1);
+      --shadow-medium: rgba(0, 0, 0, 0.15);
+      --border-radius: 16px;
+      --transition-speed: 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #a46cdf, #8986f1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      background-color: var(--card-background);
+      border-radius: var(--border-radius);
+      padding: 40px 30px;
+      box-shadow: 0 8px 20px var(--shadow-light);
+      max-width: 800px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+      margin: 20px 0;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px var(--shadow-medium);
+    }
+
+    h1 {
+      color: var(--text-dark);
+      font-size: 2.2rem;
+      margin-bottom: 0.4em;
+      font-weight: 700;
+    }
+
+    p {
+      color: var(--text-medium);
+      font-size: 1.05rem;
+      margin-bottom: 2.2em;
+    }
+
+    .icon {
+      font-size: 3.5rem;
+      color: var(--primary-color);
+      margin-bottom: 0.3em;
+      line-height: 1;
+    }
+
+    .chat-container {
+      margin-top: 25px;
+      width: 100%;
+      height: 450px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 18px var(--shadow-light);
+      overflow: hidden;
+      background: var(--card-background);
+      position: relative;
+    }
+
+    #rasaWebchatPro {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .rw-message .rw-avatar {
+	  width: 48px !important;
+	  height: 48px !important;
+	}
+
+    .rw-message .rw-client {
+      background-color: #3674d7 !important;
+      color: white !important;
+      border-radius: 12px !important;
+      padding: 10px 15px !important;
+      max-width: 75%;
+      word-wrap: break-word;
+    }
+
+    .rw-message .rw-response {
+      background-color: #dddddd !important;
+      color: black !important;
+      border-radius: 12px !important;
+      padding: 10px 15px !important;
+      max-width: 75%;
+      word-wrap: break-word;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+        margin-top: 40px;
+        width: 95%;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5em;
+      }
+
+      .icon {
+        font-size: 3rem;
+      }
+
+      .chat-container {
+        height: 380px;
+        margin-top: 20px;
+      }
+    }
+	.icon {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	}
+
+	.icon img {
+	  display: block;
+	  width: 70px; /* Ajusta este valor para el tamaño deseado */
+	  height: 70px; /* Igual al ancho para que sea un círculo */
+	  border-radius: 50%;
+	  object-fit: cover;
+	}
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+	<div class="icon">
+	  <img src="https://i.imgur.com/9Nac5mA.png" alt="Logo Bot UTN">
+	</div>
+    <h1>¡Bienvenido al Bot de la SAU! 🎓</h1>
+    <p>¿Tenés dudas universitarias? Preguntame y te ayudo 😉</p>
+
+    <div class="chat-container">
+      <div id="webchat"></div>
+    </div>
+  </div>
+
+  <script>
+    const chatContainer = document.querySelector('.chat-container');
+
+    window.WebChat.default({
+      selector: "#webchat",
+      embedded: true,
+      initPayload: "/greet",
+      customData: { language: "es" },
+      socketUrl: "http://172.23.71.108:30001",
+      title: "Bot SAU",
+      subtitle: "Asistente Universitario",
+      inputTextFieldHint: "Escribe tu mensaje...",
+      showFullScreenButton: false,
+      showMessageDate: true,
+      profileAvatar: "https://i.imgur.com/9Nac5mA.png",
+      params: {
+        storage: "session"
+      },
+      customStyles: {
+        widget: {
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          borderRadius: '16px'
+        },
+        chatContainer: {
+          height: '100%',
+          borderRadius: '16px'
+        },
+        messageBubble: {
+          borderRadius: '12px',
+          padding: '10px 15px'
+        },
+
+        inputContainer: {
+          borderTop: '1px solid #e0e0e0',
+          padding: '10px 15px'
+        },
+        input: {
+          borderRadius: '20px',
+          padding: '8px 15px',
+          fontSize: '1rem',
+          border: '1px solid #ccc',
+          boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.05)'
+        },
+        sendButton: {
+          background: '#4e91fc',
+          color: 'white',
+          borderRadius: '50%',
+          width: '40px',
+          height: '40px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
+        },
+        header: {
+          background: '#4e91fc',
+          color: 'white',
+          fontWeight: '600',
+          fontSize: '1.1rem',
+          padding: '15px'
+        }
+      },
+      root: chatContainer
+    });
+
+    const observer = new MutationObserver(function(mutations) {
+      const widget = document.getElementById('rasaWebchatPro');
+      if (widget && !chatContainer.contains(widget)) {
+        chatContainer.appendChild(widget);
+        widget.style.width = '100%';
+        widget.style.height = '100%';
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+  </script>
+
+</body>
+</html>
+

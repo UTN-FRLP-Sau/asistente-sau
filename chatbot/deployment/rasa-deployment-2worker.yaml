@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rasa-2workers
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rasa
+  template:
+    metadata:
+      labels:
+        app: rasa
+    spec:
+      containers:
+      - name: rasa
+        image: manuelmorullo/rasa-chatbot:latest
+        args:
+          - run
+          - --enable-api
+          - --cors
+          - "*"
+          - --credentials
+          - credentials.yml
+        ports:
+        - containerPort: 5005
+        env:
+        - name: SANIC_WORKERS
+          value: "2"
+        - name: REDIS_URL
+          value: "redis://redis-service:6379"
+        resources:
+          requests:
+            cpu: "2"
+            memory: "900Mi"
+          limits:
+            cpu: "2"
+            memory: "900Mi"
+        volumeMounts:
+        - name: models-volume
+          mountPath: /app/models
+        - name: rasa-config-volume
+          mountPath: /app/credentials.yml
+          subPath: credentials.yml
+        - name: rasa-endpoints-volume
+          mountPath: /app/endpoints.yml
+          subPath: endpoints.yml
+      volumes:
+      - name: models-volume
+        hostPath:
+          path: /home/manuel/chatbot/models
+          type: Directory
+      - name: rasa-config-volume
+        configMap:
+          name: rasa-credentials-cm
+      - name: rasa-endpoints-volume
+        configMap:
+          name: rasa-endpoints-cm
+
