@@ -1,22 +1,28 @@
-# Chatbot Asitente
+# Chatbot Asistente para la Secretaría de Asuntos Universitarios
 
-Este proyecto consiste en el desarrollo de un chatbot inteligente para la Secretaría de Asuntos Universitarios (SAU) de la Universidad Tecnológica Nacional, Facultad Regional La Plata (UTN FRLP).
+Este proyecto consiste en el desarrollo de un asistente virtual inteligente para la Secretaría de Asuntos Universitarios (SAU) de la Universidad Tecnológica Nacional, Facultad Regional La Plata (UTN FRLP).
 
-## Descripción
+## Descripción del Proyecto
 
-El chatbot está diseñado para brindar asistencia automática a estudiantes y usuarios en consultas frecuentes relacionadas con la SAU. Su objetivo principal es facilitar el acceso a información relevante y agilizar la comunicación, ofreciendo respuestas rápidas sobre temas como:
+El chatbot está diseñado para brindar atención automatizada a estudiantes y demás usuarios, ofreciendo respuestas inmediatas a consultas frecuentes relacionadas con los servicios que ofrece la SAU. Entre los temas que cubre se encuentran:
 
-- Servicios del comedor universitario
-- Horarios y actividades deportivas
-- Becas y ayudas económicas
-- Boleto estudiantil y beneficios
-- Otros trámites y consultas frecuentes
+- Comedor universitario  
+- Actividades y horarios deportivos  
+- Becas y ayudas económicas  
+- Boleto estudiantil y beneficios  
+- Trámites administrativos y consultas generales  
 
-Con este asistente virtual, se busca mejorar la experiencia de los usuarios al reducir los tiempos de espera y simplificar el acceso a información administrativa y académica.
+El asistente tiene como objetivo principal descomprimir la atención presencial, telefónica y por correo, optimizando los recursos humanos de la Secretaría de Asuntos Universitarios. Al mismo tiempo, mejora la accesibilidad y disponibilidad de información relevante para la comunidad estudiantil, agilizando la comunicación, reduciendo los tiempos de respuesta ante consultas frecuentes y ofreciendo un canal digital de atención continua, eficiente y fácil de usar.
 
-## Tecnologías
+Los usuarios pueden interactuar con el chatbot a través de una interfaz web accesible desde cualquier navegador, o bien mediante un bot integrado en la plataforma **Telegram**. De este modo, se garantiza un acceso rápido, flexible y multiplataforma a la información, desde cualquier dispositivo y en cualquier momento.
 
-El proyecto está desarrollado con Rasa, una plataforma open source para construir chatbots basados en inteligencia artificial, combinando procesamiento de lenguaje natural con gestión de diálogo.
+## Tecnologías Utilizadas
 
-Además, cuenta con un frontend básico para interactuar con el chatbot vía web, facilitando su integración y uso.
+El desarrollo del chatbot se llevó a cabo utilizando las siguientes tecnologías:
 
+- **Rasa**: plataforma open source para la creación de asistentes conversacionales con inteligencia artificial.
+- **Python**: lenguaje de programación principal del proyecto.
+- **Docker**: para la contenerización de servicios y facilitar el despliegue.
+- **K3s**: distribución ligera y certificada de **Kubernetes**, utilizada para orquestar y escalar el sistema en entornos de producción.
+- **Telegram Bot API**: para la integración del asistente con la aplicación de mensajería Telegram.
+- **HTML/CSS/JavaScript**: para el desarrollo del frontend web de interacción con el chatbot.
