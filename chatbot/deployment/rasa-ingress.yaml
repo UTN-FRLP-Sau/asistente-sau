@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rasa-ingress
+  namespace: default
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web  # HTTP (websecure para HTTPS)
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /webhooks/telegram/webhook
+        pathType: Prefix
+        backend:
+          service:
+            name: rasa-service  # Nombre de Service de Rasa
+            port:
+              number: 5005      # Puerto del Service

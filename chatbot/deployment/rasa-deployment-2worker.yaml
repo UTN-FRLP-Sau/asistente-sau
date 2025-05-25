@@ -12,6 +12,44 @@ spec:
       labels:
         app: rasa
     spec:
+      initContainers:
+      - name: render-credentials
+        image: alpine:3.18
+        command:
+          - sh
+          - -c
+          - |
+            apk add --no-cache gettext
+            echo "Checking env variables:"
+            echo "TELEGRAM_TOKEN=$TELEGRAM_TOKEN"
+            echo "TELEGRAM_BOT_USERNAME=$TELEGRAM_BOT_USERNAME"
+            echo "TELEGRAM_WEBHOOK_URL=$TELEGRAM_WEBHOOK_URL"
+            echo "Rendering credentials..."
+            envsubst < /template/credentials.yml.template > /config/credentials.yml
+            echo "Render finished."
+        env:
+          - name: TELEGRAM_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: telegram-secrets
+                key: TELEGRAM_TOKEN
+          - name: TELEGRAM_BOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: telegram-secrets
+                key: TELEGRAM_BOT_USERNAME
+          - name: TELEGRAM_WEBHOOK_URL
+            valueFrom:
+              secretKeyRef:
+                name: telegram-secrets
+                key: TELEGRAM_WEBHOOK_URL
+        volumeMounts:
+          - name: config-volume
+            mountPath: /config
+          - name: rasa-credentials-template
+            mountPath: /template
+            readOnly: true
+
       containers:
       - name: rasa
         image: manuelmorullo/rasa-chatbot:latest
@@ -21,7 +59,7 @@ spec:
           - --cors
           - "*"
           - --credentials
-          - credentials.yml
+          - /app/credentials.yml
         ports:
         - containerPort: 5005
         env:
@@ -29,30 +67,50 @@ spec:
           value: "2"
         - name: REDIS_URL
           value: "redis://redis-service:6379"
+        - name: TELEGRAM_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: telegram-secrets
+              key: TELEGRAM_TOKEN
+        - name: TELEGRAM_BOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: telegram-secrets
+              key: TELEGRAM_BOT_USERNAME
+        - name: TELEGRAM_WEBHOOK_URL
+          valueFrom:
+            secretKeyRef:
+              name: telegram-secrets
+              key: TELEGRAM_WEBHOOK_URL
+        - name: SANIC_NO_UVLOOP
+          value: "true"
         resources:
           requests:
             cpu: "2"
-            memory: "900Mi"
+            memory: "1843Mi"
           limits:
             cpu: "2"
-            memory: "900Mi"
+            memory: "1843Mi"
         volumeMounts:
         - name: models-volume
           mountPath: /app/models
-        - name: rasa-config-volume
+        - name: config-volume
           mountPath: /app/credentials.yml
           subPath: credentials.yml
         - name: rasa-endpoints-volume
           mountPath: /app/endpoints.yml
           subPath: endpoints.yml
+
       volumes:
       - name: models-volume
         hostPath:
-          path: /home/manuel/chatbot/models
+          path: /home/manuel/asistente-sau/chatbot/models
           type: Directory
-      - name: rasa-config-volume
+      - name: config-volume
+        emptyDir: {}
+      - name: rasa-credentials-template
         configMap:
-          name: rasa-credentials-cm
+          name: rasa-credentials-template-cm
       - name: rasa-endpoints-volume
         configMap:
           name: rasa-endpoints-cm
