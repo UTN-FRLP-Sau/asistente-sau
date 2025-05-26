@@ -19,14 +19,14 @@ spec:
           - sh
           - -c
           - |
-            apk add --no-cache gettext
-            echo "Checking env variables:"
-            echo "TELEGRAM_TOKEN=$TELEGRAM_TOKEN"
-            echo "TELEGRAM_BOT_USERNAME=$TELEGRAM_BOT_USERNAME"
-            echo "TELEGRAM_WEBHOOK_URL=$TELEGRAM_WEBHOOK_URL"
-            echo "Rendering credentials..."
-            envsubst < /template/credentials.yml.template > /config/credentials.yml
-            echo "Render finished."
+            apk add --no-cache gettext && \
+            echo "Checking env variables:" && \
+            echo "TELEGRAM_TOKEN=$TELEGRAM_TOKEN" && \
+            echo "TELEGRAM_BOT_USERNAME=$TELEGRAM_BOT_USERNAME" && \
+            echo "TELEGRAM_WEBHOOK_URL=$TELEGRAM_WEBHOOK_URL" && \
+            echo "Rendering credentials..." && \
+            envsubst < /template/credentials.yml.template > /config/credentials.yml && \
+            echo "Render finished." || sleep 3600
         env:
           - name: TELEGRAM_TOKEN
             valueFrom:
