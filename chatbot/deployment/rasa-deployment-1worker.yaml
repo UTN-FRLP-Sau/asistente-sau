@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: rasa-1worker
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: rasa
@@ -60,6 +60,11 @@ spec:
           - "*"
           - --credentials
           - /app/credentials.yml
+          - --endpoints
+          - /app/endpoints.yml
+          - --debug
+          - -m
+          - /app/models
         ports:
           - containerPort: 5005
         env:
