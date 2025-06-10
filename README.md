@@ -74,6 +74,12 @@ Levantar servidor web python:
 python3 -m http.server 8000 --bind 0.0.0.0
 
 
+Ejecutar test de carga con Locust(configurar ip del websocket en locustfile.py):
+locust -f locustfile.py
+
+Acceder a intefaz web mediante:
+http://localhost:8089/
+
 
 
 
