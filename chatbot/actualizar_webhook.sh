@@ -31,9 +31,11 @@ kubectl apply -f -
 
 # 2. Actualizo el Secret de Telegram con el nombre de usuario del bot, el token y la URL completa del webhook
 echo "Actualizando el Secret 'telegram-secrets' con la URL completa del webhook de Telegram..."
+TELEGRAM_BOT_USERNAME=$(kubectl get secret telegram-secrets -o jsonpath='{.data.TELEGRAM_BOT_USERNAME}' | base64 --decode)
+
 kubectl create secret generic telegram-secrets \
   --namespace=default \
-  --from-literal=TELEGRAM_BOT_USERNAME='utn_sau_bot' \
+  --from-literal=TELEGRAM_BOT_USERNAME="${TELEGRAM_BOT_USERNAME}" \
   --from-literal=TELEGRAM_TOKEN="${TELEGRAM_TOKEN}" \
   --from-literal=TELEGRAM_WEBHOOK_URL="${WEBHOOK_URL}/webhooks/telegram/webhook" \
   --dry-run=client -o yaml | kubectl apply -f -
