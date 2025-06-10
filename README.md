@@ -26,3 +26,54 @@ El desarrollo del chatbot se llevó a cabo utilizando las siguientes tecnología
 - **K3s**: distribución ligera y certificada de **Kubernetes**, utilizada para orquestar y escalar el sistema en entornos de producción.
 - **Telegram Bot API**: para la integración del asistente con la aplicación de mensajería Telegram.
 - **HTML/CSS/JavaScript**: para el desarrollo del frontend web de interacción con el chatbot.
+
+
+Pasos para correr el proyecto:
+Asegurarse de Usar Python 3.10.* para un correcto funcionamiento de Rasa y el resto de dependencias
+Crear entorno virtual(recomendado)
+Instalar Rasa,locust,Docker,K3s,Redis,Ngrok
+
+Crear confimaps:
+
+ConfigMap para credentials.yml.template
+kubectl create configmap rasa-credentials-template-cm --from-file=credentials.yml.template=./credentials.yml.template
+
+ConfigMap para endpoints.yml:
+kubectl create configmap rasa-endpoints-cm --from-file=endpoints.yml=./endpoints.yml
+
+Aplicar configuracion de Ingress:
+kubectl apply -f rasa-ingress.yaml
+
+Para desarrollo configurar previamente token de tu cuenta de ngrok para luego levantar ngrok:
+ngrok http 80
+
+Crear Secrets:
+kubectl create secret generic telegram-secrets \
+  --from-literal=TELEGRAM_TOKEN='tu_token' \
+  --from-literal=TELEGRAM_BOT_USERNAME='tu_usuario_bot' \
+
+Actualizar o Agregar por primera vez Webhook al Secret con el comando:
+./actualizar_webhook.sh <pasar url que te genera ngrok como parametro>
+
+Entrenar modelo de Rasa:
+rasa train
+
+Actualizar la ruta del volumen montado de los rasa-deployment.yaml para que coincida con tu nombre de usuario:
+volumes:
+        - name: models-volume
+          hostPath:
+            path: /home/'tu-usuario'/asistente-sau/chatbot/models
+
+Aplicar redeploy de los pods con:
+./redeploy-rasa.sh
+
+Configurar ip del websocket en el index.html:
+socketUrl: "http://'ip_de_tu_computadora':30001",
+
+Levantar servidor web python:
+python3 -m http.server 8000 --bind 0.0.0.0
+
+
+
+
+
