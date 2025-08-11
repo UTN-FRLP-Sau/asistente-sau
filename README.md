@@ -78,7 +78,7 @@ Ejecutar test de carga con Locust(configurar ip del websocket en locustfile.py):
 locust -f locustfile.py
 
 Acceder a intefaz web mediante:
-http://localhost:8089/
+http://localhost:8000/
 
 
 
