@@ -114,12 +114,16 @@
     }
 
     .rw-message .rw-response {
-      background-color: #dddddd !important;
+      background-color: #d9d6ff !important;
       color: black !important;
       border-radius: 12px !important;
       padding: 10px 15px !important;
       max-width: 75%;
       word-wrap: break-word;
+    }
+
+    .rw-message .rw-response p{
+      color: black !important;
     }
 
     @media (max-width: 600px) {
@@ -187,7 +191,7 @@
       embedded: true,
       initPayload: "/greet",
       customData: { language: "es" },
-      socketUrl: "http://172.23.71.108:30001",
+      socketUrl: "http://172.25.159.157:30001",
       title: "Bot SAU",
       subtitle: "Asistente Universitario",
       inputTextFieldHint: "Escribe tu mensaje...",
