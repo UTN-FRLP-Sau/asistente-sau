@@ -24,8 +24,8 @@ fi
 echo "¡Listo! TELEGRAM_TOKEN obtenido."
 
 # 1. Actualizo el ConfigMap de Rasa para que sepa la URL correcta de su webhook
-echo "Actualizando el ConfigMap 'rasa-credentials-cm' para que Rasa apunte a la URL del webhook..."
-kubectl get configmap rasa-credentials-cm -o yaml | \
+echo "Actualizando el ConfigMap 'rasa-credentials-template-cm' para que Rasa apunte a la URL del webhook..."
+kubectl get configmap rasa-credentials-template-cm -o yaml | \
 sed -E "s#^(\s*webhook_url: ).*#\1\"${WEBHOOK_URL}/webhook\"#" | \
 kubectl apply -f -
 
