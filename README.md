@@ -24,6 +24,9 @@ El desarrollo del chatbot se llevó a cabo utilizando las siguientes tecnología
 - **Python**: lenguaje de programación principal del proyecto.
 - **Docker**: para la contenerización de servicios y facilitar el despliegue.
 - **K3s**: distribución ligera y certificada de **Kubernetes**, utilizada para orquestar y escalar el sistema en entornos de producción.
+- **Redis**: base de datos en memoria de código abierto, utilizada principalmente por Rasa como lock store para gestionar el bloqueo de conversaciones y asegurar la consistencia del diálogo en entornos distribuidos.
+- **Locust**: herramienta de prueba de carga de código abierto, utilizada para simular usuarios concurrentes y medir el rendimiento del chatbot.
+- **Ngrok**: servicio de tunelización usado que expone servicios locales a Internet, facilitando la prueba de webhooks de Telegram y otras integraciones durante el desarrollo.
 - **Telegram Bot API**: para la integración del asistente con la aplicación de mensajería Telegram.
 - **HTML/CSS/JavaScript**: para el desarrollo del frontend web de interacción con el chatbot.
 
