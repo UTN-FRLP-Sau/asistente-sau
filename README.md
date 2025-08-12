@@ -31,6 +31,7 @@ El desarrollo del chatbot se llevó a cabo utilizando las siguientes tecnología
 Pasos para correr el proyecto:
 Asegurarse de Usar Python 3.10.* para un correcto funcionamiento de Rasa y el resto de dependencias
 Crear entorno virtual(recomendado)
+Activar entorno con: source venv/bin/activate
 Instalar Rasa,locust,Docker,K3s,Redis,Ngrok
 
 Crear confimaps:
@@ -50,7 +51,7 @@ ngrok http 80
 Crear Secrets:
 kubectl create secret generic telegram-secrets \
   --from-literal=TELEGRAM_TOKEN='tu_token' \
-  --from-literal=TELEGRAM_BOT_USERNAME='tu_usuario_bot' \
+  --from-literal=TELEGRAM_BOT_USERNAME='tu_usuario_bot'
 
 Actualizar o Agregar por primera vez Webhook al Secret con el comando:
 ./actualizar_webhook.sh <pasar url que te genera ngrok como parametro>
