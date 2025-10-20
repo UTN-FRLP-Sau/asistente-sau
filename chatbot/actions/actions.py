@@ -4,7 +4,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from typing import Text, List, Any, Dict
 
 # =======================================================
-# 0. BASE DE CONOCIMIENTO (RESPUESTAS DEL DOCUMENTO .DOCX)
+# 0. BASE DE CONOCIMIENTO
 # =======================================================
 
 FAQ_RESPUESTAS = {
@@ -88,8 +88,88 @@ FAQ_RESPUESTAS = {
     }
 }
 
+
 # =======================================================
-# 1. ACTION DETECTAR MODO (FINAL Y SIMPLIFICADA)
+# 1. MAPEO DE INTENTS ESPECÍFICOS A FAQ 
+# =======================================================
+
+INTENT_TO_FAQ_MAP = {
+    # --- ÁREA DE BECAS (8 preguntas) ---
+    "preguntar_becas_tipos": ("becas", 1),
+    "preguntar_becas_inscripcion": ("becas", 2),
+    "preguntar_becas_requisitos": ("becas", 3),
+    "preguntar_becas_documentacion": ("becas", 4),
+    "preguntar_becas_fechas": ("becas", 5),
+    "preguntar_becas_varias": ("becas", 6),
+    "preguntar_becas_seleccion": ("becas", 7),
+    "preguntar_becas_renovacion": ("becas", 8),
+
+    # --- ÁREA DE BOLETO ESTUDIANTIL (11 preguntas) ---
+    "preguntar_boleto_solicitud": ("boleto_estudiantil", 1),
+    "preguntar_boleto_requisitos": ("boleto_estudiantil", 2),
+    "preguntar_boleto_tramite_lugar": ("boleto_estudiantil", 3),
+    "preguntar_boleto_habilitacion_tiempo": ("boleto_estudiantil", 4),
+    "preguntar_boleto_perdida": ("boleto_estudiantil", 5),
+    "preguntar_boleto_vencimiento": ("boleto_estudiantil", 6),
+    "preguntar_boleto_renovacion": ("boleto_estudiantil", 7),
+    "preguntar_boleto_viajes": ("boleto_estudiantil", 8),
+    "preguntar_boleto_aplicacion": ("boleto_estudiantil", 9),
+    "preguntar_boleto_cambio_carrera": ("boleto_estudiantil", 10),
+    "preguntar_boleto_contacto_problemas": ("boleto_estudiantil", 11),
+
+    # --- ÁREA DE DEPORTES (7 preguntas) ---
+    "preguntar_deportes_oferta": ("deportes", 1),
+    "preguntar_deportes_horarios": ("deportes", 2),
+    "preguntar_deportes_documentacion": ("deportes", 3),
+    "preguntar_deportes_competencias": ("deportes", 4),
+    "preguntar_deportes_varios": ("deportes", 5),
+    "preguntar_deportes_experiencia": ("deportes", 6),
+    "preguntar_deportes_obligacion": ("deportes", 7),
+
+    # --- ÁREA DE COMEDOR (7 preguntas) ---
+    "preguntar_comedor_horarios": ("comedor", 1),
+    "preguntar_comedor_precios": ("comedor", 2),
+    "preguntar_comedor_menu": ("comedor", 3),
+    "preguntar_comedor_inscripcion": ("comedor", 4),
+    "preguntar_comedor_compra": ("comedor", 5),
+    "preguntar_comedor_reserva": ("comedor", 6),
+    "preguntar_comedor_contacto": ("comedor", 7),
+
+    # --- ÁREA DE BOLSA DE TRABAJO (7 preguntas) ---
+    "preguntar_bolsa_inscripcion": ("bolsa_trabajo", 1),
+    "preguntar_bolsa_cv_subida": ("bolsa_trabajo", 2),
+    "preguntar_bolsa_ofertas": ("bolsa_trabajo", 3),
+    "preguntar_bolsa_postulacion_multiple": ("bolsa_trabajo", 4),
+    "preguntar_bolsa_contacto_empresa": ("bolsa_trabajo", 5),
+    "preguntar_bolsa_eliminar_datos": ("bolsa_trabajo", 6),
+    "preguntar_bolsa_cv_actualizar": ("bolsa_trabajo", 7),
+
+    # --- ÁREA DE PASANTÍAS (20 preguntas) ---
+    "preguntar_pasantias_que_son": ("pasantias", 1),
+    "preguntar_pasantias_inscripcion": ("pasantias", 2),
+    "preguntar_pasantias_requisitos": ("pasantias", 3),
+    "preguntar_pasantias_publicacion": ("pasantias", 4),
+    "preguntar_pasantias_documentacion": ("pasantias", 5),
+    "preguntar_pasantias_multiple": ("pasantias", 6),
+    "preguntar_pasantias_remuneracion": ("pasantias", 7),
+    "preguntar_pasantias_duracion": ("pasantias", 8),
+    "preguntar_pasantias_horas_semanales": ("pasantias", 9),
+    "preguntar_pasantias_cursada": ("pasantias", 10),
+    "preguntar_pasantias_certificacion": ("pasantias", 11),
+    "preguntar_pasantias_seguimiento": ("pasantias", 12),
+    "preguntar_pasantias_ley_proteccion": ("pasantias", 13),
+    "preguntar_pasantias_utilidad": ("pasantias", 14),
+    "preguntar_pasantias_exceso_horas": ("pasantias", 15),
+    "preguntar_pasantias_contacto_problema": ("pasantias", 16),
+    "preguntar_pasantias_proceso_gestion": ("pasantias", 17),
+    "preguntar_pasantias_elegir_empresa": ("pasantias", 18),
+    "preguntar_pasantias_baja": ("pasantias", 19),
+    "preguntar_pasantias_baja_base_datos": ("pasantias", 20),
+}
+
+
+# =======================================================
+# 2. ACTION DETECTAR MODO 
 # =======================================================
 
 class ActionDetectarModo(Action):
@@ -105,11 +185,10 @@ class ActionDetectarModo(Action):
         intent = tracker.latest_message['intent'].get('name')
         num_val = tracker.get_slot("numero_opcion")
         
-        # ⭐️ Si NLU clasificó como elegir_opcion (gracias al nlu.yml corregido)
+        # Si NLU clasificó como elegir_opcion
         if intent == "elegir_opcion" and num_val:
             return [
                 SlotSet("modo_conversacion", "menu"),
-                # El slot numero_opcion ya tiene el valor (ej: "1" de la palabra "becas")
                 FollowupAction("action_manejar_menu")
             ]
 
@@ -122,7 +201,7 @@ class ActionDetectarModo(Action):
         ]
 
 # =======================================================
-# 2. ACTION MANEJAR MENÚ (FINAL Y ESTABLE)
+# 3. ACTION MANEJAR MENÚ
 # =======================================================
 
 class ActionManejarMenu(Action):
@@ -138,7 +217,7 @@ class ActionManejarMenu(Action):
             dispatcher.utter_message(text=respuesta)
             dispatcher.utter_message(response=f"utter_menu_{contexto}")
         else:
-            # Opción numérica que existe pero no tiene contenido (p. ej. en submenú)
+            # Opción numérica que existe pero no tiene contenido
             dispatcher.utter_message(text="Lo siento, esa opción no es válida o aún no tiene contenido. Por favor, elegí un número de la lista o volvé al menú principal.")
             dispatcher.utter_message(response=f"utter_menu_{contexto}")
 
@@ -148,7 +227,11 @@ class ActionManejarMenu(Action):
         num_str = tracker.get_slot("numero_opcion")
         contexto = tracker.get_slot("contexto_menu")
         
+        # ❌ Se eliminó la lógica de manejo de 'VOLVER_ATRAS'
+        # que ahora está en 'action_reset_context_and_show_main_menu'.
+        
         if num_str is None:
+            # Esta línea fue la que se disparó con el comando 'volver'
             dispatcher.utter_message(text="Por favor, ingresá una opción numérica válida.")
             return []
             
@@ -180,7 +263,8 @@ class ActionManejarMenu(Action):
                 dispatcher.utter_message(response="utter_menu_pasantias")
                 events.append(SlotSet("contexto_menu", "pasantias"))
             elif num == 7:
-                dispatcher.utter_message(response="utter_salir")
+                # Opción 7 "Salir" sigue siendo manejada aquí por robustez.
+                dispatcher.utter_message(response="utter_salir") 
                 events.append(SlotSet("contexto_menu", "principal")) 
             else:
                 dispatcher.utter_message(response="utter_fallback")
@@ -252,61 +336,72 @@ class ActionManejarMenu(Action):
         events.append(SlotSet("numero_opcion", None))
         return events
 
+
 # =======================================================
-# 3. ACTION RESPONDER MODO LIBRE (FINAL Y ESTABLE)
+# 4. NUEVA ACTION PARA MANEJAR VOLVER_ATRAS
+# =======================================================
+
+class ActionResetContextAndShowMainMenu(Action):
+    """
+    Acción dedicada a ser llamada por la regla 'volver_atras'.
+    Restablece los slots de navegación y muestra el menú principal de forma directa.
+    """
+    def name(self) -> Text:
+        return "action_reset_context_and_show_main_menu"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Muestra el menú principal
+        dispatcher.utter_message(response="utter_menu_principal")
+        
+        # Restablece el contexto al menú principal y limpia otros slots
+        return [
+            SlotSet("contexto_menu", "principal"),
+            SlotSet("numero_opcion", None),
+            SlotSet("modo_conversacion", "menu")
+        ]
+
+
+# =======================================================
+# 5. ACTION RESPONDER MODO LIBRE (CORREGIDA)
 # =======================================================
 
 class ActionResponderModoLibre(Action):
-    """Responde a preguntas abiertas y comandos de texto."""
+    """Responde a preguntas abiertas y comandos de texto usando el mapeo INTENT_TO_FAQ_MAP."""
     def name(self) -> Text:
         return "action_responder_modo_libre"
 
-    def _manejar_pregunta_libre(self, dispatcher: CollectingDispatcher, intent: Text, area: Text, num_pregunta_default: int) -> None:
-        """Función auxiliar para responder preguntas de conocimiento libre con la primera respuesta del área."""
-        respuesta = FAQ_RESPUESTAS.get(area, {}).get(num_pregunta_default)
+    # --- FUNCIÓN AUXILIAR  ---
+    def _manejar_pregunta_libre(self, dispatcher: CollectingDispatcher, area: Text, num_pregunta: int, tracker: Tracker) -> None:
+        """Función auxiliar para responder preguntas de conocimiento libre, obtener el contexto y repetir el menú."""
+        respuesta = FAQ_RESPUESTAS.get(area, {}).get(num_pregunta)
+        
+        nombre_area = area.replace('_', ' ').title()
+        
+        contexto_menu = tracker.get_slot("contexto_menu") 
+        utterance_menu = f"utter_menu_{contexto_menu}"
+
         if respuesta:
-            # Enviamos la respuesta base
             dispatcher.utter_message(text=respuesta)
-            # Ofrecemos ver el menú del área para más detalle
-            dispatcher.utter_message(text=f"Si deseas más detalles sobre {area.replace('_', ' ')}, puedes ver el menú completo eligiendo esa opción.")
+            dispatcher.utter_message(response=utterance_menu) 
         else:
-            # Fallback si no encuentra la respuesta base
+            dispatcher.utter_message(text=f"Lo siento, no pude encontrar una respuesta específica para tu consulta sobre {nombre_area}.")
             dispatcher.utter_message(response="utter_fallback")
 
+    # --- FUNCIÓN RUN  ---
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         intent = tracker.latest_message['intent'].get('name')
         events = []
         
-        # --- Manejo de comandos de texto (que no fueron clasificados como elegir_opcion) ---
-        if intent == "salir_menu":
-            dispatcher.utter_message(response="utter_salir")
-            events.append(SlotSet("contexto_menu", "principal"))
-            events.append(SlotSet("modo_conversacion", "menu"))
-            return events
+        # --- Manejo de preguntas de conocimiento (Intents específicos mapeados) ---
+        if intent in INTENT_TO_FAQ_MAP:
+            # Obtenemos el área y el número de pregunta mapeado del diccionario
+            area, num = INTENT_TO_FAQ_MAP[intent]
             
-        elif intent == "greet":
-            # Si el usuario dice "hola" o palabras que llevan al menú, pero Core no lo envió a la Rule de greet
-            dispatcher.utter_message(response="utter_menu_principal")
-            events.append(SlotSet("contexto_menu", "principal"))
-            events.append(SlotSet("modo_conversacion", "menu"))
-            return events
-
-        # --- Manejo de preguntas de conocimiento (Intents específicos) ---
-        elif intent == "preguntar_becas":
-            self._manejar_pregunta_libre(dispatcher, intent, "becas", 1) # Respuesta a '¿Qué tipos de becas existen?'
-        elif intent == "preguntar_boleto_estudiantil":
-            self._manejar_pregunta_libre(dispatcher, intent, "boleto_estudiantil", 1) # Respuesta a '¿Cómo solicito el boleto estudiantil?'
-        elif intent == "preguntar_deportes":
-            self._manejar_pregunta_libre(dispatcher, intent, "deportes", 1) # Respuesta a '¿Qué deportes ofrece la facultad?'
-        elif intent == "preguntar_comedor":
-            self._manejar_pregunta_libre(dispatcher, intent, "comedor", 1) # Respuesta a '¿Cuáles son los horarios del comedor universitario?'
-        elif intent == "preguntar_bolsa_trabajo":
-            self._manejar_pregunta_libre(dispatcher, intent, "bolsa_trabajo", 1) # Respuesta a '¿Cómo me inscribo en la bolsa de trabajo?'
-        elif intent == "preguntar_pasantias":
-            self._manejar_pregunta_libre(dispatcher, intent, "pasantias", 1) # Respuesta a '¿Qué son las pasantías y quiénes pueden realizarlas?'
-        
+            self._manejar_pregunta_libre(dispatcher, area, num, tracker)
+            
         else:
-            # Fallback del modo libre (si la IA no entiende la pregunta)
+            # Fallback del modo libre (si la IA no entiende la pregunta o es out_of_scope)
             dispatcher.utter_message(response="utter_fallback")
             dispatcher.utter_message(response="utter_menu_principal")
             events.append(SlotSet("contexto_menu", "principal"))

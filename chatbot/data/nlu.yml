@@ -10,7 +10,11 @@ nlu:
     - buenas
     - hola, ¿cómo estás?
     - saludo
+    - buenos días
+    - buenas tardes
+    - qué haces
 
+# --- INTENT DE SELECCIÓN DE MENÚ Y PREGUNTAS EN SUB-MENÚ ---
 - intent: elegir_opcion
   examples: |
     # OPCIONES PRINCIPALES (1-7)
@@ -32,15 +36,24 @@ nlu:
     - [pasantias](numero_opcion:6)
     - [salir](numero_opcion:7)
 
-    # OPCIONES SUB-MENÚ GENÉRICAS
-    - [volver](numero_opcion:9)
-    - [volver](numero_opcion:8)
-    - [volver](numero_opcion:12)
-    - [volver al menu](numero_opcion:21)
-    - [menu](numero_opcion:3)
+    # NÚMEROS DE OPCIÓN DE SUB-MENÚ (solo números, el comando 'volver' va al intent volver_atras)
+    - [8](numero_opcion)
+    - [9](numero_opcion)
+    - [10](numero_opcion)
+    - [11](numero_opcion)
+    - [12](numero_opcion)
+    - [13](numero_opcion)
+    - [14](numero_opcion)
+    - [15](numero_opcion)
+    - [16](numero_opcion)
+    - [17](numero_opcion)
+    - [18](numero_opcion)
+    - [19](numero_opcion)
+    - [20](numero_opcion)
+    - [21](numero_opcion)
+    - [menu](numero_opcion:3) # Se mantiene
 
     # SUB-MENÚ BECAS (1-8)
-    - [1](numero_opcion) requisitos
     - [tipos de becas](numero_opcion:1)
     - [cómo me inscribo](numero_opcion:2)
     - [requisitos](numero_opcion:3)
@@ -49,7 +62,6 @@ nlu:
     - [postular a mas de una](numero_opcion:6)
     - [fui seleccionado](numero_opcion:7)
     - [renovar mi beca](numero_opcion:8)
-    - [volver al menu principal](numero_opcion:9)
 
     # SUB-MENÚ BOLETO ESTUDIANTIL (1-11)
     - [cómo solicito el boleto](numero_opcion:1)
@@ -63,7 +75,6 @@ nlu:
     - [aplica en subte](numero_opcion:9)
     - [cambio de carrera](numero_opcion:10)
     - [problemas con mi boleto](numero_opcion:11)
-    - [volver al menu principal](numero_opcion:12)
 
     # SUB-MENÚ DEPORTES (1-7)
     - [qué deportes ofrece](numero_opcion:1)
@@ -73,7 +84,6 @@ nlu:
     - [inscribirme en mas de un deporte](numero_opcion:5)
     - [experiencia previa](numero_opcion:6)
     - [obligatorio participar](numero_opcion:7)
-    - [volver al menu principal](numero_opcion:8)
 
     # SUB-MENÚ COMEDOR (1-7)
     - [horarios del comedor](numero_opcion:1)
@@ -83,7 +93,6 @@ nlu:
     - [compra de viandas](numero_opcion:5)
     - [reservar almuerzo](numero_opcion:6)
     - [comunicarme por consultas](numero_opcion:7)
-    - [volver al menu principal](numero_opcion:8)
     
     # SUB-MENÚ BOLSA DE TRABAJO (1-7)
     - [cómo me inscribo en la bolsa de trabajo](numero_opcion:1)
@@ -93,7 +102,6 @@ nlu:
     - [quien me contacta](numero_opcion:5)
     - [eliminar mis datos](numero_opcion:6)
     - [actualizar mi CV](numero_opcion:7)
-    - [volver al menu principal](numero_opcion:8)
     
     # SUB-MENÚ PASANTÍAS (1-20)
     - [qué son las pasantías](numero_opcion:1)
@@ -116,61 +124,615 @@ nlu:
     - [puedo elegir la empresa](numero_opcion:18)
     - [darse de baja de una pasantía](numero_opcion:19)
     - [darse de baja de base de datos](numero_opcion:20)
-    - [volver al menu principal](numero_opcion:21)
 
-- intent: preguntar_becas
+# --- INTENT DE NAVEGACIÓN GENÉRICA (COMANDO VOLVER) ---
+- intent: volver_atras
   examples: |
-    - ¿Cuándo abren las becas?
-    - qué becas hay
-    - requisitos para becas
+    - volver
+    - volver al menu
+    - volver al menu principal
+    - volver atrás
+    - atrás
+    - ir al menu principal
+    - menu anterior
+    - quiero volver
+    - me quiero salir del menu
+    - ir al inicio
+
+# --- INIENTS ESPECÍFICOS PARA MODO LIBRE (PREGUNTAS) ---
+
+# --- ÁREA DE BECAS (8 preguntas) ---
+- intent: preguntar_becas_tipos
+  examples: |
+    - que tipo de becas hay
+    - Listado de becas
+    - que becas hay
+    - que becas tienen
+    - cuales becas tienen
+    - que becas ofrecen
+    - Becas disponibles
+    - cuales son las becas que puedo aplicar
+    - qué becas ofrece la UTN
+    - cuáles son las becas disponibles
+    - qué clases de becas hay
+
+- intent: preguntar_becas_inscripcion
+  examples: |
+    - ¿Cómo me inscribo para solicitar una beca?
     - cómo me anoto en las becas
-    - información sobre becas
+    - cómo solicitar la beca
+    - proceso de inscripción de becas
+    - cuál es el proceso de postulación a las becas
+    - donde me inscribo a las becas
+    - formulario de inscripción a becas
 
-- intent: preguntar_boleto_estudiantil
+- intent: preguntar_becas_requisitos
   examples: |
+    - ¿Cuáles son los requisitos para solicitar una beca?
+    - requisitos para becas
+    - qué piden para aplicar a las becas
+    - qué necesito para una beca
+    - qué me piden para la beca
+    - cuales son los requisitos de las becas
+    - qué tengo que cumplir para aplicar a una beca
+
+- intent: preguntar_becas_documentacion
+  examples: |
+    - ¿Qué documentación necesito para inscribirme a una beca?
+    - qué papeles tengo que presentar
+    - documentación beca
+    - documentos necesarios para la beca
+    - papeles para las becas
+    - que necesito llevar para las becas
+    - documentos para la postulación
+
+- intent: preguntar_becas_fechas
+  examples: |
+    - ¿Dónde puedo consultar las fechas de apertura para las convocatorias de becas?
+    - ¿Cuándo abren las becas?
+    - fechas de becas
+    - cuando abren las inscripciones a las becas
+    - fecha de convocatoria de becas
+    - hasta cuándo hay tiempo para anotarse
+    - cuando son las fechas de inscripción
+    - calendario de becas
+
+- intent: preguntar_becas_varias
+  examples: |
+    - ¿Puedo postularme a más de una beca al mismo tiempo?
+    - puedo postularme a mas de una beca
+    - puedo postularme a varias becas
+    - puedo inscribirme a mas de una beca
+    - puedo inscribirme a varias becas
+    - puedo tener mas de una beca
+    - puedo tener dos becas
+    - aplicar a dos becas
+    - postular a varias becas
+    - si me dan una beca, puedo postularme a otra
+    - es compatible con otras becas
+    - puedo tener dos beneficios de becas
+
+- intent: preguntar_becas_seleccion
+  examples: |
+    - ¿Cómo me entero si fui seleccionado para una beca?
+    - como se si me dieron la beca
+    - como se si me aprobaron la beca
+    - como me entero si me diero la beca
+    - fui seleccionado beca
+    - me aprobaron la beca
+    - resultados de becas
+    - cuándo me dicen si me la dieron
+    - avisan si soy beneficiario
+    - cómo notifican la selección de becas
+
+- intent: preguntar_becas_renovacion
+  examples: |
+    - ¿Puedo renovar mi beca para el año siguiente?
+    - renovar beca
+    - quiero renovar la beca
+    - mi beca tiene renovación
+    - mi beca se renueva automáticamente
+    - cómo es la renovación de las becas
+    - quiero renovar mi beneficio
+
+# --- ÁREA DE BOLETO ESTUDIANTIL (11 preguntas) ---
+- intent: preguntar_boleto_solicitud
+  examples: |
+    - ¿Cómo solicito el boleto estudiantil?
     - cómo consigo el boleto estudiantil
     - necesito el boleto de estudiante
-    - perdí mi tarjeta sube
+    - quiero el boleto de estudiante
+    - quiero tramitar el boleto estudiantil
+    - pasos para pedir el boleto
+    - cómo es el trámite del boleto
+
+- intent: preguntar_boleto_requisitos
+  examples: |
+    - ¿Cuáles son los requisitos que necesito para tramitarlo?
+    - requisitos para boleto
+    - qué piden para el boleto estudiantil
+    - qué se necesita para el boleto de estudiante
+    - cuáles son los requisitos del boleto
+    - requisitos para sacar el boleto
+
+- intent: preguntar_boleto_tramite_lugar
+  examples: |
+    - ¿Dónde se realiza el trámite para obtener el boleto estudiantil?
     - dónde se tramita el boleto
+    - lugar del trámite
+    - dónde se hace el trámite de boleto estudiantil
+    - puntos de atención para el boleto
+    - donde tengo que ir para el boleto
 
-- intent: preguntar_deportes
+- intent: preguntar_boleto_habilitacion_tiempo
   examples: |
-    - horarios de fútbol
-    - dónde se entrena vóley
+    - ¿Cuánto tarda en habilitarse el boleto después de tramitarlo?
+    - cuánto demora el boleto
+    - tiempo de habilitación
+    - cuanto tardan en darme el boleto
+    - cuando me habilitan el beneficio
+    - a partir de cuándo puedo usar el boleto
+
+- intent: preguntar_boleto_perdida
+  examples: |
+    - ¿Qué debo hacer si pierdo o daño mi tarjeta del boleto?
+    - perdí mi tarjeta sube
+    - me robaron la tarjeta
+    - tarjeta dañada
+    - perdí la SUBE
+    - se me rompió la tarjeta de boleto
+    - qué hago si me roban la tarjeta
+
+- intent: preguntar_boleto_vencimiento
+  examples: |
+    - ¿El boleto tiene fecha de vencimiento?
+    - cuando vence el boleto
+    - fecha límite del boleto
+    - cuándo deja de funcionar el boleto estudiantil
+    - vencimiento del beneficio
+    - sirve en vacaciones
+
+- intent: preguntar_boleto_renovacion
+  examples: |
+    - ¿Puedo renovar el boleto cada año?
+    - cómo renuevo el boleto
+    - proceso de renovación del boleto
+    - el boleto se renueva solo
+    - como hago para renovar el boleto
+    - es automática la renovación del boleto
+
+- intent: preguntar_boleto_viajes
+  examples: |
+    - ¿Cuántos viajes incluye el boleto?
+    - límite de viajes
+    - viajes gratuitos
+    - cuántos pasajes tengo con el boleto
+    - cuántos viajes cubre el boleto
+    - límite de pasajes
+
+- intent: preguntar_boleto_aplicacion
+  examples: |
+    - ¿Aplica en subte, tren, colectivo?
+    - sirve para subte
+    - qué transportes incluye el boleto
+    - puedo usarlo en el colectivo y tren
+    - vale para todos los transportes
+    - sirve para tren
+
+- intent: preguntar_boleto_cambio_carrera
+  examples: |
+    - ¿Qué pasa si cambio de carrera?
+    - cambio de carrera boleto
+    - si me cambio de carrera pierdo el boleto
+    - tengo que informar si cambio de carrera
+    - me afecta si me cambio de carrera
+    - sigo teniendo el boleto si cambio de carrera
+
+- intent: preguntar_boleto_contacto_problemas
+  examples: |
+    - Tengo problemas con mi boleto ¿Con quien puedo contactarme?
+    - problemas con el boleto estudiantil
+    - dónde reclamo por el boleto
+    - contacto por problemas del boleto
+    - a quién consulto por el boleto
+    - dónde me quejo por el boleto
+    - teléfono de contacto por el boleto
+
+# --- ÁREA DE DEPORTES (7 preguntas) ---
+- intent: preguntar_deportes_oferta
+  examples: |
+    - ¿Qué deportes ofrece la facultad durante el año?
     - hay clases de básquet?
-    - información de deportes
+    - que deportes hay en la facultad
+    - que deportes ofrecen
+    - que deportes hay
+    - que deportes tienen
+    - que deportes se practican
+    - que actividades deportivas puedo hacer
+    - qué disciplinas deportivas ofrece la facultad
+    - quiero hacer voley
+    - hay deportes en la facultad
+
+- intent: preguntar_deportes_horarios
+  examples: |
+    - ¿Dónde puedo consultar los días y horarios de entrenamiento?
+    - horarios de fútbol
+    - horarios de entrenamiento
     - quiero saber los horarios de entrenamientos
+    - dónde están los horarios de entrenamiento
+    - dónde publican los horarios de deportes
+    - horarios de básquet
 
-- intent: preguntar_comedor
+- intent: preguntar_deportes_documentacion
   examples: |
-    - qué hay para comer hoy
-    - cuánto cuesta el menú
-    - información del menú semanal
+    - ¿Qué documentación necesito para inscribirme en una actividad deportiva?
+    - papeles para deportes
+    - documentación deportes
+    - papeles para anotarme en deportes
+    - apto médico para deportes
+    - documentos para hacer deporte
+
+- intent: preguntar_deportes_competencias
+  examples: |
+    - ¿Cómo me entero de las próximas competencias internas o externas?
+    - fechas de competencias
+    - hay competencias
+    - próxima competencia
+    - aviso de competencias
+    - cuándo compiten
+    - donde veo las fechas de competencia
+
+- intent: preguntar_deportes_varios
+  examples: |
+    - ¿Puedo inscribirme en más de un deporte?
+    - hacer más de un deporte
+    - dos deportes a la vez
+    - puedo hacer fútbol y básquet a la vez
+    - puedo inscribirme a dos deportes
+    - hacer más de una actividad deportiva
+
+- intent: preguntar_deportes_experiencia
+  examples: |
+    - ¿Debo tener experiencia previa en el deporte?
+    - necesito experiencia
+    - si no sé jugar, puedo participar
+    - tengo que ser bueno para anotarme
+    - si nunca jugué, puedo ir
+    - es necesario saber jugar antes
+
+- intent: preguntar_deportes_obligacion
+  examples: |
+    - ¿Es obligatorio participar en las competencias que organiza la facultad?
+    - es obligatorio competir
+    - tengo que participar en la competencia
+    - me obligan a competir
+    - es necesario ir a las competencias
+    - puedo solo entrenar
+
+# --- ÁREA DE COMEDOR (7 preguntas) ---
+- intent: preguntar_comedor_horarios
+  examples: |
+    - ¿Cuáles son los horarios del comedor universitario?
     - horarios del comedor
+    - a qué hora abre el comedor
+    - a qué hora puedo retirar la vianda
+    - horarios para la vianda
+    - cuáles son los horarios de atención del comedor
 
-- intent: preguntar_bolsa_trabajo
+- intent: preguntar_comedor_precios
   examples: |
+    - ¿Cuánto cuestan las viandas?
+    - cuánto cuesta el menú
+    - precio de las viandas
+    - precios del comedor
+    - cuánto sale la comida
+    - costo del menú
+    - precio de la vianda estudiantil
+
+- intent: preguntar_comedor_menu
+  examples: |
+    - ¿Qué incluye el menú diario?
+    - qué hay para comer hoy
+    - información del menú semanal
+    - menú del día
+    - tienen opción vegetariana
+    - puedo ver el menú
+    - qué opciones de menú hay
+
+- intent: preguntar_comedor_inscripcion
+  examples: |
+    - ¿Cómo me inscribo para poder usar el comedor universitario?
+    - cómo anotarme al comedor
+    - inscripción al comedor
+    - cómo me registro en el sistema del comedor
+    - qué necesito para inscribirme al comedor
+    - registro de usuario del comedor
+
+- intent: preguntar_comedor_compra
+  examples: |
+    - ¿Cómo se realiza la compra?
+    - dónde compro la vianda
+    - cómo pagar el menú
+    - cómo se paga la vianda
+    - se puede pagar con Mercado Pago
+    - cómo compro el ticket de la vianda
+
+- intent: preguntar_comedor_reserva
+  examples: |
+    - ¿Hay que reservar el almuerzo con anticipación?
+    - tengo que reservar
+    - reservar almuerzo
+    - con cuánto tiempo debo reservar
+    - hasta cuándo puedo comprar las viandas
+    - límite de compra de viandas
+
+- intent: preguntar_comedor_contacto
+  examples: |
+    - ¿Dónde me puedo comunicar ante cualquier consulta del comedor?
+    - contacto comedor
+    - a dónde llamo por el comedor
+    - mail del comedor
+    - dónde me comunico por dudas del comedor
+    - contacto del servicio de comedor
+
+# --- ÁREA DE BOLSA DE TRABAJO (7 preguntas) ---
+- intent: preguntar_bolsa_inscripcion
+  examples: |
+    - ¿Cómo me inscribo en la bolsa de trabajo?
     - quiero inscribirme en la bolsa de trabajo
-    - cómo postulo a una oferta laboral
-    - me mandan ofertas por correo
-    - cómo subo mi CV
+    - cómo me registro en la bolsa
+    - anotarme en la bolsa de trabajo
+    - cómo me anoto en la bolsa de trabajo
+    - pasos para inscribirme en la bolsa
+    - registro de la bolsa de trabajo
 
-- intent: preguntar_pasantias
+- intent: preguntar_bolsa_cv_subida
   examples: |
-    - ¿Qué es una pasantía?
-    - requisitos para hacer pasantías
-    - son pagas las pasantías
-    - cuánto dura una pasantía
-    - quiero información de pasantías
+    - ¿Dónde subo mi currículum vitae?
+    - dónde subo mi CV
+    - cómo cargo mi CV
+    - cargar currículum
+    - dónde tengo que mandar mi currículum
+    - cómo envío mi CV
+    - adjuntar currículum a la bolsa
 
+- intent: preguntar_bolsa_ofertas
+  examples: |
+    - ¿Cómo me entero de las ofertas laborales disponibles?
+    - ofertas laborales
+    - hay trabajos disponibles
+    - me mandan ofertas por correo
+    - cómo recibo las propuestas laborales
+    - quién me manda las ofertas
+    - formas de ver las ofertas de trabajo
+
+- intent: preguntar_bolsa_postulacion_multiple
+  examples: |
+    - ¿Puedo postularme a más de una oferta a la vez?
+    - postularme a varias ofertas
+    - si me postulo a una, ¿puedo postularme a otra?
+    - hay límite de postulaciones
+    - puedo aplicar a varias ofertas a la vez
+
+- intent: preguntar_bolsa_contacto_empresa
+  examples: |
+    - ¿Las empresas me contactan directamente a mí o lo hacen a través de la facultad?
+    - quien me contacta
+    - me llama la empresa o la facultad
+    - quién me avisa si quedé seleccionado
+    - el primer contacto laboral
+
+- intent: preguntar_bolsa_eliminar_datos
+  examples: |
+    - ¿Cómo elimino mis datos de la bolsa de trabajo si ya no quiero recibir propuestas?
+    - eliminar mis datos
+    - darme de baja de la bolsa de trabajo
+    - no quiero recibir más propuestas de trabajo
+    - me quiero dar de baja de la base de datos de trabajo
+    - cómo me desinscribo de la bolsa
+
+- intent: preguntar_bolsa_cv_actualizar
+  examples: |
+    - ¿Puedo actualizar mi CV después de haberlo enviado?
+    - actualizar mi CV
+    - modificar mi currículum
+    - puedo cambiar el CV que envié
+    - modificar mi currículum de la bolsa
+    - quiero subir mi CV actualizado
+
+# --- ÁREA DE PASANTÍAS (20 preguntas) ---
+- intent: preguntar_pasantias_que_son
+  examples: |
+    - ¿Qué son las pasantías y quiénes pueden realizarlas?
+    - ¿Qué es una pasantía?
+    - que son las pasantias
+    - que es una pasantias
+    - definición de pasantías
+    - quiénes pueden hacer pasantías
+    - quiénes pueden hacer las pasantías educativas
+    - requisitos básicos para pasantía
+    - definición de pasantía
+
+- intent: preguntar_pasantias_inscripcion
+  examples: |
+    - ¿Cómo me inscribo para una pasantía?
+    - quiero anotarme en una pasantía
+    - inscripción para pasantías
+    - pasos para anotarme en pasantías
+    - cómo aplicar a una pasantía
+    - quiero hacer una pasantía
+
+- intent: preguntar_pasantias_requisitos
+  examples: |
+    - ¿Qué requisitos debo cumplir para postularme?
+    - requisitos para hacer pasantías
+    - que necesito para una pasantía
+    - cuantas materias debo tener aprobadas para una pasantía
+    - requisitos de materias para pasantías
+    - condiciones para hacer pasantía
+
+- intent: preguntar_pasantias_publicacion
+  examples: |
+    - ¿Dónde se publican las ofertas de pasantías disponibles?
+    - ofertas de pasantías
+    - dónde veo las pasantías
+    - las ofertas de pasantía se publican
+    - dónde encuentro las propuestas
+    - cómo me entero de las pasantías
+
+- intent: preguntar_pasantias_documentacion
+  examples: |
+    - ¿Qué documentación debo presentar para inscribirme a pasantías?
+    - documentos pasantías
+    - papeles para pasantías
+    - papeles para inscribirme en pasantías
+    - documentación necesaria para pasantía
+    - convenios de pasantía
+
+- intent: preguntar_pasantias_multiple
+  examples: |
+    - ¿Puedo postularme a más de una pasantía al mismo tiempo?
+    - postular a varias pasantias
+    - más de una pasantía
+    - si me postulo a varias, ¿puedo quedar en más de una?
+    - puedo hacer dos pasantías a la vez
+    - postular a varias al mismo tiempo
+
+- intent: preguntar_pasantias_remuneracion
+  examples: |
+    - ¿Las pasantías son remuneradas?
+    - las pasantías son pagas
+    - si la pasantía tiene sueldo
+    - las pasantías tienen sueldo
+    - cuánto me pagan por la pasantía
+    - es paga la pasantía
+
+- intent: preguntar_pasantias_duracion
+  examples: |
+    - ¿Cuánto dura una pasantía?
+    - duración de pasantía
+    - tiempo de pasantía
+    - cuánto tiempo duran las pasantías
+    - se puede extender la pasantía
+    - límite de tiempo de pasantía
+
+- intent: preguntar_pasantias_horas_semanales
+  examples: |
+    - ¿Cuántas horas semanales debo cumplir en una pasantía?
+    - cuantas horas son la pasantía
+    - horas por semana pasantía
+    - cuál es el tope de horas semanales
+    - cuántas horas por semana son
+    - carga horaria de la pasantía
+
+- intent: preguntar_pasantias_cursada
+  examples: |
+    - ¿La pasantía se puede hacer durante el período de cursada?
+    - pasantía y cursada a la vez
+    - si curso, ¿puedo hacer pasantía?
+    - puedo cursar y hacer pasantía
+    - son compatibles cursada y pasantía
+
+- intent: preguntar_pasantias_certificacion
+  examples: |
+    - ¿Las pasantías otorgan algún tipo de certificación?
+    - dan certificado de pasantía
+    - certificación de pasantía
+    - me dan certificado al terminar la pasantía
+    - otorgan comprobante
+
+- intent: preguntar_pasantias_seguimiento
+  examples: |
+    - ¿La facultad realiza seguimiento durante la pasantía?
+    - seguimiento de la facultad
+    - la facultad me sigue
+    - la UTN me controla en la pasantía
+    - hacen control de las pasantías
+    - hay seguimiento por parte de la facultad
+
+- intent: preguntar_pasantias_ley_proteccion
+  examples: |
+    - ¿Existe alguna ley que me proteja ante cualquier inconveniente?
+    - ley que me proteja
+    - leyes de pasantías
+    - qué ley regula las pasantías
+    - ley de pasantías que me protege
+    - tengo protección legal en la pasantía
+
+- intent: preguntar_pasantias_utilidad
+  examples: |
+    - ¿Para qué me sirve hacer una pasantía?
+    - es útil la pasantía
+    - para que sirve
+    - qué beneficios me da la pasantía
+    - para qué sirve una pasantía
+    - es recomendable hacer pasantía
+
+- intent: preguntar_pasantias_exceso_horas
+  examples: |
+    - ¿Me pueden llegar a exigir más horas que las estipuladas en la ley de pasantías?
+    - me exigen más horas
+    - trabajo más horas
+    - la empresa me pide más horas
+    - qué hago si me exigen más tiempo
+    - tengo que trabajar horas extras
+
+- intent: preguntar_pasantias_contacto_problema
+  examples: |
+    - ¿Ante cualquier inconveniente con quien puedo comunicarme?
+    - problema con la pasantía
+    - contacto por inconvenientes
+    - a quién le pregunto por mi pasantía
+    - contacto para inconvenientes con pasantías
+    - dónde me comunico por problemas
+
+- intent: preguntar_pasantias_proceso_gestion
+  examples: |
+    - ¿Cómo es el proceso de gestión de pasantías?
+    - proceso de gestión
+    - cómo gestiono mi pasantía
+    - pasos para la gestión de pasantías
+    - cómo se gestiona una pasantía
+    - proceso de pasantías
+
+- intent: preguntar_pasantias_elegir_empresa
+  examples: |
+    - ¿Puedo elegir la empresa que me interese?
+    - elijo la empresa
+    - puedo elegir dónde hacer la pasantía
+    - si me ofrecen varias, puedo elegir
+    - me dejan elegir dónde hacer la pasantía
+    - puedo elegir entre propuestas
+
+- intent: preguntar_pasantias_baja
+  examples: |
+    - ¿Qué pasa si me quiero dar de baja de una pasantía?
+    - darme de baja de una pasantía
+    - cómo cancelo la pasantía
+    - quiero dejar la pasantía
+    - cómo se cancela una pasantía
+    - procedimiento para dar de baja la pasantía
+
+- intent: preguntar_pasantias_baja_base_datos
+  examples: |
+    - ¿Cómo hago si me quiero dar de baja de la base de datos de pasantías?
+    - eliminar mis datos de pasantías
+    - no quiero estar en la base de datos
+    - cómo borro mis datos de la base de pasantías
+    - darme de baja de la lista de pasantías
+    - no quiero que me contacten más por pasantías
+
+# --- INTENT DE SALIDA ---
 - intent: salir_menu
   examples: |
+    - salir
     - chau
     - adios
     - terminar
     - salir del menu
     - finalizar
     
+# --- INTENT DE FALLBACK (FUERA DE ALCANCE) ---
 - intent: out_of_scope
   examples: |
     - contame un chiste
@@ -178,3 +740,5 @@ nlu:
     - no entiendo
     - quiero hablar de otra cosa
     - cualquier cosa
+    - eso no responde mi pregunta
+    - no sé

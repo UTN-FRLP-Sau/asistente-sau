@@ -7,47 +7,340 @@ rules:
     - intent: greet
     - action: utter_menu_principal
 
-# --- MODO MENÚ (Funciona para números y palabras clave entrenadas) ---
+# --- NAVEGACIÓN UNIVERSAL (VOLVER ATRÁS) ---
+- rule: Manejar comando de volver a menu principal
+  steps:
+  - intent: volver_atras
+  - action: action_reset_context_and_show_main_menu 
+  - action: action_listen
+
+# --- MODO MENÚ (Selección por número o palabra) ---
 - rule: Detectar modo y manejar opciones
   steps:
     - intent: elegir_opcion 
     - action: action_detectar_modo 
     - action: action_manejar_menu
 
-# --- MODO LIBRE (Preguntas que no son opciones de menú) ---
-- rule: Responder preguntas de Becas
-  steps:
-    - intent: preguntar_becas
-    - action: action_responder_modo_libre
-
-- rule: Responder preguntas de Boleto Estudiantil
-  steps:
-    - intent: preguntar_boleto_estudiantil
-    - action: action_responder_modo_libre
-
-- rule: Responder preguntas de Deportes
-  steps:
-    - intent: preguntar_deportes
-    - action: action_responder_modo_libre
-
-- rule: Responder preguntas de Comedor
-  steps:
-    - intent: preguntar_comedor
-    - action: action_responder_modo_libre
-
-- rule: Responder preguntas de Bolsa de Trabajo
-  steps:
-    - intent: preguntar_bolsa_trabajo
-    - action: action_responder_modo_libre
-
-- rule: Responder preguntas de Pasantías
-  steps:
-    - intent: preguntar_pasantias
-    - action: action_responder_modo_libre
-
-- rule: Salir del menú
+# --- SALIDA DE LA CONVERSACIÓN (USANDO UTTER_SALIR) ---
+- rule: Salir de la Conversación
   steps:
     - intent: salir_menu
+    - action: utter_salir 
+
+# =======================================================
+# --- MODO LIBRE (REGLAS ESPECÍFICAS PARA CADA FAQ) ---
+# =======================================================
+
+# --- ÁREA 1: BECAS (8 Reglas) ---
+
+- rule: Responder FAQ tipos de becas
+  steps:
+    - intent: preguntar_becas_tipos
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ inscripción becas
+  steps:
+    - intent: preguntar_becas_inscripcion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ requisitos becas
+  steps:
+    - intent: preguntar_becas_requisitos
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ documentación becas
+  steps:
+    - intent: preguntar_becas_documentacion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ fechas becas
+  steps:
+    - intent: preguntar_becas_fechas
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ postulación múltiple becas
+  steps:
+    - intent: preguntar_becas_varias
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ selección becas
+  steps:
+    - intent: preguntar_becas_seleccion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ renovación becas
+  steps:
+    - intent: preguntar_becas_renovacion
+    - action: action_responder_modo_libre
+
+# --- ÁREA 2: BOLETO ESTUDIANTIL (11 Reglas) ---
+
+- rule: Responder FAQ solicitud boleto
+  steps:
+    - intent: preguntar_boleto_solicitud
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ requisitos boleto
+  steps:
+    - intent: preguntar_boleto_requisitos
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ lugar trámite boleto
+  steps:
+    - intent: preguntar_boleto_tramite_lugar
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ tiempo habilitación boleto
+  steps:
+    - intent: preguntar_boleto_habilitacion_tiempo
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ pérdida boleto
+  steps:
+    - intent: preguntar_boleto_perdida
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ vencimiento boleto
+  steps:
+    - intent: preguntar_boleto_vencimiento
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ renovación boleto
+  steps:
+    - intent: preguntar_boleto_renovacion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ viajes disponibles boleto
+  steps:
+    - intent: preguntar_boleto_viajes
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ aplicación boleto
+  steps:
+    - intent: preguntar_boleto_aplicacion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ cambio carrera boleto
+  steps:
+    - intent: preguntar_boleto_cambio_carrera
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ contacto problemas boleto
+  steps:
+    - intent: preguntar_boleto_contacto_problemas
+    - action: action_responder_modo_libre
+
+# --- ÁREA 3: DEPORTES (7 Reglas) ---
+
+- rule: Responder FAQ oferta deportes
+  steps:
+    - intent: preguntar_deportes_oferta
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ horarios deportes
+  steps:
+    - intent: preguntar_deportes_horarios
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ documentación deportes
+  steps:
+    - intent: preguntar_deportes_documentacion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ competencias deportes
+  steps:
+    - intent: preguntar_deportes_competencias
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ postulación múltiple deportes
+  steps:
+    - intent: preguntar_deportes_varios
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ experiencia deportes
+  steps:
+    - intent: preguntar_deportes_experiencia
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ obligación competencias deportes
+  steps:
+    - intent: preguntar_deportes_obligacion
+    - action: action_responder_modo_libre
+
+# --- ÁREA 4: COMEDOR (7 Reglas) ---
+
+- rule: Responder FAQ horarios comedor
+  steps:
+    - intent: preguntar_comedor_horarios
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ precios comedor
+  steps:
+    - intent: preguntar_comedor_precios
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ menú comedor
+  steps:
+    - intent: preguntar_comedor_menu
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ inscripción comedor
+  steps:
+    - intent: preguntar_comedor_inscripcion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ compra comedor
+  steps:
+    - intent: preguntar_comedor_compra
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ reserva comedor
+  steps:
+    - intent: preguntar_comedor_reserva
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ contacto comedor
+  steps:
+    - intent: preguntar_comedor_contacto
+    - action: action_responder_modo_libre
+
+# --- ÁREA 5: BOLSA DE TRABAJO (7 Reglas) ---
+
+- rule: Responder FAQ inscripción bolsa
+  steps:
+    - intent: preguntar_bolsa_inscripcion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ CV subida bolsa
+  steps:
+    - intent: preguntar_bolsa_cv_subida
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ ofertas bolsa
+  steps:
+    - intent: preguntar_bolsa_ofertas
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ postulación múltiple bolsa
+  steps:
+    - intent: preguntar_bolsa_postulacion_multiple
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ contacto empresa bolsa
+  steps:
+    - intent: preguntar_bolsa_contacto_empresa
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ eliminar datos bolsa
+  steps:
+    - intent: preguntar_bolsa_eliminar_datos
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ CV actualizar bolsa
+  steps:
+    - intent: preguntar_bolsa_cv_actualizar
+    - action: action_responder_modo_libre
+
+# --- ÁREA 6: PASANTÍAS (20 Reglas) ---
+
+- rule: Responder FAQ qué son pasantías
+  steps:
+    - intent: preguntar_pasantias_que_son
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ inscripción pasantías
+  steps:
+    - intent: preguntar_pasantias_inscripcion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ requisitos pasantías
+  steps:
+    - intent: preguntar_pasantias_requisitos
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ publicación pasantías
+  steps:
+    - intent: preguntar_pasantias_publicacion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ documentación pasantías
+  steps:
+    - intent: preguntar_pasantias_documentacion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ postulación múltiple pasantías
+  steps:
+    - intent: preguntar_pasantias_multiple
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ remuneración pasantías
+  steps:
+    - intent: preguntar_pasantias_remuneracion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ duración pasantías
+  steps:
+    - intent: preguntar_pasantias_duracion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ horas semanales pasantías
+  steps:
+    - intent: preguntar_pasantias_horas_semanales
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ cursada pasantías
+  steps:
+    - intent: preguntar_pasantias_cursada
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ certificación pasantías
+  steps:
+    - intent: preguntar_pasantias_certificacion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ seguimiento pasantías
+  steps:
+    - intent: preguntar_pasantias_seguimiento
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ ley protección pasantías
+  steps:
+    - intent: preguntar_pasantias_ley_proteccion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ utilidad pasantías
+  steps:
+    - intent: preguntar_pasantias_utilidad
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ exceso horas pasantías
+  steps:
+    - intent: preguntar_pasantias_exceso_horas
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ contacto problema pasantías
+  steps:
+    - intent: preguntar_pasantias_contacto_problema
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ proceso gestión pasantías
+  steps:
+    - intent: preguntar_pasantias_proceso_gestion
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ elegir empresa pasantías
+  steps:
+    - intent: preguntar_pasantias_elegir_empresa
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ darse de baja pasantías
+  steps:
+    - intent: preguntar_pasantias_baja
+    - action: action_responder_modo_libre
+
+- rule: Responder FAQ darse de baja base de datos pasantías
+  steps:
+    - intent: preguntar_pasantias_baja_base_datos
     - action: action_responder_modo_libre
 
 # --- FALLBACK (La IA no entiende nada) ---

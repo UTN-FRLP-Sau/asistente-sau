@@ -52,15 +52,14 @@ responses:
   utter_menu_principal:
     - text: |
         👋 ¡Bienvenido! Por favor, elegí un área de interés:
-        1. Área de Becas 
-        2. Área de Boleto Estudiantil
-        3. Área de Deportes
-        4. Área de Comedor
-        5. Área de Bolsa de Trabajo
-        6. Área de Pasantías
+        1. Becas 
+        2. Boleto Estudiantil
+        3. Deportes
+        4. Comedor
+        5. Bolsa de Trabajo
+        6. Pasantías
         7. Salir
 
-  # SUBMENÚS CON LAS PREGUNTAS ACTUALIZADAS DEL .DOCX
 
   utter_menu_becas:
     - text: |
@@ -184,3 +183,4 @@ actions:
   - action_manejar_menu
   - action_detectar_modo
   - action_responder_modo_libre
+  - action_reset_context_and_show_main_menu
