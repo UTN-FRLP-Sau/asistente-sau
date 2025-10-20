@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rasa-action-server
+spec:
+  # Generalmente solo se necesita 1 réplica para las acciones
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rasa-actions
+  template:
+    metadata:
+      labels:
+        app: rasa-actions
+    spec:
+      containers:
+      - name: action-server
+        # Usamos la misma imagen, asumiendo que contiene el archivo actions.py
+        image: manuelmorullo/rasa-chatbot:latest 
+        # COMANDO CLAVE: Inicia el servidor de acciones
+        args:
+          - run
+          - actions
+          - --port
+          - "5055"
+        ports:
+        - containerPort: 5055
+        # NOTA: Adapta las siguientes secciones a tu configuración, especialmente
+        # si actions.py necesita variables de entorno o si lo montas como volumen.
+        resources:
+          requests:
+            cpu: "0.5" 
+            memory: "512Mi"
+          limits:
+            cpu: "1"
+            memory: "1Gi"

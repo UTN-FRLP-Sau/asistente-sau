@@ -1,77 +1,37 @@
 version: "3.1"
 
 rules:
-- rule: Responder inscripción a becas
-  steps:
-    - intent: becas_inscripcion
-    - action: utter_becas_inscripcion
 
-- rule: Informar tipos de becas
+- rule: Mostrar menu principal al inicio
   steps:
-    - intent: becas_tipos
-    - action: utter_becas_tipos
+    - intent: greet
+    - action: utter_menu_principal
 
-- rule: Detallar requisitos de becas
+# --- MODO MENÚ (Funciona para números y palabras clave entrenadas) ---
+- rule: Detectar modo y manejar opciones
   steps:
-    - intent: becas_requisitos
-    - action: utter_becas_requisitos
+    - intent: elegir_opcion 
+    - action: action_detectar_modo 
+    - action: action_manejar_menu
 
-- rule: Explicar bolsa de trabajo
+# --- MODO LIBRE (Preguntas que no son opciones de menú) ---
+- rule: Responder preguntas de Becas
   steps:
-    - intent: bolsa_trabajo_info
-    - action: utter_bolsa_trabajo_info
+    - intent: preguntar_becas
+    - action: action_responder_modo_libre
 
-- rule: Dar contacto bolsa de trabajo
+- rule: Responder preguntas de Deportes
   steps:
-    - intent: bolsa_trabajo_contacto
-    - action: utter_bolsa_trabajo_contacto
+    - intent: preguntar_deportes
+    - action: action_responder_modo_libre
 
-- rule: Horarios del comedor
+- rule: Responder preguntas de Comedor
   steps:
-    - intent: comedor_horarios
-    - action: utter_comedor_horarios
+    - intent: preguntar_comedor
+    - action: action_responder_modo_libre
 
-- rule: Opciones de comida
+# --- FALLBACK (La IA no entiende nada) ---
+- rule: Fallback general (out_of_scope)
   steps:
-    - intent: comedor_comidas
-    - action: utter_comedor_comidas
-
-- rule: Precios del comedor
-  steps:
-    - intent: comedor_precios
-    - action: utter_comedor_precios
-
-- rule: Gestión del comedor
-  steps:
-    - intent: comedor_gestion
-    - action: utter_comedor_gestion
-
-- rule: Información boleto estudiantil
-  steps:
-    - intent: boleto_info
-    - action: utter_boleto_info
-
-- rule: Trámite boleto estudiantil
-  steps:
-    - intent: boleto_tramite
-    - action: utter_boleto_tramite
-
-- rule: Listado de deportes
-  steps:
-    - intent: deportes_listado
-    - action: utter_deportes_listado
-
-- rule: Horarios de deportes
-  steps:
-    - intent: deportes_horarios
-    - action: utter_deportes_horarios
-
-- rule: Certificados académicos
-  steps:
-    - intent: administrativo_certificados
-    - action: utter_administrativo_certificados
-
-- rule: Gestión de materias
-  steps:
-    - intent: administrativo_materias
-    - action: utter_administrativo_materias
+    - intent: out_of_scope
+    - action: action_responder_modo_libre

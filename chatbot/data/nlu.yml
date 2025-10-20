@@ -1,165 +1,70 @@
 version: "3.1"
 
 nlu:
-- intent: becas_inscripcion
-  examples: |
-    - como me anoto a las becas
-    - paso a paso para inscribirme a becas
-    - como hago para inscribirme a las becas
-    - donde esta el formulario de becas
-    - puedo anotarme online a la beca
-    - como me inscribo a una beca
-    - como hago para pedir una beca
-    - como pido una beca
-    - como hago para anotarme a una beca
 
-- intent: becas_tipos
+- intent: greet
   examples: |
-    - que tipos de becas hay
+    - hola
+    - buen día
+    - qué tal
+    - buenas
+    - hola, ¿cómo estás?
+
+- intent: elegir_opcion
+  examples: |
+    - [1](numero_opcion)
+    - [2](numero_opcion)
+    - [3](numero_opcion)
+    - [4](numero_opcion)
+    - opción [1](numero_opcion)
+    - [becas](numero_opcion:1)
+    - quiero saber de [becas](numero_opcion:1)
+    - [deportes](numero_opcion:2)
+    - me interesa [comedor](numero_opcion:3)
+    - [salir](numero_opcion:4)
+    - [requisitos](numero_opcion:1)
+    - [fechas](numero_opcion:2)
+    - [horarios](numero_opcion:1)
+    - [lugares](numero_opcion:2)
+    - [menu semanal](numero_opcion:1)
+    - [precios](numero_opcion:2)
+    - [volver](numero_opcion:3)
+    - [menu](numero_opcion:3)
+
+- intent: preguntar_becas
+  examples: |
+    - ¿Cuándo abren las becas?
     - que becas hay
-    - cuales becas hay
-    - que becas tienen
-    - que becas ofrecen
-    - hay becas de ayuda economica
-    - hay becas de investigacion
-    - hay becas de alimentacion
+    - requisitos para becas
+    - cómo me anoto en las becas
+    - información sobre becas
 
-- intent: becas_requisitos
+- intent: preguntar_comedor
   examples: |
-    - que necesito para pedir una beca
-    - cuales son los requisitos para pedir una beca
-    - cuales son los requisitos para solicitar una beca
-    - cuales son los requisitos para inscribirme a una beca
-    - tengo que ser regular para la beca
-    - que papeles necesito para la beca
-    - que necesito para inscribirme a una beca
-    - que requisitos tienen las becas
+    - qué hay para comer hoy
+    - cuánto cuesta el menú
+    - información del menú semanal
 
-- intent: bolsa_trabajo_info
+- intent: preguntar_deportes
   examples: |
-    - que es la bolsa de trabajo
-    - como funciona el sistema de empleos
-    - como funciona la bolsa de trabajo
-    - hay trabajos para estudiantes avanzados
-    - que empresas estan anotadas
-    - es gratis usar la bolsa de trabajo
-    - hay pasantias disponibles
+    - horarios de fútbol
+    - dónde se entrena vóley
+    - hay clases de básquet?
+    - información de deportes
+    - quiero saber los horarios de entrenamientos
 
-- intent: bolsa_trabajo_contacto
+- intent: salir_menu
   examples: |
-    - como me contacto con la bolsa de trabajo
-    - a que mail mando mi cv
-    - cual es el contacto para ofertas laborales
-    - hay un whatsapp de la bolsa de trabajo
-    - donde pregunto por trabajos part-time
-    - quien recibe los curriculums
-
-- intent: comedor_horarios
-  examples: |
-    - a que hora abren el comedor
-    - hasta que hora sirven la cena
-    - el comedor cierra al mediodia
-    - hay atencion los sabados
-    - a que hora es el desayuno
-    - horario del comedor
-    - horarios del comedor
-    - hasta cuando esta el comedor
-    - en que horario abre el comedor
-    - que horarios tiene el comedor
-
-- intent: comedor_comidas
-  examples: |
-    - que tipo de comidas ofrecen
-    - hay opciones vegetarianas
-    - el menu es fijo o cambia
-    - hay menu de celiacos
-    - que incluye el menu
-    - hay viandas para llevar
-    - puedo elegir el plato
-    - que comidas hay
-    - hay menu vegano
-    - hay opcion vegana
+    - chau
+    - adios
+    - terminar
+    - salir del menu
+    - finalizar
     
-
-- intent: comedor_precios
+- intent: out_of_scope
   examples: |
-    - cuanto sale el comedor
-    - cuanto cuesta el desayuno
-    - precio del menu vegetariano
-    - precios del comedor
-    - precio del almuerzo
-    - que precio tiene el comedor
-    - cuanto cuesta el comedor
-
-- intent: comedor_gestion
-  examples: |
-    - como cargo saldo a la tarjeta
-    - donde pido el menu del dia
-    - como cargo saldo
-    - donde elijo la comida
-    - hay que reservar turno para comer
-    - como hago para pedir vianda
-    - paso a paso para usar el comedor
-    - la app del comedor funciona con credencial
-    - donde veo mi saldo disponible
-
-- intent: boleto_info
-  examples: |
-    - que es el boleto estudiantil
-    - cubre todos los colectivos
-    - sirve para el tren
-    - hay limite de viajes diarios
-    - el boleto es personal
-    - que ventajas tiene
-    - desde cuando es valido
-
-- intent: boleto_tramite
-  examples: |
-    - como saco el boleto estudiantil
-    - como me anoto al boleto estudiantil
-    - como me inscribo al boleto estudiantil
-    - donde lo tramito
-    - que documentos necesito
-    - cuanto demora en salir
-    - hay que renovarlo cada año
-    - puedo hacerlo online
-    - donde retiro la credencial
-
-- intent: deportes_listado
-  examples: |
-    - que deportes puedo practicar
-    - hay futbol femenino
-    - que deportes hay
-    - que deportes tiene la facultad
-    - que deportes ofrecen
-    - que deportes ofrece la facultad
-
-- intent: deportes_horarios
-  examples: |
-    - a que hora es futbol los martes
-    - horario de la pileta
-    - cuando hay clases de voley
-    - el gimnasio abre los sabados
-    - hay turnos para tenis
-    - a que hora cierran los deportes
-    - horario de verano
-
-- intent: administrativo_certificados
-  examples: |
-    - como pido certificado de alumno regular
-    - donde tramito analitico
-    - se puede pedir certificados online
-    - cuanto tarda un certificado
-    - sirve el certificado digital
-    - necesito certificado para el banco
-    - hay que pagar por los certificados
-
-- intent: administrativo_materias
-  examples: |
-    - como me anoto a finales
-    - donde veo las correlativas
-    - puedo recursar una materia
-    - como pido equivalencias
-    - cuando es el periodo de inscripcion
-    - donde veo los horarios de cursada
-    - como cambio de comision
+    - contame un chiste
+    - qué día es hoy
+    - no entiendo
+    - quiero hablar de otra cosa
+    - cualquier cosa

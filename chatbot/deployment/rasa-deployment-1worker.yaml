@@ -92,10 +92,10 @@ spec:
         resources:
           requests:
             cpu: "1"
-            memory: "900Mi"
+            memory: "2Gi"
           limits:
             cpu: "1"
-            memory: "900Mi"
+            memory: "2Gi"
         volumeMounts:
           - name: models-volume
             mountPath: /app/models
@@ -109,7 +109,7 @@ spec:
       volumes:
         - name: models-volume
           hostPath:
-            path: /home/manuel/asistente-sau/chatbot/models
+            path: /home/manu/asistente-sau/chatbot/models
             type: Directory
         - name: config-volume
           emptyDir: {}

@@ -85,5 +85,6 @@ Acceder a intefaz web mediante:
 http://localhost:8000/
 
 
-
+Mostrar logs del pod:
+kubectl logs -f $(kubectl get pods -l app=rasa -o jsonpath="{.items[0].metadata.name}")
 

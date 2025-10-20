@@ -1,0 +1,14 @@
+# Guarda este código como: rasa-actions-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: rasa-action-server # NOMBRE CLAVE para el endpoints.yml
+  labels:
+    app: rasa-actions
+spec:
+  selector:
+    app: rasa-actions
+  ports:
+    - protocol: TCP
+      port: 5055         # Puerto del Service
+      targetPort: 5055   # Puerto del contenedor

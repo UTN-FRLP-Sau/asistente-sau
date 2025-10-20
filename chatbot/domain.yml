@@ -1,64 +1,115 @@
 version: "3.1"
 
 intents:
-  - becas_inscripcion
-  - becas_tipos
-  - becas_requisitos
-  - bolsa_trabajo_info
-  - bolsa_trabajo_contacto
-  - comedor_horarios
-  - comedor_comidas
-  - comedor_precios
-  - comedor_gestion
-  - boleto_info
-  - boleto_tramite
-  - deportes_listado
-  - deportes_horarios
-  - administrativo_certificados
-  - administrativo_materias
+  - greet
+  - elegir_opcion
+  - preguntar_becas
+  - preguntar_comedor
+  - preguntar_deportes
+  - salir_menu
+  - out_of_scope
+
+entities:
+  - numero_opcion
+
+slots:
+  numero_opcion:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: numero_opcion
+
+  modo_conversacion:
+    type: text
+    influence_conversation: true
+    initial_value: "menu"
+    mappings: []
+
+  # ⭐️ SLOTS AGREGADOS (Solucionan el error 'non existent slot')
+  contexto_menu:
+    type: text
+    # Este slot rastrea en qué menú (principal, becas, deportes) está el usuario.
+    influence_conversation: true 
+    initial_value: "principal" # Asumimos que inicia en el principal
+    mappings: []
+
+  texto_opcion:
+    type: text
+    # Este slot almacena el texto ingresado en modo libre
+    influence_conversation: false
+    mappings: []
+
+forms:
+  menu_form:
+    required_slots:
+      - numero_opcion
 
 responses:
-  utter_becas_inscripcion:
-    - text: "Para inscribirte a becas: 1) Entrá a saufrlp.com durante el periodo de inscripción (marzo/agosto), 2) Completá el formulario online, 3) Subí foto de tu DNI y certificado de regularidad."
+  utter_menu_principal:
+    - text: |
+        👋 ¡Bienvenido! Por favor, elegí una opción:
+        1️⃣ Becas  
+        2️⃣ Deportes  
+        3️⃣ Comedor  
+        4️⃣ Salir
 
-  utter_becas_tipos:
-    - text: "Tenemos estos tipos de becas: 1) Transporte (50% de descuento en colectivos), 2) Alimentaria (comedor gratuito), 3) Materiales (cuadernillos/apuntes), 4) Residencia (para estudiantes del interior), 5) Por mérito (promedio mayor a 8)."
+  utter_menu_becas:
+    - text: |
+        📚 Sección Becas:
+        1️⃣ Requisitos  
+        2️⃣ Fechas  
+        3️⃣ Volver al menú principal
 
-  utter_becas_requisitos:
-    - text: "Requisitos generales: Ser alumno regular (50% de materias aprobadas), no tener sanciones, presentar DNI y declaración jurada de ingresos. Las becas alimentarias piden adicionalmente estudio socioeconómico."
+  utter_menu_deportes:
+    - text: |
+        🏀 Sección Deportes:
+        1️⃣ Horarios  
+        2️⃣ Lugares  
+        3️⃣ Volver al menú principal
 
-  utter_bolsa_trabajo_info:
-    - text: "La bolsa de trabajo conecta estudiantes con empresas del rubro ingeniería. Hay trabajos part-time (4hs), pasantías y empleos full-time para graduados. Las empresas filtran por carrera y año de cursada."
+  utter_menu_comedor:
+    - text: |
+        🍽️ Sección Comedor:
+        1️⃣ Menú semanal  
+        2️⃣ Precios  
+        3️⃣ Volver al menú principal
 
-  utter_bolsa_trabajo_contacto:
-    - text: "Mandá tu CV a bolsa.laboral@fiuba.edu.ar o acercate a la Oficina de Empleos (edificio anexo, planta baja). WhatsApp para consultas: +54 11 1234-5678. Atención de lunes a jueves de 9 a 16hs."
+  # ⭐️ RESPUESTAS DE SUBMENÚS (Se deben agregar al domain para ser invocadas por action_manejar_menu)
+  utter_respuesta_requisitos_becas:
+    - text: "Los requisitos de beca son: ser estudiante regular y tener promedio superior a 6."
+  utter_respuesta_fechas_becas:
+    - text: "Las becas se solicitan del 1 al 15 de marzo de cada año."
+  utter_respuesta_horarios_deportes:
+    - text: "Los horarios de entrenamiento están disponibles en la cartelera digital."
+  utter_respuesta_lugares_deportes:
+    - text: "Las actividades se realizan en el Campus Deportivo Universitario (CDU)."
+  utter_respuesta_menu_comedor:
+    - text: "El menú semanal se publica todos los lunes en la página web oficial."
+  utter_respuesta_precios_comedor:
+    - text: "El precio del menú completo es de $2500 para estudiantes."
+  
+  # RESPUESTAS PARA MODO LIBRE
+  utter_respuesta_becas:
+    - text: "Las becas se otorgan a estudiantes regulares con promedio mayor a 6 y sin materias previas pendientes."
 
-  utter_comedor_horarios:
-    - text: "Horario comedor principal: Lunes a viernes 7:30-21hs. Desayuno (7:30-10:30), Almuerzo (11:30-15hs), Cena (18-21hs). Buffet continuo 10:30-18hs. Findes sólo buffet hasta 17hs."
+  utter_respuesta_comedor:
+    - text: "El comedor abre de lunes a viernes de 12 a 14 hs."
 
-  utter_comedor_comidas:
-    - text: "Opciones disponibles: 1) Menú estándar (plato principal + guarnición + postre), 2) Vegetariano, 3) Sin TACC, 4) Económico (guiso/sopa). Todas incluyen pan y fruta. Hay viandas para llevar con receta médica."
+  utter_respuesta_deportes:
+    - text: "Los entrenamientos de fútbol son lunes y miércoles a las 18 hs."
 
-  utter_comedor_precios:
-    - text: "Precios 2024: Menú completo $800 (becados 50% off), Desayuno $300, Café $100. Carga mínima de saldo: $2000. Bonos mensuales (20 comidas) $12.000. Se paga con tarjeta o efectivo en caja."
+  utter_salir:
+    - text: "👋 ¡Gracias por usar el asistente! Podés escribir cualquier pregunta si querés seguir chateando."
 
-  utter_comedor_gestion:
-    - text: "Para usar el comedor: 1) Cargá saldo en [link] con tu legajo, 2) Pedí el menú en los totems mostrando tu código QR, 3) Retirá tu comida mostrando el comprobante. Las viandas se reservan 24hs antes."
+  utter_modo_libre:
+    - text: "Estoy en modo conversación libre. Podés hacerme cualquier pregunta 😊"
+    
+  utter_fallback:
+    - text: "Disculpa, no entendí tu solicitud. Por favor, elegí un número de las opciones del menú actual, o haceme una pregunta específica."
 
-  utter_boleto_info:
-    - text: "El boleto estudiantil te da 80 viajes mensuales gratis en colectivos (líneas urbanas) y 50% de descuento en trenes. Es personal, válido por 6 meses. Cubre toda el AMBA."
-
-  utter_boleto_tramite:
-    - text: "Trámite online: 1) Entrá a [link], 2) Subí foto 4x4 y certificado de alumno regular, 3) Retirá la credencial en Secretaría después de 72hs. Dura 6 meses, renovación automática si seguís regular."
-
-  utter_deportes_listado:
-    - text: "Deportes disponibles: Fútbol (masculino/femenino), Vóley, Básquet, Natación, Tenis, Rugby, Ajedrez competitivo, Gimnasio libre (con entrenador), y clases de Funcional los miércoles."
-
-  utter_deportes_horarios:
-    - text: "Horarios: Lunes a viernes 8-22hs. Fútbol (mañanas), Vóley (tardes), Natación (turnos de 1h desde 9hs), Gimnasio libre (todo el día). Sábados sólo torneos 9-13hs. Consultá el cronograma mensual en @DeportesFIuba."
-
-  utter_administrativo_certificados:
-    - text: "Certificados: 1) Alumno regular (online, sale al toque), 2) Analítico (Secretaría, 72hs hábiles), 3) Programas de materia (pedir en departamentos). El de banco cuesta $500 y tarda 48hs."
-
-  utter_administrativo_materias:
-    - text: "Para materias: 1) Inscripción a finales por SIU Guaraní, 2) Correlativas las ves en el plan de estudios online, 3) Equivalencias se piden en Departamento de Alumnos con programa analítico."
+# ⭐️ ACTIONS PERSONALIZADAS AGREGADAS
+actions:
+  - action_manejar_menu
+  - action_detectar_modo
+  - action_responder_modo_libre # ¡Esta acción era esencial y faltaba!

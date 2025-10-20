@@ -47,6 +47,11 @@ lock_store:
   port: 6379
   db: 0
   
+# endpoints.yml
+action_endpoint:
+  url: "http://rasa-action-server:5055/webhook"
+  
+  
 rest:
 # Esto le dice al servidor Rasa que active el conector de API REST.
   # El webchat se conecta a este conector.

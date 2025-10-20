@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rasa-action-server-deployment
+  labels:
+    app: rasa-actions
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rasa-actions
+  template:
+    metadata:
+      labels:
+        app: rasa-actions
+    spec:
+      containers:
+      - name: action-server
+        image: manuelmorullo/rasa-chatbot:latest
+        args:
+          - run
+          - actions
+          - --port
+          - "5055"
+        ports:
+        - containerPort: 5055
+        resources:
+          requests:
+            cpu: "0.5"
+            memory: "512Mi"
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+        volumeMounts:
+          - name: actions-volume
+            mountPath: /app/actions  # Monta todo el directorio
+      volumes:
+        - name: actions-volume
+          hostPath:
+            path: /home/manu/asistente-sau/chatbot/actions  # Ruta local del directorio actions
+            type: Directory
