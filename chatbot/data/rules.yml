@@ -20,6 +20,11 @@ rules:
     - intent: preguntar_becas
     - action: action_responder_modo_libre
 
+- rule: Responder preguntas de Boleto Estudiantil
+  steps:
+    - intent: preguntar_boleto_estudiantil
+    - action: action_responder_modo_libre
+
 - rule: Responder preguntas de Deportes
   steps:
     - intent: preguntar_deportes
@@ -28,6 +33,21 @@ rules:
 - rule: Responder preguntas de Comedor
   steps:
     - intent: preguntar_comedor
+    - action: action_responder_modo_libre
+
+- rule: Responder preguntas de Bolsa de Trabajo
+  steps:
+    - intent: preguntar_bolsa_trabajo
+    - action: action_responder_modo_libre
+
+- rule: Responder preguntas de Pasantías
+  steps:
+    - intent: preguntar_pasantias
+    - action: action_responder_modo_libre
+
+- rule: Salir del menú
+  steps:
+    - intent: salir_menu
     - action: action_responder_modo_libre
 
 # --- FALLBACK (La IA no entiende nada) ---

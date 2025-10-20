@@ -4,8 +4,11 @@ intents:
   - greet
   - elegir_opcion
   - preguntar_becas
-  - preguntar_comedor
+  - preguntar_boleto_estudiantil
   - preguntar_deportes
+  - preguntar_comedor
+  - preguntar_bolsa_trabajo
+  - preguntar_pasantias
   - salir_menu
   - out_of_scope
 
@@ -26,7 +29,6 @@ slots:
     initial_value: "menu"
     mappings: []
 
-  # ⭐️ SLOTS AGREGADOS (Solucionan el error 'non existent slot')
   contexto_menu:
     type: text
     # Este slot rastrea en qué menú (principal, becas, deportes) está el usuario.
@@ -46,59 +48,129 @@ forms:
       - numero_opcion
 
 responses:
+  # MENÚ PRINCIPAL (6 áreas + Salir)
   utter_menu_principal:
     - text: |
-        👋 ¡Bienvenido! Por favor, elegí una opción:
-        1️⃣ Becas  
-        2️⃣ Deportes  
-        3️⃣ Comedor  
-        4️⃣ Salir
+        👋 ¡Bienvenido! Por favor, elegí un área de interés:
+        1. Área de Becas 
+        2. Área de Boleto Estudiantil
+        3. Área de Deportes
+        4. Área de Comedor
+        5. Área de Bolsa de Trabajo
+        6. Área de Pasantías
+        7. Salir
+
+  # SUBMENÚS CON LAS PREGUNTAS ACTUALIZADAS DEL .DOCX
 
   utter_menu_becas:
     - text: |
-        📚 Sección Becas:
-        1️⃣ Requisitos  
-        2️⃣ Fechas  
-        3️⃣ Volver al menú principal
+        📚 Área de Becas:
+        1. ¿Qué tipos de becas existen?
+        2. ¿Cómo me inscribo para solicitar una beca?
+        3. ¿Cuáles son los requisitos para solicitar una beca?
+        4. ¿Qué documentación necesito para inscribirme a una beca?
+        5. ¿Dónde puedo consultar las fechas de apertura para las convocatorias de becas?
+        6. ¿Puedo postularme a más de una beca al mismo tiempo?
+        7. ¿Cómo me entero si fui seleccionado para una beca?
+        8. ¿Puedo renovar mi beca para el año siguiente?
+        9. Volver al menú principal
+
+  utter_menu_boleto_estudiantil:
+    - text: |
+        🚌 Área de Boleto Estudiantil:
+        1. ¿Cómo solicito el boleto estudiantil?
+        2. ¿Cuáles son los requisitos que necesito para tramitarlo?
+        3. ¿Dónde se realiza el trámite para obtener el boleto estudiantil?
+        4. ¿Cuánto tarda en habilitarse el boleto después de tramitarlo?
+        5. ¿Qué debo hacer si pierdo o daño mi tarjeta del boleto?
+        6. ¿El boleto tiene fecha de vencimiento?
+        7. ¿Puedo renovar el boleto cada año?
+        8. ¿Cuántos viajes incluye?
+        9. ¿Aplica en subte, tren, colectivo?
+        10. ¿Qué pasa si cambio de carrera?
+        11. Tengo problemas con mi boleto ¿Con quien puedo contactarme?
+        12. Volver al menú principal
 
   utter_menu_deportes:
     - text: |
-        🏀 Sección Deportes:
-        1️⃣ Horarios  
-        2️⃣ Lugares  
-        3️⃣ Volver al menú principal
+        🏀 Área de Deportes:
+        1. ¿Qué deportes ofrece la facultad durante el año?
+        2. ¿Dónde puedo consultar los días y horarios de entrenamiento?
+        3. ¿Qué documentación necesito para inscribirme en una actividad deportiva?
+        4. ¿Cómo me entero de las próximas competencias internas o externas?
+        5. ¿Puedo inscribirme en más de un deporte?
+        6. ¿Debo tener experiencia previa en el deporte?
+        7. ¿Es obligatorio participar en las competencias que organiza la facultad?
+        8. Volver al menú principal
 
   utter_menu_comedor:
     - text: |
-        🍽️ Sección Comedor:
-        1️⃣ Menú semanal  
-        2️⃣ Precios  
-        3️⃣ Volver al menú principal
+        🍽️ Área de Comedor:
+        1. ¿Cuáles son los horarios del comedor universitario?
+        2. ¿Cuánto cuestan las viandas?
+        3. ¿Qué incluye el menú diario?
+        4. ¿Cómo me inscribo para poder usar el comedor universitario?
+        5. ¿Cómo se realiza la compra?
+        6. ¿Hay que reservar el almuerzo con anticipación?
+        7. ¿Dónde me puedo comunicar ante cualquier consulta?
+        8. Volver al menú principal
 
-  # ⭐️ RESPUESTAS DE SUBMENÚS (Se deben agregar al domain para ser invocadas por action_manejar_menu)
-  utter_respuesta_requisitos_becas:
-    - text: "Los requisitos de beca son: ser estudiante regular y tener promedio superior a 6."
-  utter_respuesta_fechas_becas:
-    - text: "Las becas se solicitan del 1 al 15 de marzo de cada año."
-  utter_respuesta_horarios_deportes:
-    - text: "Los horarios de entrenamiento están disponibles en la cartelera digital."
-  utter_respuesta_lugares_deportes:
-    - text: "Las actividades se realizan en el Campus Deportivo Universitario (CDU)."
-  utter_respuesta_menu_comedor:
-    - text: "El menú semanal se publica todos los lunes en la página web oficial."
-  utter_respuesta_precios_comedor:
-    - text: "El precio del menú completo es de $2500 para estudiantes."
-  
-  # RESPUESTAS PARA MODO LIBRE
+  utter_menu_bolsa_trabajo:
+    - text: |
+        💼 Área de Bolsa de Trabajo:
+        1. ¿Cómo me inscribo en la bolsa de trabajo?
+        2. ¿Dónde subo mi currículum vitae?
+        3. ¿Cómo me entero de las ofertas laborales disponibles?
+        4. ¿Puedo postularme a más de una oferta a la vez?
+        5. ¿Las empresas me contactan directamente a mí o lo hacen a través de la facultad?
+        6. ¿Cómo elimino mis datos de la bolsa de trabajo si ya no quiero recibir propuestas?
+        7. ¿Puedo actualizar mi CV después de haberlo enviado?
+        8. Volver al menú principal
+
+  utter_menu_pasantias:
+    - text: |
+        🎓 Área de Pasantías:
+        1. ¿Qué son las pasantías y quiénes pueden realizarlas?
+        2. ¿Cómo me inscribo para una pasantía?
+        3. ¿Qué requisitos debo cumplir para postularme?
+        4. ¿Dónde se publican las ofertas de pasantías disponibles?
+        5. ¿Qué documentación debo presentar para inscribirme?
+        6. ¿Puedo postularme a más de una pasantía al mismo tiempo?
+        7. ¿Las pasantías son remuneradas?
+        8. ¿Cuánto dura una pasantía?
+        9. ¿Cuántas horas semanales debo cumplir en una pasantía?
+        10. ¿La pasantía se puede hacer durante el período de cursada?
+        11. ¿Las pasantías otorgan algún tipo de certificación?
+        12. ¿La facultad realiza seguimiento durante la pasantía?
+        13. ¿Existe alguna ley que me proteja ante cualquier inconveniente?
+        14. ¿Para qué me sirve hacer una pasantía?
+        15. ¿Me pueden llegar a exigir más horas que las estipuladas en la ley de pasantías?
+        16. ¿Ante cualquier inconveniente con quien puedo comunicarme?
+        17. ¿Cómo es el proceso de gestión de pasantías?
+        18. ¿Puedo elegir la empresa que me interese?
+        19. ¿Qué pasa si me quiero dar de baja de una pasantía?
+        20. ¿Cómo hago si me quiero dar de baja de la base de datos de pasantías?
+        21. Volver al menú principal
+
+  # RESPUESTAS GENÉRICAS PARA MODO LIBRE 
   utter_respuesta_becas:
-    - text: "Las becas se otorgan a estudiantes regulares con promedio mayor a 6 y sin materias previas pendientes."
+    - text: "He detectado una pregunta sobre becas. Si deseas más detalles, puedes ver el menú completo de becas eligiendo la opción 1."
+  
+  utter_respuesta_boleto_estudiantil:
+    - text: "He detectado una pregunta sobre boleto estudiantil. Si deseas más detalles, puedes ver el menú completo de boleto estudiantil eligiendo la opción 2."
 
   utter_respuesta_comedor:
-    - text: "El comedor abre de lunes a viernes de 12 a 14 hs."
+    - text: "He detectado una pregunta sobre comedor. Si deseas más detalles, puedes ver el menú completo de comedor eligiendo la opción 4."
 
   utter_respuesta_deportes:
-    - text: "Los entrenamientos de fútbol son lunes y miércoles a las 18 hs."
+    - text: "He detectado una pregunta sobre deportes. Si deseas más detalles, puedes ver el menú completo de deportes eligiendo la opción 3."
+  
+  utter_respuesta_bolsa_trabajo:
+    - text: "He detectado una pregunta sobre bolsa de trabajo. Si deseas más detalles, puedes ver el menú completo de bolsa de trabajo eligiendo la opción 5."
 
+  utter_respuesta_pasantias:
+    - text: "He detectado una pregunta sobre pasantías. Si deseas más detalles, puedes ver el menú completo de pasantías eligiendo la opción 6."
+    
   utter_salir:
     - text: "👋 ¡Gracias por usar el asistente! Podés escribir cualquier pregunta si querés seguir chateando."
 
@@ -108,8 +180,7 @@ responses:
   utter_fallback:
     - text: "Disculpa, no entendí tu solicitud. Por favor, elegí un número de las opciones del menú actual, o haceme una pregunta específica."
 
-# ⭐️ ACTIONS PERSONALIZADAS AGREGADAS
 actions:
   - action_manejar_menu
   - action_detectar_modo
-  - action_responder_modo_libre # ¡Esta acción era esencial y faltaba!
+  - action_responder_modo_libre

@@ -9,41 +9,129 @@ nlu:
     - qué tal
     - buenas
     - hola, ¿cómo estás?
+    - saludo
 
 - intent: elegir_opcion
   examples: |
+    # OPCIONES PRINCIPALES (1-7)
     - [1](numero_opcion)
     - [2](numero_opcion)
     - [3](numero_opcion)
     - [4](numero_opcion)
+    - [5](numero_opcion)
+    - [6](numero_opcion)
+    - [7](numero_opcion)
     - opción [1](numero_opcion)
+    - opción [5](numero_opcion)
     - [becas](numero_opcion:1)
     - quiero saber de [becas](numero_opcion:1)
-    - [deportes](numero_opcion:2)
-    - me interesa [comedor](numero_opcion:3)
-    - [salir](numero_opcion:4)
-    - [requisitos](numero_opcion:1)
-    - [fechas](numero_opcion:2)
-    - [horarios](numero_opcion:1)
-    - [lugares](numero_opcion:2)
-    - [menu semanal](numero_opcion:1)
-    - [precios](numero_opcion:2)
-    - [volver](numero_opcion:3)
+    - [boleto estudiantil](numero_opcion:2)
+    - [deportes](numero_opcion:3)
+    - me interesa [comedor](numero_opcion:4)
+    - [bolsa de trabajo](numero_opcion:5)
+    - [pasantias](numero_opcion:6)
+    - [salir](numero_opcion:7)
+
+    # OPCIONES SUB-MENÚ GENÉRICAS
+    - [volver](numero_opcion:9)
+    - [volver](numero_opcion:8)
+    - [volver](numero_opcion:12)
+    - [volver al menu](numero_opcion:21)
     - [menu](numero_opcion:3)
+
+    # SUB-MENÚ BECAS (1-8)
+    - [1](numero_opcion) requisitos
+    - [tipos de becas](numero_opcion:1)
+    - [cómo me inscribo](numero_opcion:2)
+    - [requisitos](numero_opcion:3)
+    - [documentacion](numero_opcion:4)
+    - [fechas](numero_opcion:5)
+    - [postular a mas de una](numero_opcion:6)
+    - [fui seleccionado](numero_opcion:7)
+    - [renovar mi beca](numero_opcion:8)
+    - [volver al menu principal](numero_opcion:9)
+
+    # SUB-MENÚ BOLETO ESTUDIANTIL (1-11)
+    - [cómo solicito el boleto](numero_opcion:1)
+    - [requisitos boleto](numero_opcion:2)
+    - [donde se realiza el tramite](numero_opcion:3)
+    - [cuanto tarda](numero_opcion:4)
+    - [perdi mi tarjeta](numero_opcion:5)
+    - [fecha de vencimiento](numero_opcion:6)
+    - [renovar el boleto](numero_opcion:7)
+    - [viajes que incluye](numero_opcion:8)
+    - [aplica en subte](numero_opcion:9)
+    - [cambio de carrera](numero_opcion:10)
+    - [problemas con mi boleto](numero_opcion:11)
+    - [volver al menu principal](numero_opcion:12)
+
+    # SUB-MENÚ DEPORTES (1-7)
+    - [qué deportes ofrece](numero_opcion:1)
+    - [días y horarios de entrenamiento](numero_opcion:2)
+    - [documentación deportes](numero_opcion:3)
+    - [proximas competencias](numero_opcion:4)
+    - [inscribirme en mas de un deporte](numero_opcion:5)
+    - [experiencia previa](numero_opcion:6)
+    - [obligatorio participar](numero_opcion:7)
+    - [volver al menu principal](numero_opcion:8)
+
+    # SUB-MENÚ COMEDOR (1-7)
+    - [horarios del comedor](numero_opcion:1)
+    - [cuánto cuestan las viandas](numero_opcion:2)
+    - [qué incluye el menú diario](numero_opcion:3)
+    - [cómo me inscribo](numero_opcion:4)
+    - [compra de viandas](numero_opcion:5)
+    - [reservar almuerzo](numero_opcion:6)
+    - [comunicarme por consultas](numero_opcion:7)
+    - [volver al menu principal](numero_opcion:8)
+    
+    # SUB-MENÚ BOLSA DE TRABAJO (1-7)
+    - [cómo me inscribo en la bolsa de trabajo](numero_opcion:1)
+    - [dónde subo mi currículum](numero_opcion:2)
+    - [ofertas laborales disponibles](numero_opcion:3)
+    - [postularme a varias ofertas](numero_opcion:4)
+    - [quien me contacta](numero_opcion:5)
+    - [eliminar mis datos](numero_opcion:6)
+    - [actualizar mi CV](numero_opcion:7)
+    - [volver al menu principal](numero_opcion:8)
+    
+    # SUB-MENÚ PASANTÍAS (1-20)
+    - [qué son las pasantías](numero_opcion:1)
+    - [cómo me inscribo a una pasantía](numero_opcion:2)
+    - [requisitos pasantías](numero_opcion:3)
+    - [dónde se publican las ofertas](numero_opcion:4)
+    - [documentación pasantías](numero_opcion:5)
+    - [postularme a más de una pasantía](numero_opcion:6)
+    - [son remuneradas](numero_opcion:7)
+    - [cuánto dura una pasantía](numero_opcion:8)
+    - [horas semanales](numero_opcion:9)
+    - [se puede hacer durante la cursada](numero_opcion:10)
+    - [certificación](numero_opcion:11)
+    - [la facultad realiza seguimiento](numero_opcion:12)
+    - [ley que me proteja](numero_opcion:13)
+    - [para qué me sirve](numero_opcion:14)
+    - [exigir más horas](numero_opcion:15)
+    - [inconveniente](numero_opcion:16)
+    - [proceso de gestión](numero_opcion:17)
+    - [puedo elegir la empresa](numero_opcion:18)
+    - [darse de baja de una pasantía](numero_opcion:19)
+    - [darse de baja de base de datos](numero_opcion:20)
+    - [volver al menu principal](numero_opcion:21)
 
 - intent: preguntar_becas
   examples: |
     - ¿Cuándo abren las becas?
-    - que becas hay
+    - qué becas hay
     - requisitos para becas
     - cómo me anoto en las becas
     - información sobre becas
 
-- intent: preguntar_comedor
+- intent: preguntar_boleto_estudiantil
   examples: |
-    - qué hay para comer hoy
-    - cuánto cuesta el menú
-    - información del menú semanal
+    - cómo consigo el boleto estudiantil
+    - necesito el boleto de estudiante
+    - perdí mi tarjeta sube
+    - dónde se tramita el boleto
 
 - intent: preguntar_deportes
   examples: |
@@ -52,6 +140,28 @@ nlu:
     - hay clases de básquet?
     - información de deportes
     - quiero saber los horarios de entrenamientos
+
+- intent: preguntar_comedor
+  examples: |
+    - qué hay para comer hoy
+    - cuánto cuesta el menú
+    - información del menú semanal
+    - horarios del comedor
+
+- intent: preguntar_bolsa_trabajo
+  examples: |
+    - quiero inscribirme en la bolsa de trabajo
+    - cómo postulo a una oferta laboral
+    - me mandan ofertas por correo
+    - cómo subo mi CV
+
+- intent: preguntar_pasantias
+  examples: |
+    - ¿Qué es una pasantía?
+    - requisitos para hacer pasantías
+    - son pagas las pasantías
+    - cuánto dura una pasantía
+    - quiero información de pasantías
 
 - intent: salir_menu
   examples: |
