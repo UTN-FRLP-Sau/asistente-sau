@@ -141,7 +141,12 @@ nlu:
 
 # --- INIENTS ESPECÍFICOS PARA MODO LIBRE (PREGUNTAS) ---
 
+####################################################################################################################
+####################################################################################################################
 # --- ÁREA DE BECAS (8 preguntas) ---
+####################################################################################################################
+####################################################################################################################
+
 - intent: preguntar_becas_tipos
   examples: |
     - que tipo de becas hay
@@ -152,54 +157,112 @@ nlu:
     - que becas ofrecen
     - Becas disponibles
     - cuales son las becas que puedo aplicar
-    - qué becas ofrece la UTN
-    - cuáles son las becas disponibles
-    - qué clases de becas hay
+    - que becas ofrece la UTN
+    - cuales son las becas disponibles
+    - que clases de becas hay
+    - me podrian nombrar los diferentes tipos de becas
+    - quiero saber las opciones de becas
+    - catalogo de becas ofrecidas
+    - que programas de becas tienen actualmente
+    - cuales son las becas academicas
+    - becas para estudiantes de ingenieria
+    - mencionen los tipos de ayuda economica que dan
+    - hay becas de ayuda economica o solo de merito
+    - listado completo de las becas
 
 - intent: preguntar_becas_inscripcion
   examples: |
-    - ¿Cómo me inscribo para solicitar una beca?
-    - cómo me anoto en las becas
-    - cómo solicitar la beca
-    - proceso de inscripción de becas
-    - cuál es el proceso de postulación a las becas
+    - como me inscribo para solicitar una beca
+    - como me anoto en las becas
+    - como solicitar la beca
+    - proceso de inscripcion de becas
+    - cual es el proceso de postulacion a las becas
     - donde me inscribo a las becas
-    - formulario de inscripción a becas
+    - formulario de inscripcion a becas
+    - cual es el procedimiento para aplicar a una beca
+    - guia de postulacion para becas
+    - tengo que llenar algun formulario online para la beca
+    - donde encuentro el link de inscripcion a las becas
+    - pasos para la solicitud de beca
+    - como se inicia el tramite de beca
+    - hay una oficina donde deba ir a inscribirme
+    - me explican como postularme
+    - como hago para llenar la solicitud de beca
+    - la inscripcion es presencial o virtual
+    - hay que registrarse en alguna pagina para solicitar la beca
+    - donde puedo entregar mi solicitud de beca
+    - cual es la plataforma de inscripcion de becas
 
 - intent: preguntar_becas_requisitos
   examples: |
-    - ¿Cuáles son los requisitos para solicitar una beca?
+    - cuales son los requisitos para solicitar una beca
     - requisitos para becas
-    - qué piden para aplicar a las becas
-    - qué necesito para una beca
-    - qué me piden para la beca
+    - que piden para aplicar a las becas
+    - que necesito para una beca
+    - que me piden para la beca
     - cuales son los requisitos de las becas
-    - qué tengo que cumplir para aplicar a una beca
+    - que tengo que cumplir para aplicar a una beca
+    - hay algun requisito de promedio para la beca
+    - criterios de elegibilidad para becas
+    - que condiciones debo cumplir para obtener la beca
+    - requisitos academicos para las becas
+    - necesito ser alumno regular para pedir una beca
+    - hay requisitos de ingresos familiares para postular
+    - se requiere un minimo de materias aprobadas
+    - para que becas necesito mejor promedio
+    - que requisitos especificos tiene la beca de ayuda economica
+    - que se necesita para mantener la beca
+    - tengo que ser de una carrera en particular
+    - hay limite de edad para la beca
+    - cuales son las condiciones generales para todas las becas
 
 - intent: preguntar_becas_documentacion
   examples: |
-    - ¿Qué documentación necesito para inscribirme a una beca?
-    - qué papeles tengo que presentar
-    - documentación beca
+    - que documentacion necesito para inscribirme a una beca
+    - que papeles tengo que presentar
+    - documentacion beca
     - documentos necesarios para la beca
     - papeles para las becas
     - que necesito llevar para las becas
-    - documentos para la postulación
+    - documentos para la postulacion
+    - que comprobantes me piden para la beca
+    - es necesario presentar fotocopia del DNI
+    - debo presentar certificado de alumno regular
+    - listado de documentos requeridos para la postulacion
+    - necesito alguna declaracion jurada
+    - hay que presentar constancia de ingresos familiares
+    - tengo que llevar mi historial academico
+    - que tipo de fotos me piden
+    - que documentacion familiar debo adjuntar
+    - necesito certificado de mi domicilio
+    - que formularios de la universidad debo completar
+    - toda la documentacion debe estar legalizada
+    - que tengo que escanear para subir a la plataforma de becas
 
 - intent: preguntar_becas_fechas
   examples: |
-    - ¿Dónde puedo consultar las fechas de apertura para las convocatorias de becas?
-    - ¿Cuándo abren las becas?
+    - donde puedo consultar las fechas de apertura para las convocatorias de becas
+    - cuando abren las becas
     - fechas de becas
     - cuando abren las inscripciones a las becas
     - fecha de convocatoria de becas
-    - hasta cuándo hay tiempo para anotarse
-    - cuando son las fechas de inscripción
+    - hasta cuando hay tiempo para anotarse
+    - cuando son las fechas de inscripcion
     - calendario de becas
+    - cual es la fecha limite para la solicitud de beca
+    - cuando empieza el periodo de inscripcion de becas
+    - las becas se solicitan una vez al año
+    - hay convocatorias en el segundo cuatrimestre
+    - puedo anotarme ahora a las becas
+    - cual es la fecha de cierre de la convocatoria
+    - cuando es la proxima apertura de becas
+    - plazos para postularse a las becas
+    - hasta que dia puedo entregar los papeles de la beca
+    - cronograma de la convocatoria de becas
 
 - intent: preguntar_becas_varias
   examples: |
-    - ¿Puedo postularme a más de una beca al mismo tiempo?
+    - puedo postularme a mas de una beca al mismo tiempo
     - puedo postularme a mas de una beca
     - puedo postularme a varias becas
     - puedo inscribirme a mas de una beca
@@ -208,519 +271,1287 @@ nlu:
     - puedo tener dos becas
     - aplicar a dos becas
     - postular a varias becas
-    - si me dan una beca, puedo postularme a otra
+    - si me dan una beca puedo postularme a otra
     - es compatible con otras becas
     - puedo tener dos beneficios de becas
+    - la beca A es compatible con la beca B
+    - hay incompatibilidad entre las becas
+    - puedo recibir un beneficio de beca nacional y uno universitario
+    - es posible recibir dos subsidios al mismo tiempo
+    - las becas son excluyentes entre si
+    - compatibilidad entre becas
+    - si tengo la beca X me puedo inscribir a la beca Y
+    - existe algun limite en la cantidad de becas que puedo recibir
 
 - intent: preguntar_becas_seleccion
   examples: |
-    - ¿Cómo me entero si fui seleccionado para una beca?
+    - como me entero si fui seleccionado para una beca
     - como se si me dieron la beca
     - como se si me aprobaron la beca
     - como me entero si me diero la beca
     - fui seleccionado beca
     - me aprobaron la beca
     - resultados de becas
-    - cuándo me dicen si me la dieron
+    - cuando me dicen si me la dieron
     - avisan si soy beneficiario
-    - cómo notifican la selección de becas
+    - como notifican la seleccion de becas
+    - cuando publican la lista de beneficiarios
+    - donde se ven los resultados de las becas
+    - como informan la decision de la beca
+    - me llega un mail de confirmacion de beca
+    - hay una lista de espera para las becas
+    - me llaman si me dan la beca
+    - fecha de publicacion de seleccion de becas
+    - cuanto tardan en dar los resultados de la beca
+    - cual es el medio de notificacion oficial
+    - se pueden apelar los resultados de la beca
 
 - intent: preguntar_becas_renovacion
   examples: |
-    - ¿Puedo renovar mi beca para el año siguiente?
+    - puedo renovar mi beca para el año siguiente
     - renovar beca
     - quiero renovar la beca
-    - mi beca tiene renovación
-    - mi beca se renueva automáticamente
-    - cómo es la renovación de las becas
+    - mi beca tiene renovacion
+    - mi beca se renueva automaticamente
+    - como es la renovacion de las becas
     - quiero renovar mi beneficio
+    - que necesito para renovar la beca
+    - requisitos para la renovacion de becas
+    - cual es el proceso de renovacion anual
+    - debo postularme de nuevo para renovar
+    - hasta cuando tengo tiempo para renovar la beca
+    - la renovacion es automatica
+    - como se si puedo renovar mi beca
+    - necesito cumplir con un rendimiento academico para renovar
+    - papeles para renovacion de beca
+    - se puede perder la beca si no la renuevo
+    - que pasa si no renuevo mi beca a tiempo
+    - cuanto dura la beca antes de renovar
+    - hay que hacer una nueva solicitud para renovar
 
+####################################################################################################################
+####################################################################################################################
 # --- ÁREA DE BOLETO ESTUDIANTIL (11 preguntas) ---
+####################################################################################################################
+####################################################################################################################
+
 - intent: preguntar_boleto_solicitud
   examples: |
-    - ¿Cómo solicito el boleto estudiantil?
-    - cómo consigo el boleto estudiantil
+    - como solicito el boleto estudiantil
+    - como consigo el boleto estudiantil
     - necesito el boleto de estudiante
     - quiero el boleto de estudiante
     - quiero tramitar el boleto estudiantil
     - pasos para pedir el boleto
-    - cómo es el trámite del boleto
+    - como es el tramite del boleto
+    - quiero sacar el boleto estudiantil por primera vez
+    - me explican como hago la solicitud del boleto
+    - como debo pedir el beneficio del boleto
+    - cual es el procedimiento para obtener el boleto
+    - como se inicia la solicitud del boleto
+    - que tengo que hacer para obtener el boleto de estudiante
+    - donde se llena la planilla de solicitud
+    - como se saca el boleto estudiantil
+    - quiero saber el proceso de solicitud del boleto
+    - como aplicar para el boleto
+    - quiero mi boleto estudiantil
+    - tengo que registrarme para pedir el boleto
+    - formulario de solicitud de boleto
 
 - intent: preguntar_boleto_requisitos
   examples: |
-    - ¿Cuáles son los requisitos que necesito para tramitarlo?
+    - cuales son los requisitos que necesito para tramitarlo
     - requisitos para boleto
-    - qué piden para el boleto estudiantil
-    - qué se necesita para el boleto de estudiante
-    - cuáles son los requisitos del boleto
+    - que piden para el boleto estudiantil
+    - que se necesita para el boleto de estudiante
+    - cuales son los requisitos del boleto
     - requisitos para sacar el boleto
+    - debo cumplir algun requisito academico para el boleto
+    - hay un limite de edad para el boleto estudiantil
+    - se necesita ser alumno regular para el boleto
+    - que condiciones se deben cumplir para el boleto
+    - que documentacion hace falta para el boleto estudiantil
+    - hay algun requisito de distancia para el boleto
+    - requisitos para la primera vez del boleto
+    - debo tener mi SUBE registrada para el boleto
+    - cuales son los criterios de elegibilidad para el boleto
+    - que me exigen para darme el boleto estudiantil
+    - necesito presentar mi DNI para el boleto
+    - que papeles tengo que llevar para el boleto
+    - los requisitos para el boleto de estudiante
+    - es necesario tener un minimo de materias aprobadas
 
 - intent: preguntar_boleto_tramite_lugar
   examples: |
-    - ¿Dónde se realiza el trámite para obtener el boleto estudiantil?
-    - dónde se tramita el boleto
-    - lugar del trámite
-    - dónde se hace el trámite de boleto estudiantil
-    - puntos de atención para el boleto
+    - donde se realiza el tramite para obtener el boleto estudiantil
+    - donde se tramita el boleto
+    - lugar del tramite
+    - donde se hace el tramite de boleto estudiantil
+    - puntos de atencion para el boleto
     - donde tengo que ir para el boleto
+    - direccion para hacer el tramite del boleto
+    - puedo hacer el tramite del boleto online
+    - hay algun centro de atencion especifico para el boleto
+    - la oficina donde se tramita el boleto
+    - donde retiro la tarjeta del boleto estudiantil
+    - en que sucursal se hace el tramite
+    - que sedes tramitan el boleto
+    - el tramite es presencial o virtual
+    - donde se presenta la documentacion para el boleto
+    - a donde voy para el boleto
+    - cual es el sitio web para el tramite del boleto
+    - necesito un turno para tramitar el boleto
+    - en que lugar de la universidad se gestiona el boleto
+    - puntos de inscripcion para el boleto
 
 - intent: preguntar_boleto_habilitacion_tiempo
   examples: |
-    - ¿Cuánto tarda en habilitarse el boleto después de tramitarlo?
-    - cuánto demora el boleto
-    - tiempo de habilitación
+    - cuanto tarda en habilitarse el boleto despues de tramitarlo
+    - cuanto demora el boleto
+    - tiempo de habilitacion
     - cuanto tardan en darme el boleto
     - cuando me habilitan el beneficio
-    - a partir de cuándo puedo usar el boleto
+    - a partir de cuando puedo usar el boleto
+    - en cuanto tiempo se activa el boleto estudiantil
+    - cuanto tarda la respuesta de la solicitud
+    - cuando puedo pasar la SUBE para activar el boleto
+    - la activacion del boleto es inmediata
+    - cuanto tiempo hay que esperar para usarlo
+    - la demora de la activacion del boleto
+    - cuando esta disponible el beneficio en la SUBE
+    - cuanto tiempo pasa entre el tramite y la activacion
+    - puedo usar el boleto desde mañana
+    - hay un plazo de espera para la habilitacion
+    - cuando me confirman que el boleto esta activo
+    - cual es el tiempo maximo de espera
+    - la carga del beneficio cuanto demora
+    - despues de que fecha lo puedo usar
 
 - intent: preguntar_boleto_perdida
   examples: |
-    - ¿Qué debo hacer si pierdo o daño mi tarjeta del boleto?
-    - perdí mi tarjeta sube
+    - que debo hacer si pierdo o daño mi tarjeta del boleto
+    - perdi mi tarjeta sube
     - me robaron la tarjeta
     - tarjeta dañada
-    - perdí la SUBE
-    - se me rompió la tarjeta de boleto
-    - qué hago si me roban la tarjeta
+    - perdi la SUBE
+    - se me rompio la tarjeta de boleto
+    - que hago si me roban la tarjeta
+    - como denuncio la perdida de mi SUBE estudiantil
+    - que hago si se me rompio el plastico del boleto
+    - como solicito un duplicado de la tarjeta
+    - cual es el procedimiento por robo del boleto
+    - si se pierde la tarjeta pierdo los viajes restantes
+    - donde tengo que avisar que perdi la SUBE
+    - como pido una nueva tarjeta de boleto
+    - que pasa si el lector no me toma la tarjeta dañada
+    - hay algun costo por la reposicion de la tarjeta
+    - se puede dar de baja la tarjeta del boleto
+    - me quede sin tarjeta que hago
+    - como se bloquea el boleto estudiantil por perdida
+    - que debo presentar para sacar una nueva tarjeta
 
 - intent: preguntar_boleto_vencimiento
   examples: |
-    - ¿El boleto tiene fecha de vencimiento?
+    - el boleto tiene fecha de vencimiento
     - cuando vence el boleto
-    - fecha límite del boleto
-    - cuándo deja de funcionar el boleto estudiantil
+    - fecha limite del boleto
+    - cuando deja de funcionar el boleto estudiantil
     - vencimiento del beneficio
     - sirve en vacaciones
+    - hasta cuando dura el boleto estudiantil
+    - el boleto sirve en el verano
+    - hasta que mes puedo usar el boleto
+    - cual es la validez del boleto estudiantil
+    - el beneficio se corta en los recesos
+    - el boleto vence a fin de año
+    - puedo usar el boleto en enero y febrero
+    - hay una fecha de caducidad para el boleto
+    - sirve en los fines de semana
+    - el boleto estudiantil tiene vencimiento mensual
+    - cuando se desactiva el beneficio
+    - cual es el ultimo dia para usar el boleto
+    - puedo usar el boleto en dias feriados
+    - el beneficio del boleto es anual
 
 - intent: preguntar_boleto_renovacion
   examples: |
-    - ¿Puedo renovar el boleto cada año?
-    - cómo renuevo el boleto
-    - proceso de renovación del boleto
+    - puedo renovar el boleto cada año
+    - como renuevo el boleto
+    - proceso de renovacion del boleto
     - el boleto se renueva solo
     - como hago para renovar el boleto
-    - es automática la renovación del boleto
+    - es automatica la renovacion del boleto
+    - que tengo que hacer para renovar el boleto estudiantil
+    - requisitos para la renovacion del boleto
+    - cuando tengo que renovar el boleto
+    - el boleto no se me renovo que hago
+    - como es el tramite de renovacion anual
+    - la renovacion del boleto es obligatoria
+    - hay que volver a inscribirse para renovar
+    - cual es la fecha de renovacion del boleto
+    - se renueva el beneficio en el siguiente año
+    - pasos para renovar mi boleto
+    - tengo que presentar papeles para renovar
+    - la renovacion es automatica si sigo estudiando
+    - como se activa la renovacion del boleto
+    - cuanto tarda la renovacion del boleto
 
 - intent: preguntar_boleto_viajes
   examples: |
-    - ¿Cuántos viajes incluye el boleto?
-    - límite de viajes
+    - cuantos viajes incluye el boleto
+    - limite de viajes
     - viajes gratuitos
-    - cuántos pasajes tengo con el boleto
-    - cuántos viajes cubre el boleto
-    - límite de pasajes
+    - cuantos pasajes tengo con el boleto
+    - cuantos viajes cubre el boleto
+    - limite de pasajes
+    - el boleto tiene un tope de viajes mensuales
+    - cuantos viajes me dan por mes
+    - se acumulan los viajes no usados
+    - el boleto es ilimitado
+    - cuantos viajes son gratis
+    - el tope de viajes diarios del boleto
+    - cuantos viajes puedo hacer por dia con el boleto
+    - si uso todos los viajes que pasa
+    - hay un maximo de viajes
+    - cuantos boletos cubre el beneficio
+    - el boleto cubre viajes de ida y vuelta
+    - la cantidad de pasajes del boleto estudiantil
+    - se recargan los viajes automaticamente
+    - que pasa si me quedo sin viajes
 
 - intent: preguntar_boleto_aplicacion
   examples: |
-    - ¿Aplica en subte, tren, colectivo?
+    - aplica en subte tren colectivo
     - sirve para subte
-    - qué transportes incluye el boleto
+    - que transportes incluye el boleto
     - puedo usarlo en el colectivo y tren
     - vale para todos los transportes
     - sirve para tren
+    - el boleto se usa en los micros
+    - sirve el boleto para viajes de larga distancia
+    - el boleto es para todos los colectivos
+    - que lineas de colectivo acepta el boleto
+    - puedo usar el boleto estudiantil en el subte
+    - sirve para el premetro
+    - se usa en el metrobus
+    - el boleto es solo para el transporte publico
+    - puedo usar el boleto fuera de mi ciudad
+    - en que medios de transporte funciona el boleto
+    - que pasa si lo uso en un transporte no incluido
+    - el boleto sirve para los trenes de corta distancia
+    - que transportes cubre el beneficio del boleto
+    - aplica en los peajes
 
 - intent: preguntar_boleto_cambio_carrera
   examples: |
-    - ¿Qué pasa si cambio de carrera?
+    - que pasa si cambio de carrera
     - cambio de carrera boleto
     - si me cambio de carrera pierdo el boleto
     - tengo que informar si cambio de carrera
     - me afecta si me cambio de carrera
     - sigo teniendo el boleto si cambio de carrera
+    - perdi el boleto por cambiar de carrera
+    - el cambio de carrera anula el beneficio
+    - tengo que volver a tramitar el boleto si cambio de carrera
+    - que pasos debo seguir si me mudo de carrera
+    - hay que actualizar los datos por cambio de carrera
+    - que pasa con el boleto si me paso a otra facultad
+    - me dan de baja el boleto si dejo mi carrera
+    - si me cambio de carrera el boleto sigue activo
+    - debo informar el cambio de plan de estudios
+    - cambio de facultad y boleto estudiantil
+    - tengo que hacer un nuevo tramite de boleto si cambio de carrera
+    - pierdo la antiguedad del boleto por el cambio de carrera
+    - se mantiene el boleto si me cambio de carrera
+    - el boleto sirve si estudio dos carreras distintas
 
 - intent: preguntar_boleto_contacto_problemas
   examples: |
-    - Tengo problemas con mi boleto ¿Con quien puedo contactarme?
+    - tengo problemas con mi boleto con quien puedo contactarme
     - problemas con el boleto estudiantil
-    - dónde reclamo por el boleto
+    - donde reclamo por el boleto
     - contacto por problemas del boleto
-    - a quién consulto por el boleto
-    - dónde me quejo por el boleto
-    - teléfono de contacto por el boleto
+    - a quien consulto por el boleto
+    - donde me quejo por el boleto
+    - telefono de contacto por el boleto
+    - a que numero llamo si tengo un problema con la SUBE
+    - donde se atiende por inconvenientes del boleto
+    - mail de contacto por el boleto estudiantil
+    - hay un numero de atencion al cliente para el boleto
+    - donde puedo consultar el estado de mi tramite de boleto
+    - que hacer si el boleto no funciona
+    - como me comunico con la oficina del boleto
+    - necesito ayuda con mi boleto estudiantil
+    - centro de ayuda por el boleto
+    - donde consulto mis dudas del boleto
+    - quien me puede solucionar el problema del boleto
+    - a donde mando un mail por un reclamo del boleto
+    - telefono de la linea de atencion para el boleto
 
+####################################################################################################################
+####################################################################################################################
 # --- ÁREA DE DEPORTES (7 preguntas) ---
+####################################################################################################################
+####################################################################################################################
 - intent: preguntar_deportes_oferta
   examples: |
-    - ¿Qué deportes ofrece la facultad durante el año?
-    - hay clases de básquet?
+    - que deportes ofrece la facultad durante el año
+    - hay clases de basquet
     - que deportes hay en la facultad
     - que deportes ofrecen
     - que deportes hay
     - que deportes tienen
     - que deportes se practican
     - que actividades deportivas puedo hacer
-    - qué disciplinas deportivas ofrece la facultad
+    - que disciplinas deportivas ofrece la facultad
     - quiero hacer voley
     - hay deportes en la facultad
+    - listado de deportes que ofrece la universidad
+    - hay algun deporte de contacto
+    - ofrecen clases de yoga o gimnasia
+    - que deportes grupales se pueden practicar
+    - que opciones tengo para hacer actividad fisica
+    - quiero saber si hay handball
+    - que disciplinas deportivas estan disponibles para estudiantes
+    - hay canchas para usar
+    - existe algun equipo de futbol en la facultad
 
 - intent: preguntar_deportes_horarios
   examples: |
-    - ¿Dónde puedo consultar los días y horarios de entrenamiento?
-    - horarios de fútbol
+    - donde puedo consultar los dias y horarios de entrenamiento
+    - horarios de futbol
     - horarios de entrenamiento
     - quiero saber los horarios de entrenamientos
-    - dónde están los horarios de entrenamiento
-    - dónde publican los horarios de deportes
-    - horarios de básquet
+    - donde estan los horarios de entrenamiento
+    - donde publican los horarios de deportes
+    - horarios de basquet
+    - cuando se entrena voley
+    - cuales son los horarios de las practicas deportivas
+    - hay entrenamientos por la mañana
+    - me dan el cronograma de deportes
+    - los horarios de los deportes de la facultad
+    - a que hora es la practica de handball
+    - donde encuentro el calendario de actividades deportivas
+    - hay actividades los fines de semana
+    - a que hora terminan los entrenamientos
+    - puedo consultar los horarios de deportes online
+    - cuales son los dias de entrenamiento
+    - donde veo la agenda de deportes
+    - a que hora se hace gimnasia
 
 - intent: preguntar_deportes_documentacion
   examples: |
-    - ¿Qué documentación necesito para inscribirme en una actividad deportiva?
+    - que documentacion necesito para inscribirme en una actividad deportiva
     - papeles para deportes
-    - documentación deportes
+    - documentacion deportes
     - papeles para anotarme en deportes
-    - apto médico para deportes
+    - apto medico para deportes
     - documentos para hacer deporte
+    - piden certificado medico para hacer deporte
+    - tengo que llevar fotocopia del DNI para anotarme en futbol
+    - que papeles son necesarios para la inscripcion deportiva
+    - necesito el certificado de alumno regular para hacer deporte
+    - formulario de inscripcion a deportes
+    - es obligatoria la ficha medica para la actividad deportiva
+    - que necesito presentar para practicar deporte
+    - la documentacion para voley
+    - donde se entrega el apto medico
+    - necesito llevar alguna foto carnet para deportes
+    - que tramites tengo que hacer para anotarme en basquet
+    - el apto medico tiene que ser de un medico especifico
+    - donde consigo el formulario de inscripcion a deportes
+    - que comprobantes me piden para el area de deportes
 
 - intent: preguntar_deportes_competencias
   examples: |
-    - ¿Cómo me entero de las próximas competencias internas o externas?
+    - como me entero de las proximas competencias internas o externas
     - fechas de competencias
     - hay competencias
-    - próxima competencia
+    - proxima competencia
     - aviso de competencias
-    - cuándo compiten
+    - cuando compiten
     - donde veo las fechas de competencia
+    - hay torneos interfacultades
+    - cuando son los partidos de futbol
+    - quiero saber si hay algun campeonato pronto
+    - donde publican los resultados de las competencias deportivas
+    - cuando es el proximo torneo de voley
+    - cronograma de competencias deportivas
+    - hay que inscribirse para participar en las competencias
+    - cuando juega el equipo de basquet
+    - donde puedo seguir las novedades de los equipos
+    - fechas de los juegos universitarios
+    - hay competencias de natacion
+    - donde se informa sobre los torneos
+    - cuando son las finales deportivas
 
 - intent: preguntar_deportes_varios
   examples: |
-    - ¿Puedo inscribirme en más de un deporte?
-    - hacer más de un deporte
+    - puedo inscribirme en mas de un deporte
+    - hacer mas de un deporte
     - dos deportes a la vez
-    - puedo hacer fútbol y básquet a la vez
+    - puedo hacer futbol y basquet a la vez
     - puedo inscribirme a dos deportes
-    - hacer más de una actividad deportiva
+    - hacer mas de una actividad deportiva
+    - hay limite en la cantidad de deportes
+    - puedo practicar voley y natacion
+    - es posible hacer multiples disciplinas deportivas
+    - si hago un deporte me puedo anotar en otro
+    - son compatibles las actividades deportivas
+    - hay que pagar por cada deporte extra
+    - puedo ir a dos entrenamientos de distintos deportes
+    - me puedo anotar en tres deportes diferentes
+    - es compatible hacer deporte y gimnasia
+    - si me anoto en uno puedo cambiar despues
+    - hay alguna restriccion para hacer varios deportes
+    - puedo participar en varios equipos
+    - es posible tener mas de un deporte
+    - se solapan los horarios si hago dos deportes
 
 - intent: preguntar_deportes_experiencia
   examples: |
-    - ¿Debo tener experiencia previa en el deporte?
+    - debo tener experiencia previa en el deporte
     - necesito experiencia
-    - si no sé jugar, puedo participar
+    - si no se jugar puedo participar
     - tengo que ser bueno para anotarme
-    - si nunca jugué, puedo ir
+    - si nunca jugue puedo ir
     - es necesario saber jugar antes
+    - son clases para principiantes
+    - puedo unirme si no tengo nivel
+    - hay distintos niveles de entrenamiento
+    - el equipo es solo para avanzados
+    - se necesita experiencia previa en voley
+    - hay que hacer una prueba de nivel para basquet
+    - si mi nivel es basico puedo participar
+    - hay clases desde cero
+    - el entrenamiento es solo para quienes ya saben
+    - no tengo experiencia en futbol puedo anotarme
+    - es obligatorio tener experiencia en deportes
+    - se aprende el deporte desde el inicio
+    - puedo ir a probar sin experiencia
+    - se exige algun nivel deportivo
 
 - intent: preguntar_deportes_obligacion
   examples: |
-    - ¿Es obligatorio participar en las competencias que organiza la facultad?
+    - es obligatorio participar en las competencias que organiza la facultad
     - es obligatorio competir
     - tengo que participar en la competencia
     - me obligan a competir
     - es necesario ir a las competencias
     - puedo solo entrenar
+    - es obligatorio ir a los partidos
+    - debo competir si formo parte del equipo
+    - si solo quiero entrenar puedo
+    - si me anoto en el deporte tengo que representar a la facultad
+    - hay penalidad si no voy a competir
+    - es una actividad con compromiso de competencia
+    - la asistencia a torneos es obligatoria
+    - puedo no ir a competir si entreno
+    - me fuerzan a ir a los partidos
+    - es necesario estar en el equipo de competencia
+    - debo cumplir un minimo de asistencia a competencias
+    - el entrenamiento es solo para competir
+    - tengo que participar en todas las competencias
+    - existe la opcion de solo recreacion deportiva
 
+####################################################################################################################
+####################################################################################################################
 # --- ÁREA DE COMEDOR (7 preguntas) ---
+####################################################################################################################
+####################################################################################################################
+
 - intent: preguntar_comedor_horarios
   examples: |
-    - ¿Cuáles son los horarios del comedor universitario?
+    - cuales son los horarios del comedor universitario
     - horarios del comedor
-    - a qué hora abre el comedor
-    - a qué hora puedo retirar la vianda
+    - a que hora abre el comedor
+    - a que hora puedo retirar la vianda
     - horarios para la vianda
-    - cuáles son los horarios de atención del comedor
+    - cuales son los horarios de atencion del comedor
+    - hasta que hora puedo comprar el ticket
+    - a que hora cierra el comedor universitario
+    - en que franja horaria se sirve la comida
+    - horario de entrega de viandas
+    - el comedor abre los fines de semana
+    - horario de retiro del almuerzo
+    - a que hora empieza el servicio de cena
+    - el comedor esta abierto todo el dia
+    - cual es el horario de la tarde
+    - a que hora es mejor ir al comedor
+    - tienen horario reducido en vacaciones
+    - a que hora abre la ventanilla de pago
+    - cual es el horario de atencion al publico
+    - hasta que hora se puede retirar la comida
 
 - intent: preguntar_comedor_precios
   examples: |
-    - ¿Cuánto cuestan las viandas?
-    - cuánto cuesta el menú
+    - cuanto cuestan las viandas
+    - cuanto cuesta el menu
     - precio de las viandas
     - precios del comedor
-    - cuánto sale la comida
-    - costo del menú
+    - cuanto sale la comida
+    - costo del menu
     - precio de la vianda estudiantil
+    - cual es el valor de la comida para estudiantes
+    - hay descuento para alumnos
+    - cuanto cuesta el menu para docentes
+    - el precio de la vianda incluye bebida
+    - cual es el costo del cubierto
+    - el precio es por dia o semanal
+    - cuanto cuesta el menu vegetariano
+    - hay algun subsidio en el precio
+    - cuanto sale la vianda del comedor
+    - cual es el precio actual del menu universitario
+    - se puede comprar porcion extra
+    - cuanto cuesta el postre
+    - hay que pagar el servicio de mesa
 
 - intent: preguntar_comedor_menu
   examples: |
-    - ¿Qué incluye el menú diario?
-    - qué hay para comer hoy
-    - información del menú semanal
-    - menú del día
-    - tienen opción vegetariana
-    - puedo ver el menú
-    - qué opciones de menú hay
+    - que incluye el menu diario
+    - que hay para comer hoy
+    - informacion del menu semanal
+    - menu del dia
+    - tienen opcion vegetariana
+    - puedo ver el menu
+    - que opciones de menu hay
+    - cual es el menu de esta semana
+    - ofrecen comida vegana
+    - hay opciones para celiacos
+    - que tipo de comida sirven en el comedor
+    - el menu incluye postre o bebida
+    - donde se publica el menu
+    - que plato principal sirven
+    - el menu es siempre fijo
+    - hay variedad de ensaladas
+    - el menu es apto para diabeticos
+    - hay opciones de menu saludable
+    - cuales son los ingredientes del menu de hoy
+    - tienen opcion de sandwich o solo plato
 
 - intent: preguntar_comedor_inscripcion
   examples: |
-    - ¿Cómo me inscribo para poder usar el comedor universitario?
-    - cómo anotarme al comedor
-    - inscripción al comedor
-    - cómo me registro en el sistema del comedor
-    - qué necesito para inscribirme al comedor
+    - como me inscribo para poder usar el comedor universitario
+    - como anotarme al comedor
+    - inscripcion al comedor
+    - como me registro en el sistema del comedor
+    - que necesito para inscribirme al comedor
     - registro de usuario del comedor
+    - tengo que registrarme para usar el comedor
+    - cuales son los pasos para la inscripcion al comedor
+    - donde se hace el registro de alumno para el comedor
+    - hay un formulario de inscripcion para el servicio
+    - la inscripcion al comedor es obligatoria
+    - como consigo mi credencial de comedor
+    - que piden para anotarse al comedor universitario
+    - donde me registro para sacar viandas
+    - tengo que presentar papeles para usar el comedor
+    - como se activa mi cuenta para el comedor
+    - es un tramite online o presencial
+    - como obtengo el numero de usuario del comedor
+    - necesito una clave para usar el servicio
+    - donde me dan de alta para el comedor
 
 - intent: preguntar_comedor_compra
   examples: |
-    - ¿Cómo se realiza la compra?
-    - dónde compro la vianda
-    - cómo pagar el menú
-    - cómo se paga la vianda
+    - como se realiza la compra
+    - donde compro la vianda
+    - como pagar el menu
+    - como se paga la vianda
     - se puede pagar con Mercado Pago
-    - cómo compro el ticket de la vianda
+    - como compro el ticket de la vianda
+    - se puede pagar en efectivo la vianda
+    - aceptan tarjeta de debito o credito
+    - se compra el menu el mismo dia
+    - cual es el metodo de pago de la vianda
+    - donde se realiza el pago del menu
+    - hay que comprar un ticket fisico
+    - se puede pagar con QR
+    - donde se retiran los tickets de comida
+    - como se compra la comida del comedor
+    - se puede comprar la vianda por internet
+    - como se hace la compra anticipada
+    - hay que pagar con la tarjeta universitaria
+    - se puede pagar por transferencia la vianda
+    - se compra en la caja del comedor
 
 - intent: preguntar_comedor_reserva
   examples: |
-    - ¿Hay que reservar el almuerzo con anticipación?
+    - hay que reservar el almuerzo con anticipacion
     - tengo que reservar
     - reservar almuerzo
-    - con cuánto tiempo debo reservar
-    - hasta cuándo puedo comprar las viandas
-    - límite de compra de viandas
+    - con cuanto tiempo debo reservar
+    - hasta cuando puedo comprar las viandas
+    - limite de compra de viandas
+    - puedo reservar el menu el mismo dia
+    - se debe pedir la vianda antes
+    - hay un cupo maximo de viandas
+    - a que hora cierra la reserva de viandas
+    - es necesario reservar la comida del comedor
+    - cuanto antes debo comprar la vianda
+    - se puede cancelar una reserva de vianda
+    - hay que reservar todas las viandas de la semana
+    - cual es el plazo para la reserva
+    - donde se hace la reserva de la comida
+    - la reserva se hace por internet
+    - si no reservo me quedo sin vianda
+    - la compra de vianda es una reserva
+    - limite de tiempo para reservar
 
 - intent: preguntar_comedor_contacto
   examples: |
-    - ¿Dónde me puedo comunicar ante cualquier consulta del comedor?
+    - donde me puedo comunicar ante cualquier consulta del comedor
     - contacto comedor
-    - a dónde llamo por el comedor
+    - a donde llamo por el comedor
     - mail del comedor
-    - dónde me comunico por dudas del comedor
+    - donde me comunico por dudas del comedor
     - contacto del servicio de comedor
+    - telefono para consultas sobre viandas
+    - donde reclamo por un problema con la comida
+    - direccion de correo electronico del comedor
+    - hay un numero de telefono del comedor
+    - donde me atiende el personal del comedor
+    - quien me puede ayudar con la inscripcion al comedor
+    - puedo ir a la oficina del comedor por dudas
+    - cual es el contacto de la administracion del comedor
+    - telefono de atencion al estudiante por comedor
+    - red social del comedor universitario
+    - a que mail envio una queja
+    - numero para contactar a los responsables del comedor
+    - necesito el telefono del area de comedor
+    - donde se hacen los reclamos del comedor
 
+####################################################################################################################
+####################################################################################################################
 # --- ÁREA DE BOLSA DE TRABAJO (7 preguntas) ---
+####################################################################################################################
+####################################################################################################################
+
 - intent: preguntar_bolsa_inscripcion
   examples: |
-    - ¿Cómo me inscribo en la bolsa de trabajo?
+    - como me inscribo en la bolsa de trabajo
     - quiero inscribirme en la bolsa de trabajo
-    - cómo me registro en la bolsa
+    - como me registro en la bolsa
     - anotarme en la bolsa de trabajo
-    - cómo me anoto en la bolsa de trabajo
+    - como me anoto en la bolsa de trabajo
     - pasos para inscribirme en la bolsa
     - registro de la bolsa de trabajo
+    - cual es el procedimiento de inscripcion a la bolsa
+    - donde se hace la inscripcion a la bolsa de empleo
+    - la inscripcion a la bolsa de trabajo es online
+    - como se accede a la bolsa de trabajo de la facultad
+    - que tengo que hacer para formar parte de la bolsa
+    - hay un formulario de registro para la bolsa de trabajo
+    - puedo registrarme en la bolsa de trabajo
+    - donde me doy de alta en el sistema de empleo
+    - necesito una cuenta para la bolsa de trabajo
+    - como accedo al portal de empleo
+    - es necesario ser alumno para inscribirse en la bolsa
+    - me explican como ingresar a la bolsa de trabajo
+    - como creo mi perfil en la bolsa de trabajo
 
 - intent: preguntar_bolsa_cv_subida
   examples: |
-    - ¿Dónde subo mi currículum vitae?
-    - dónde subo mi CV
-    - cómo cargo mi CV
-    - cargar currículum
-    - dónde tengo que mandar mi currículum
-    - cómo envío mi CV
-    - adjuntar currículum a la bolsa
+    - donde subo mi curriculum vitae
+    - donde subo mi CV
+    - como cargo mi CV
+    - cargar curriculum
+    - donde tengo que mandar mi curriculum
+    - como envio mi CV
+    - adjuntar curriculum a la bolsa
+    - formato para subir el curriculum
+    - donde se carga el CV en la plataforma de empleo
+    - puedo mandar el CV por mail a la bolsa de trabajo
+    - como adjunto mi curriculum a la postulacion
+    - hay un apartado para subir el CV
+    - es obligatorio subir el curriculum para postularme
+    - puedo enviar el curriculum en PDF
+    - donde cargo mis antecedentes laborales
+    - se puede completar el CV en la plataforma
+    - donde tengo que entregar mi CV
+    - como registro mi curriculum en la bolsa
+    - cual es el limite de tamaño para subir el CV
+    - se necesita una carta de presentacion ademas del CV
 
 - intent: preguntar_bolsa_ofertas
   examples: |
-    - ¿Cómo me entero de las ofertas laborales disponibles?
+    - como me entero de las ofertas laborales disponibles
     - ofertas laborales
     - hay trabajos disponibles
     - me mandan ofertas por correo
-    - cómo recibo las propuestas laborales
-    - quién me manda las ofertas
+    - como recibo las propuestas laborales
+    - quien me manda las ofertas
     - formas de ver las ofertas de trabajo
+    - donde se publican las ofertas de empleo
+    - como se si hay ofertas de trabajo en mi carrera
+    - hay un newsletter con ofertas de empleo
+    - como me entero de las nuevas busquedas laborales
+    - hay ofertas para recien egresados
+    - donde consulto las vacantes disponibles
+    - la bolsa de trabajo avisa por email
+    - puedo filtrar las ofertas por tipo de trabajo
+    - en que seccion veo las propuestas de empleo
+    - donde encuentro el listado de empresas que buscan
+    - las ofertas son solo para estudiantes avanzados
+    - como notifican las oportunidades laborales
+    - que tipo de ofertas de trabajo tienen
 
 - intent: preguntar_bolsa_postulacion_multiple
   examples: |
-    - ¿Puedo postularme a más de una oferta a la vez?
+    - puedo postularme a mas de una oferta a la vez
     - postularme a varias ofertas
-    - si me postulo a una, ¿puedo postularme a otra?
-    - hay límite de postulaciones
+    - si me postulo a una puedo postularme a otra
+    - hay limite de postulaciones
     - puedo aplicar a varias ofertas a la vez
+    - se pueden enviar varias postulaciones
+    - es compatible postularme a dos empleos al mismo tiempo
+    - tengo que elegir solo una oferta para postularme
+    - la bolsa me restringe las postulaciones
+    - hay un maximo de ofertas a las que puedo aplicar
+    - que pasa si me postulo a muchas ofertas
+    - la postulacion a una oferta me inhabilita para otra
+    - puedo aplicar a varias busquedas laborales
+    - es posible postularme a mas de un trabajo
+    - si aplico a varias propuestas me descartan
+    - se puede postular a mas de una vacante
+    - la postulacion multiple esta permitida
+    - hay restriccion de cantidad de postulaciones
+    - puedo aplicar a un trabajo de medio tiempo y uno de tiempo completo
+    - si me postulo a dos ofertas me contactan por ambas
 
 - intent: preguntar_bolsa_contacto_empresa
   examples: |
-    - ¿Las empresas me contactan directamente a mí o lo hacen a través de la facultad?
+    - las empresas me contactan directamente a mi o lo hacen a traves de la facultad
     - quien me contacta
     - me llama la empresa o la facultad
-    - quién me avisa si quedé seleccionado
+    - quien me avisa si quede seleccionado
     - el primer contacto laboral
+    - la facultad intermedia el contacto con la empresa
+    - la empresa tiene mi telefono o el de la facultad
+    - como me notifican si me seleccionan para una entrevista
+    - quien me da el contacto de la empresa
+    - me avisa la bolsa de trabajo si me eligen
+    - la empresa me contacta por mail directamente
+    - la universidad envia mis datos a las empresas
+    - es la facultad quien me llama para el trabajo
+    - cual es el protocolo de contacto con las empresas
+    - la bolsa de trabajo es intermediaria
+    - la empresa recibe mi CV y me contacta
+    - quien me informa sobre el proceso de seleccion
+    - el contacto es directo con el empleador
+    - la facultad me da el contacto de recursos humanos
+    - quien me contacta primero despues de postularme
 
 - intent: preguntar_bolsa_eliminar_datos
   examples: |
-    - ¿Cómo elimino mis datos de la bolsa de trabajo si ya no quiero recibir propuestas?
+    - como elimino mis datos de la bolsa de trabajo si ya no quiero recibir propuestas
     - eliminar mis datos
     - darme de baja de la bolsa de trabajo
-    - no quiero recibir más propuestas de trabajo
+    - no quiero recibir mas propuestas de trabajo
     - me quiero dar de baja de la base de datos de trabajo
-    - cómo me desinscribo de la bolsa
+    - como me desinscribo de la bolsa
+    - como cancelo mi suscripcion a la bolsa de empleo
+    - donde solicito la baja de la bolsa de trabajo
+    - puedo borrar mi perfil de la plataforma de empleo
+    - como dejo de recibir notificaciones de trabajo
+    - hay que mandar un mail para eliminar los datos
+    - quiero que borren mi curriculum de la base de datos
+    - cual es el proceso para darme de baja de la bolsa
+    - como desactivo mi cuenta de la bolsa de trabajo
+    - puedo pausar mi perfil en la bolsa de trabajo
+    - donde se gestiona la eliminacion de datos
+    - me dan de baja de la bolsa automaticamente
+    - no quiero que las empresas vean mi CV
+    - como retiro mi consentimiento de uso de datos
+    - donde me doy de baja de la bolsa de trabajo de la facultad
 
 - intent: preguntar_bolsa_cv_actualizar
   examples: |
-    - ¿Puedo actualizar mi CV después de haberlo enviado?
+    - puedo actualizar mi CV despues de haberlo enviado
     - actualizar mi CV
-    - modificar mi currículum
-    - puedo cambiar el CV que envié
-    - modificar mi currículum de la bolsa
+    - modificar mi curriculum
+    - puedo cambiar el CV que envie
+    - modificar mi curriculum de la bolsa
     - quiero subir mi CV actualizado
+    - como cambio mi curriculum en la plataforma
+    - puedo subir una nueva version de mi CV
+    - donde edito mi curriculum en el portal de empleo
+    - tengo que mandar el CV actualizado a cada postulacion
+    - el CV se actualiza automaticamente en las postulaciones
+    - cuanto tardan en actualizar mi curriculum
+    - puedo editar los datos de mi CV
+    - si actualizo mi CV se notifica a las empresas
+    - hay un limite para actualizar el curriculum
+    - como subo un nuevo curriculum vitae
+    - el CV que se ve es el ultimo que subi
+    - puedo reemplazar el archivo de mi curriculum
+    - la actualizacion del CV es inmediata
+    - puedo modificar solo una parte de mi curriculum
 
+####################################################################################################################
+####################################################################################################################
 # --- ÁREA DE PASANTÍAS (20 preguntas) ---
+####################################################################################################################
+####################################################################################################################
 - intent: preguntar_pasantias_que_son
   examples: |
-    - ¿Qué son las pasantías y quiénes pueden realizarlas?
-    - ¿Qué es una pasantía?
+    - que son las pasantias y quienes pueden realizarlas
+    - que es una pasantia
     - que son las pasantias
     - que es una pasantias
-    - definición de pasantías
-    - quiénes pueden hacer pasantías
-    - quiénes pueden hacer las pasantías educativas
-    - requisitos básicos para pasantía
-    - definición de pasantía
+    - definicion de pasantias
+    - quienes pueden hacer pasantias
+    - quienes pueden hacer las pasantias educativas
+    - requisitos basicos para pasantia
+    - definicion de pasantia
+    - cual es la finalidad de las pasantias
+    - alumnos de que año pueden hacer pasantias
+    - que es el regimen de pasantias
+    - en que consisten las pasantias universitarias
+    - que estudiantes estan habilitados para pasantias
+    - cual es el objetivo de una pasantia
+    - pasantia es igual a trabajo
+    - quien puede acceder a una pasantia
+    - que diferencia hay entre pasantia y empleo
+    - que es una pasantia educativa universitaria
+    - quienes son los destinatarios de las pasantias
 
 - intent: preguntar_pasantias_inscripcion
   examples: |
-    - ¿Cómo me inscribo para una pasantía?
-    - quiero anotarme en una pasantía
-    - inscripción para pasantías
-    - pasos para anotarme en pasantías
-    - cómo aplicar a una pasantía
-    - quiero hacer una pasantía
+    - como me inscribo para una pasantia
+    - quiero anotarme en una pasantia
+    - inscripcion para pasantias
+    - pasos para anotarme en pasantias
+    - como aplicar a una pasantia
+    - quiero hacer una pasantia
+    - donde me registro para las pasantias
+    - cual es el formulario de inscripcion a pasantias
+    - como es el proceso de inscripcion para pasantias
+    - donde me inscribo para conseguir una pasantia
+    - como se inicia el tramite para aplicar a pasantias
+    - tengo que inscribirme en la facultad para pasantias
+    - me explican como me anoto a las pasantias
+    - donde se hace la postulacion para una pasantia
+    - cual es el procedimiento para postular a pasantias
+    - como me registro en el sistema de pasantias
+    - quiero que me tomen en cuenta para una pasantia
+    - hay que llenar una solicitud para las pasantias
+    - donde subo mis datos para pasantias
+    - como hago para aplicar a una propuesta de pasantia
 
 - intent: preguntar_pasantias_requisitos
   examples: |
-    - ¿Qué requisitos debo cumplir para postularme?
-    - requisitos para hacer pasantías
-    - que necesito para una pasantía
-    - cuantas materias debo tener aprobadas para una pasantía
-    - requisitos de materias para pasantías
-    - condiciones para hacer pasantía
+    - que requisitos debo cumplir para postularme
+    - requisitos para hacer pasantias
+    - que necesito para una pasantia
+    - cuantas materias debo tener aprobadas para una pasantia
+    - requisitos de materias para pasantias
+    - condiciones para hacer pasantia
+    - que promedio necesito para una pasantia
+    - hay algun requisito de edad para pasantias
+    - piden un porcentaje de carrera aprobado para pasantia
+    - tengo que tener experiencia previa
+    - requisitos academicos para pasantias
+    - que porcentaje de creditos se necesita
+    - hay requisitos de idioma para las pasantias
+    - es necesario ser alumno regular para pasantia
+    - necesito tener mi CV actualizado
+    - que documentacion academica me piden
+    - cuales son los requerimientos para postular
+    - que tengo que cumplir para que me acepten en una pasantia
+    - piden un minimo de asistencias
+    - requisitos para pasantias en el ultimo año de carrera
 
 - intent: preguntar_pasantias_publicacion
   examples: |
-    - ¿Dónde se publican las ofertas de pasantías disponibles?
-    - ofertas de pasantías
-    - dónde veo las pasantías
-    - las ofertas de pasantía se publican
-    - dónde encuentro las propuestas
-    - cómo me entero de las pasantías
+    - donde se publican las ofertas de pasantias disponibles
+    - ofertas de pasantias
+    - donde veo las pasantias
+    - las ofertas de pasantia se publican
+    - donde encuentro las propuestas
+    - como me entero de las pasantias
+    - la facultad publica las pasantias en algun lugar
+    - donde consulto el listado de pasantias
+    - me mandan las ofertas de pasantia por mail
+    - hay un portal de pasantias
+    - en que seccion de la web estan las pasantias
+    - donde se exponen las busquedas de pasantias
+    - hay algun tablero de pasantias
+    - las ofertas de pasantia son solo para mi carrera
+    - con que frecuencia se publican las nuevas pasantias
+    - donde veo los avisos de pasantia
+    - la bolsa de trabajo es donde estan las pasantias
+    - donde estan las oportunidades de pasantia
+    - la oficina de pasantias informa por algun medio
+    - como avisan de las nuevas pasantias
 
 - intent: preguntar_pasantias_documentacion
   examples: |
-    - ¿Qué documentación debo presentar para inscribirme a pasantías?
-    - documentos pasantías
-    - papeles para pasantías
-    - papeles para inscribirme en pasantías
-    - documentación necesaria para pasantía
-    - convenios de pasantía
+    - que documentacion debo presentar para inscribirme a pasantias
+    - documentos pasantias
+    - papeles para pasantias
+    - papeles para inscribirme en pasantias
+    - documentacion necesaria para pasantia
+    - convenios de pasantia
+    - que papeles son necesarios para el contrato de pasantia
+    - hay que presentar libreta de estudiante para pasantia
+    - que documentacion se necesita para el acuerdo de pasantia
+    - necesito el curriculum vitae para aplicar
+    - hay que firmar algun documento en la facultad
+    - el convenio de pasantia quien lo firma
+    - que debo entregar para formalizar la pasantia
+    - piden certificado de materias aprobadas para pasantia
+    - donde consigo los formularios de pasantias
+    - que papeles tengo que llevar a la empresa
+    - hay que llevar fotocopia del DNI para pasantias
+    - documentos que pide la facultad para la pasantia
+    - se necesita un seguro para hacer pasantia
+    - tengo que presentar constancia de alumno regular
 
 - intent: preguntar_pasantias_multiple
   examples: |
-    - ¿Puedo postularme a más de una pasantía al mismo tiempo?
+    - puedo postularme a mas de una pasantia al mismo tiempo
     - postular a varias pasantias
-    - más de una pasantía
-    - si me postulo a varias, ¿puedo quedar en más de una?
-    - puedo hacer dos pasantías a la vez
+    - mas de una pasantia
+    - si me postulo a varias puedo quedar en mas de una
+    - puedo hacer dos pasantias a la vez
     - postular a varias al mismo tiempo
+    - hay limite en las postulaciones a pasantias
+    - es posible postularme a dos pasantias distintas
+    - la postulacion a varias pasantias me perjudica
+    - puedo estar en el proceso de seleccion de varias pasantias
+    - hay alguna restriccion para postular a pasantias multiples
+    - puedo tener dos pasantias al mismo tiempo
+    - si me eligen en una pasantia puedo seguir postulando a otra
+    - es compatible postular a diferentes ofertas de pasantia
+    - si me eligen para una debo rechazar las otras
+    - cuantas pasantias se pueden hacer en total
+    - se puede tener mas de un convenio de pasantia
+    - puedo postular a pasantias en empresas distintas
+    - es posible aplicar a mas de una oferta
+    - la facultad me limita la cantidad de postulaciones
 
 - intent: preguntar_pasantias_remuneracion
   examples: |
-    - ¿Las pasantías son remuneradas?
-    - las pasantías son pagas
-    - si la pasantía tiene sueldo
-    - las pasantías tienen sueldo
-    - cuánto me pagan por la pasantía
-    - es paga la pasantía
+    - las pasantias son remuneradas
+    - las pasantias son pagas
+    - si la pasantia tiene sueldo
+    - las pasantias tienen sueldo
+    - cuanto me pagan por la pasantia
+    - es paga la pasantia
+    - hay que pagar por hacer pasantia
+    - cual es la remuneracion de una pasantia
+    - el estipendio de las pasantias es obligatorio
+    - cuanto es el pago de una pasantia
+    - el sueldo de la pasantia es por hora
+    - las pasantias se pagan con el sueldo minimo
+    - existe una asignacion estimulo en las pasantias
+    - cuanto se cobra por pasantia
+    - el pago de la pasantia es por mes
+    - la pasantia incluye viaticos
+    - hay pasantias no remuneradas
+    - cual es el monto de la asignacion de pasantia
+    - la ley exige que las pasantias sean pagas
+    - el monto de la remuneracion lo fija la empresa
 
 - intent: preguntar_pasantias_duracion
   examples: |
-    - ¿Cuánto dura una pasantía?
-    - duración de pasantía
-    - tiempo de pasantía
-    - cuánto tiempo duran las pasantías
-    - se puede extender la pasantía
-    - límite de tiempo de pasantía
+    - cuanto dura una pasantia
+    - duracion de pasantia
+    - tiempo de pasantia
+    - cuanto tiempo duran las pasantias
+    - se puede extender la pasantia
+    - limite de tiempo de pasantia
+    - cual es la duracion maxima de una pasantia
+    - las pasantias duran un año
+    - cual es la duracion minima de la pasantia
+    - la pasantia tiene un tiempo fijo
+    - la pasantia se puede renovar
+    - puedo acortar el tiempo de pasantia
+    - se puede extender el convenio de pasantia
+    - cuanto dura el contrato de pasantia
+    - las pasantias son por semestre
+    - cuanto tiempo total puedo hacer pasantias
+    - la duracion es diferente segun la pasantia
+    - hay algun limite de meses para la pasantia
+    - que pasa si la pasantia termina antes
+    - se puede prorrogar la pasantia
 
 - intent: preguntar_pasantias_horas_semanales
   examples: |
-    - ¿Cuántas horas semanales debo cumplir en una pasantía?
-    - cuantas horas son la pasantía
-    - horas por semana pasantía
-    - cuál es el tope de horas semanales
-    - cuántas horas por semana son
-    - carga horaria de la pasantía
+    - cuantas horas semanales debo cumplir en una pasantia
+    - cuantas horas son la pasantia
+    - horas por semana pasantia
+    - cual es el tope de horas semanales
+    - cuantas horas por semana son
+    - carga horaria de la pasantia
+    - cuantas horas diarias son las pasantias
+    - el limite de horas es de 20 semanales
+    - cual es la jornada de una pasantia
+    - la carga horaria es fija para todas las pasantias
+    - puedo trabajar mas horas si quiero
+    - cuantas horas tengo que ir por dia a la pasantia
+    - cuantas horas es la pasantia en total
+    - las horas de la pasantia son flexibles
+    - el horario de la pasantia es compatible con cursada
+    - cual es la maxima carga horaria semanal permitida
+    - el convenio de pasantia establece las horas
+    - la ley de pasantias dice cuantas horas son
+    - se puede trabajar menos horas de lo estipulado
+    - las horas de la pasantia son obligatorias
 
 - intent: preguntar_pasantias_cursada
   examples: |
-    - ¿La pasantía se puede hacer durante el período de cursada?
-    - pasantía y cursada a la vez
-    - si curso, ¿puedo hacer pasantía?
-    - puedo cursar y hacer pasantía
-    - son compatibles cursada y pasantía
+    - la pasantia se puede hacer durante el periodo de cursada
+    - pasantia y cursada a la vez
+    - si curso puedo hacer pasantia
+    - puedo cursar y hacer pasantia
+    - son compatibles cursada y pasantia
+    - la pasantia no interfiere con la cursada
+    - el horario de pasantia es flexible para la cursada
+    - puedo faltar a clases por la pasantia
+    - se puede hacer pasantia si tengo clases todo el dia
+    - hay que reducir la cursada por la pasantia
+    - la pasantia tiene prioridad sobre la cursada
+    - se pueden hacer materias mientras hago pasantia
+    - la pasantia se considera actividad academica
+    - que pasa si el horario de pasantia choca con una materia
+    - hay que elegir entre cursar y pasantia
+    - hay un limite de materias para hacer pasantia
+    - la facultad me ayuda a compatibilizar pasantia y cursada
+    - el tiempo de cursada se tiene en cuenta en la pasantia
+    - puedo hacer la pasantia en el turno noche
+    - tengo que tener disponibilidad total para la pasantia
 
 - intent: preguntar_pasantias_certificacion
   examples: |
-    - ¿Las pasantías otorgan algún tipo de certificación?
-    - dan certificado de pasantía
-    - certificación de pasantía
-    - me dan certificado al terminar la pasantía
+    - las pasantias otorgan algun tipo de certificacion
+    - dan certificado de pasantia
+    - certificacion de pasantia
+    - me dan certificado al terminar la pasantia
     - otorgan comprobante
+    - se entrega un certificado de finalizacion de pasantia
+    - la pasantia me da un certificado de experiencia
+    - hay un certificado de la facultad por la pasantia
+    - la pasantia se cuenta como experiencia laboral formal
+    - el certificado de pasantia es oficial
+    - me dan un diploma al terminar la pasantia
+    - el certificado lo da la empresa o la facultad
+    - la pasantia suma creditos academicos
+    - que documento me dan al finalizar la pasantia
+    - el certificado de pasantia es valido como experiencia
+    - necesito el certificado de pasantia para mi CV
+    - hay que pedir el certificado de pasantia
+    - se entrega un informe final de la pasantia
+    - la pasantia es parte de mi historial academico
+    - que validez tiene el certificado de pasantia
 
 - intent: preguntar_pasantias_seguimiento
   examples: |
-    - ¿La facultad realiza seguimiento durante la pasantía?
+    - la facultad realiza seguimiento durante la pasantia
     - seguimiento de la facultad
     - la facultad me sigue
-    - la UTN me controla en la pasantía
-    - hacen control de las pasantías
+    - la UTN me controla en la pasantia
+    - hacen control de las pasantias
     - hay seguimiento por parte de la facultad
+    - la facultad tiene un tutor de pasantia
+    - quien me supervisa durante la pasantia
+    - tengo que entregar informes a la facultad
+    - la universidad verifica mis tareas en la pasantia
+    - hay un seguimiento academico de la pasantia
+    - el tutor de la facultad me visita en la empresa
+    - la facultad se comunica con la empresa
+    - hay evaluaciones de seguimiento en la pasantia
+    - como es el control de la pasantia por la facultad
+    - hay reuniones de seguimiento con el tutor
+    - la facultad interviene si hay problemas
+    - quien es mi referente en la facultad por la pasantia
+    - el seguimiento es obligatorio para la pasantia
+    - tengo que reportar a la facultad
 
 - intent: preguntar_pasantias_ley_proteccion
   examples: |
-    - ¿Existe alguna ley que me proteja ante cualquier inconveniente?
+    - existe alguna ley que me proteja ante cualquier inconveniente
     - ley que me proteja
-    - leyes de pasantías
-    - qué ley regula las pasantías
-    - ley de pasantías que me protege
-    - tengo protección legal en la pasantía
+    - leyes de pasantias
+    - que ley regula las pasantias
+    - ley de pasantias que me protege
+    - tengo proteccion legal en la pasantia
+    - cual es la ley que ampara a los pasantes
+    - la ley de pasantias me cubre
+    - tengo derechos como pasante
+    - que normativa rige las pasantias universitarias
+    - que pasa si la empresa no cumple el convenio
+    - la ley me da derecho a vacaciones
+    - que proteccion tengo ante un accidente laboral
+    - el convenio de pasantia es legal
+    - la ley de pasantias me asegura la remuneracion
+    - quien garantiza el cumplimiento de la ley
+    - la pasantia tiene cobertura de ART
+    - la ley de pasantias es nacional
+    - que pasa si me exigen mas horas de la ley
+    - que ley es la que regula las pasantias educativas
 
 - intent: preguntar_pasantias_utilidad
   examples: |
-    - ¿Para qué me sirve hacer una pasantía?
-    - es útil la pasantía
+    - para que me sirve hacer una pasantia
+    - es util la pasantia
     - para que sirve
-    - qué beneficios me da la pasantía
-    - para qué sirve una pasantía
-    - es recomendable hacer pasantía
+    - que beneficios me da la pasantia
+    - para que sirve una pasantia
+    - es recomendable hacer pasantia
+    - que ventajas tiene hacer una pasantia
+    - la pasantia ayuda a conseguir trabajo despues
+    - la pasantia me da experiencia profesional
+    - me sirve la pasantia para la carrera
+    - la pasantia me ayuda a aplicar la teoria
+    - cuales son los beneficios de las pasantias
+    - es mejor hacer pasantia que trabajar
+    - que gano haciendo una pasantia
+    - es importante la pasantia para el futuro laboral
+    - la pasantia me ayuda a mi formacion
+    - el conocimiento que adquiero en la pasantia
+    - me ayuda a definir mi perfil profesional
+    - puedo conseguir un puesto fijo despues de la pasantia
+    - que me aporta la pasantia
 
 - intent: preguntar_pasantias_exceso_horas
   examples: |
-    - ¿Me pueden llegar a exigir más horas que las estipuladas en la ley de pasantías?
-    - me exigen más horas
-    - trabajo más horas
-    - la empresa me pide más horas
-    - qué hago si me exigen más tiempo
+    - me pueden llegar a exigir mas horas que las estipuladas en la ley de pasantias
+    - me exigen mas horas
+    - trabajo mas horas
+    - la empresa me pide mas horas
+    - que hago si me exigen mas tiempo
     - tengo que trabajar horas extras
+    - que pasa si trabajo mas de 20 horas semanales
+    - me pueden obligar a hacer horas extras
+    - si trabajo mas horas me las pagan
+    - hay un limite de horas en la pasantia
+    - que hago si mi pasantia excede las horas legales
+    - es legal trabajar mas horas de lo que dice la ley de pasantias
+    - quien controla las horas de pasantia
+    - debo rechazar las horas extras
+    - que hago si la empresa me presiona para trabajar mas
+    - el convenio de pasantia puede superar el limite de horas
+    - que sucede si trabajo mas de 6 horas diarias
+    - la facultad me protege si trabajo horas de mas
+    - la pasantia debe respetar las horas maximas
+    - se puede hacer mas de 30 horas semanales en pasantia
 
 - intent: preguntar_pasantias_contacto_problema
   examples: |
-    - ¿Ante cualquier inconveniente con quien puedo comunicarme?
-    - problema con la pasantía
+    - ante cualquier inconveniente con quien puedo comunicarme
+    - problema con la pasantia
     - contacto por inconvenientes
-    - a quién le pregunto por mi pasantía
-    - contacto para inconvenientes con pasantías
-    - dónde me comunico por problemas
+    - a quien le pregunto por mi pasantia
+    - contacto para inconvenientes con pasantias
+    - donde me comunico por problemas
+    - con quien hablo si tengo un problema en la pasantia
+    - a donde voy si tengo un conflicto en la empresa
+    - cual es el contacto de la secretaria de pasantias
+    - a que numero llamo por dudas de pasantias
+    - hay un referente en la facultad para pasantias
+    - donde se hace el reclamo por problemas en la pasantia
+    - necesito ayuda con mi pasantia
+    - quien me ayuda a resolver problemas en la pasantia
+    - mail de contacto por problemas de pasantias
+    - puedo hablar con mi tutor de pasantia
+    - donde me quejo si hay un incumplimiento de la empresa
+    - quien es el responsable de pasantias en la facultad
+    - telefono de la oficina de pasantias
+    - donde reporto un problema con mi pasantia
 
 - intent: preguntar_pasantias_proceso_gestion
   examples: |
-    - ¿Cómo es el proceso de gestión de pasantías?
-    - proceso de gestión
-    - cómo gestiono mi pasantía
-    - pasos para la gestión de pasantías
-    - cómo se gestiona una pasantía
-    - proceso de pasantías
+    - como es el proceso de gestion de pasantias
+    - proceso de gestion
+    - como gestiono mi pasantia
+    - pasos para la gestion de pasantias
+    - como se gestiona una pasantia
+    - proceso de pasantias
+    - cual es el circuito administrativo de las pasantias
+    - que tramites hay que hacer para la pasantia
+    - cual es el proceso desde la postulacion hasta la firma
+    - la gestion de la pasantia es solo en la facultad
+    - hay que llevar papeles a la empresa y a la facultad
+    - cuales son los pasos para empezar la pasantia
+    - quien se encarga de la gestion de los convenios
+    - me explican el proceso de aprobacion de pasantias
+    - el proceso de gestion incluye a la empresa
+    - como se formaliza la pasantia
+    - cual es la secuencia de pasos para la pasantia
+    - necesito hacer un informe de gestion de pasantias
+    - que pasa despues de postularme a una pasantia
+    - el proceso de pasantias tiene varias etapas
 
 - intent: preguntar_pasantias_elegir_empresa
   examples: |
-    - ¿Puedo elegir la empresa que me interese?
+    - puedo elegir la empresa que me interese
     - elijo la empresa
-    - puedo elegir dónde hacer la pasantía
-    - si me ofrecen varias, puedo elegir
-    - me dejan elegir dónde hacer la pasantía
+    - puedo elegir donde hacer la pasantia
+    - si me ofrecen varias puedo elegir
+    - me dejan elegir donde hacer la pasantia
     - puedo elegir entre propuestas
+    - me asignan la empresa o yo elijo
+    - la pasantia la elijo yo o la facultad
+    - hay un listado de empresas para elegir pasantia
+    - puedo sugerir una empresa para hacer la pasantia
+    - la facultad me da opciones para la pasantia
+    - puedo buscar pasantia por mi cuenta
+    - si encuentro una empresa puedo hacer la pasantia ahi
+    - tengo libertad de eleccion en la pasantia
+    - me fuerzan a ir a una empresa para la pasantia
+    - puedo elegir el sector de la empresa
+    - si una empresa me contacta puedo aceptarla
+    - puedo rechazar una propuesta de pasantia
+    - puedo elegir si quiero hacer pasantia en el exterior
+    - puedo elegir la pasantia por rubro
 
 - intent: preguntar_pasantias_baja
   examples: |
-    - ¿Qué pasa si me quiero dar de baja de una pasantía?
-    - darme de baja de una pasantía
-    - cómo cancelo la pasantía
-    - quiero dejar la pasantía
-    - cómo se cancela una pasantía
-    - procedimiento para dar de baja la pasantía
+    - que pasa si me quiero dar de baja de una pasantia
+    - darme de baja de una pasantia
+    - como cancelo la pasantia
+    - quiero dejar la pasantia
+    - como se cancela una pasantia
+    - procedimiento para dar de baja la pasantia
+    - puedo renunciar a mi pasantia
+    - que debo hacer para dar de baja el convenio de pasantia
+    - que pasa si dejo la pasantia antes de tiempo
+    - como informo que me doy de baja de la pasantia
+    - hay penalidad por dejar la pasantia
+    - la baja de la pasantia es con preaviso
+    - puedo dejar la pasantia en cualquier momento
+    - donde presento la renuncia a la pasantia
+    - la facultad me da de baja la pasantia
+    - que pasa si la empresa me da de baja
+    - puedo volver a aplicar a pasantias despues de una baja
+    - tengo que avisar a la facultad si dejo la pasantia
+    - hay que hacer un tramite para dar de baja la pasantia
+    - la baja de la pasantia debe ser justificada
 
 - intent: preguntar_pasantias_baja_base_datos
   examples: |
-    - ¿Cómo hago si me quiero dar de baja de la base de datos de pasantías?
-    - eliminar mis datos de pasantías
+    - como hago si me quiero dar de baja de la base de datos de pasantias
+    - eliminar mis datos de pasantias
     - no quiero estar en la base de datos
-    - cómo borro mis datos de la base de pasantías
-    - darme de baja de la lista de pasantías
-    - no quiero que me contacten más por pasantías
+    - como borro mis datos de la base de pasantias
+    - darme de baja de la lista de pasantias
+    - no quiero que me contacten mas por pasantias
+    - como me desinscribo del registro de pasantias
+    - quiero eliminar mi perfil de la bolsa de pasantias
+    - como dejo de recibir ofertas de pasantia
+    - donde solicito la eliminacion de mis datos de pasantias
+    - quiero que mi CV no este mas en la base de pasantias
+    - puedo suspender mi participacion en la bolsa de pasantias
+    - como me desuscribo de las notificaciones de pasantia
+    - donde se gestiona la baja del registro de pasantias
+    - si me doy de baja puedo volver a inscribirme
+    - la baja de la base de datos es inmediata
+    - tengo que mandar un mail para darme de baja
+    - no quiero que mis datos esten visibles para empresas
+    - cual es el procedimiento para la baja de la base de pasantias
+    - puedo eliminar mi cuenta de pasantias
 
 # --- INTENT DE SALIDA ---
 - intent: salir_menu
@@ -735,7 +1566,6 @@ nlu:
 # --- INTENT DE FALLBACK (FUERA DE ALCANCE) ---
 - intent: out_of_scope
   examples: |
-    - contame un chiste
     - qué día es hoy
     - no entiendo
     - quiero hablar de otra cosa
