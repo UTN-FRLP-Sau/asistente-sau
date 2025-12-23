@@ -9,7 +9,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /webhooks/telegram/webhook
+      - path: /webhooks
         pathType: Prefix
         backend:
           service:

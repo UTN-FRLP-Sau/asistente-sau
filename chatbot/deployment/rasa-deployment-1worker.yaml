@@ -43,13 +43,27 @@ spec:
               secretKeyRef:
                 name: telegram-secrets
                 key: TELEGRAM_WEBHOOK_URL
+          - name: WHATSAPP_ACCESS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: whatsapp-secrets
+                key: WHATSAPP_ACCESS_TOKEN
+          - name: WHATSAPP_PHONE_ID
+            valueFrom:
+              secretKeyRef:
+                name: whatsapp-secrets
+                key: WHATSAPP_PHONE_ID
+          - name: WHATSAPP_VERIFY_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: whatsapp-secrets
+                key: WHATSAPP_VERIFY_TOKEN
         volumeMounts:
           - name: config-volume
             mountPath: /config
           - name: rasa-credentials-template
             mountPath: /template
             readOnly: true
-
       containers:
       - name: rasa
         image: manuelmorullo/rasa-chatbot:latest
@@ -87,6 +101,21 @@ spec:
               secretKeyRef:
                 name: telegram-secrets
                 key: TELEGRAM_WEBHOOK_URL
+          - name: WHATSAPP_ACCESS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: whatsapp-secrets
+                key: WHATSAPP_ACCESS_TOKEN
+          - name: WHATSAPP_PHONE_ID
+            valueFrom:
+              secretKeyRef:
+                name: whatsapp-secrets
+                key: WHATSAPP_PHONE_ID
+          - name: WHATSAPP_VERIFY_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: whatsapp-secrets
+                key: WHATSAPP_VERIFY_TOKEN
           - name: SANIC_NO_UVLOOP
             value: "true"
         resources:
@@ -105,18 +134,22 @@ spec:
           - name: rasa-endpoints-volume
             mountPath: /app/endpoints.yml
             subPath: endpoints.yml
-
+          - name: custom-components-volume
+            mountPath: /app/custom_components
       volumes:
         - name: models-volume
           hostPath:
             path: /home/manu/asistente-sau/chatbot/models
             type: Directory
-        - name: config-volume
-          emptyDir: {}
         - name: rasa-credentials-template
           configMap:
             name: rasa-credentials-template-cm
         - name: rasa-endpoints-volume
           configMap:
             name: rasa-endpoints-cm
-
+        - name: custom-components-volume
+          hostPath:
+            path: /home/manu/asistente-sau/chatbot/custom_components
+            type: Directory
+        - name: config-volume
+          emptyDir: {}
