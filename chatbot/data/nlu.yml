@@ -14,6 +14,7 @@ nlu:
     - buenas tardes
     - qué haces
 
+
 # --- INTENT DE SELECCIÓN DE MENÚ Y PREGUNTAS EN SUB-MENÚ ---
 - intent: elegir_opcion
   examples: |
@@ -51,7 +52,6 @@ nlu:
     - [19](numero_opcion)
     - [20](numero_opcion)
     - [21](numero_opcion)
-    - [menu](numero_opcion:3) # Se mantiene
 
     # SUB-MENÚ BECAS (1-8)
     - [tipos de becas](numero_opcion:1)
@@ -138,6 +138,11 @@ nlu:
     - quiero volver
     - me quiero salir del menu
     - ir al inicio
+    - menu
+    - menu principal
+    - volver al inicio
+    - inicio
+    - home
 
 # --- INIENTS ESPECÍFICOS PARA MODO LIBRE (PREGUNTAS) ---
 

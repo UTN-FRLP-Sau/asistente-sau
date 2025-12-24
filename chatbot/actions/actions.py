@@ -1,11 +1,22 @@
 from rasa_sdk import Action, Tracker
-from rasa_sdk.events import SlotSet, FollowupAction
+from rasa_sdk.events import SlotSet, FollowupAction, ActionExecuted
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Text, List, Any, Dict
+import unicodedata
 
 # =======================================================
 # 0. TÍTULOS Y RESPUESTAS (OPTIMIZADO PARA UX)
 # =======================================================
+
+MENSAJES_AYUDA = {
+    "principal": "👋 ¡Hola! Soy el asistente de la SAU. ¿Sobre qué tema necesitás información hoy?",
+    "becas": "🎓 *Becas*: Consultá montos, requisitos y fechas de inscripción aquí:",
+    "boleto_estudiantil": "🚌 *Boleto*: Recordá que debés ser alumno regular para solicitarlo. ¿Qué duda tenés?",
+    "deportes": "⚽ *Deportes*: ¡Sumate a los equipos de la facu! Seleccioná una opción:",
+    "comedor": "🍴 *Comedor*: Las viandas se reservan con anticipación. Mirá los detalles:",
+    "bolsa_trabajo": "💼 *Bolsa de Trabajo*: Aquí podés saber cómo cargar tu CV y recibir ofertas:",
+    "pasantias": "📑 *Pasantías*: Info sobre convenios, carga horaria y pagos:"
+}
 
 FAQ_TITULOS = {
     "becas": {
@@ -182,18 +193,33 @@ MENUS_CONFIG = {
 }
 
 # =======================================================
-# 1. ACCIONES DE MENÚ
+# ACCIONES DE INTERFAZ Y NAVEGACIÓN
 # =======================================================
 
 class ActionMostrarMenuActual(Action):
     def name(self) -> Text:
         return "action_mostrar_menu_actual"
 
-    def run(self, dispatcher, tracker, domain):
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
         contexto = tracker.get_slot("contexto_menu") or "principal"
         pagina = int(tracker.get_slot("pagina_menu") or 1)
         config = MENUS_CONFIG.get(contexto, MENUS_CONFIG["principal"])
         
+        mensajes_ayuda = {
+            "principal": "👋 ¡Hola! Soy el asistente de la SAU. ¿Sobre qué tema necesitás información hoy? Seleccioná una categoría:",
+            "becas": "🎓 *Becas*: Aquí tenés detalles sobre montos y trámites. ¿Qué necesitás consultar?",
+            "boleto_estudiantil": "🚌 *Boleto Estudiantil*: Recordá tener tu SUBE registrada a tu nombre. Seleccioná una opción:",
+            "deportes": "⚽ *Deportes*: ¡Sumate a los entrenamientos! Elegí una disciplina para ver horarios y requisitos:",
+            "comedor": "🍴 *Comedor*: Las viandas se reservan con una semana de anticipación. ¿Qué duda tenés?",
+            "bolsa_trabajo": "💼 *Bolsa de Trabajo*: Cargá tu CV para recibir ofertas laborales. Seleccioná una opción:",
+            "pasantias": "📑 *Pasantías*: Información sobre convenios, pagos y carga horaria (20hs). ¿Qué buscás saber?"
+        }
+        
+        texto_cuerpo = mensajes_ayuda.get(contexto, f"📍 *{config['titulo']}*\nSeleccioná una opción de la lista:")
+
         opciones_visibles = []
         if contexto == "principal":
             areas = ["Becas", "Boleto Estudiantil", "Deportes", "Comedor", "Bolsa de Trabajo", "Pasantías", "Salir"]
@@ -201,19 +227,19 @@ class ActionMostrarMenuActual(Action):
                 opciones_visibles.append({"id": str(i), "title": nombre})
         else:
             titulos_area = FAQ_TITULOS.get(contexto, {})
-            # Definimos un tamaño fijo de 7 (WSP ADMITE MAXIMO 10)
             TAMANO_PAGINA = 7
             inicio = (pagina - 1) * TAMANO_PAGINA
             fin_rango = inicio + TAMANO_PAGINA
             
             for i in range(inicio + 1, min(fin_rango + 1, config["filas"] + 1)):
                 if i in titulos_area:
+                    # WhatsApp limita títulos de botones a 24 caracteres
                     opciones_visibles.append({
                         "id": str(i),
                         "title": titulos_area[i][:24]
                     })
 
-            # Botones de navegación (solo si corresponden)
+            # Botones de navegación funcional
             if fin_rango < config["filas"]:
                 opciones_visibles.append({"id": "next", "title": "➡️ Ver más preguntas"})
             if pagina > 1:
@@ -226,72 +252,105 @@ class ActionMostrarMenuActual(Action):
             "interactive": {
                 "type": "list",
                 "header": {"type": "text", "text": "Asistente UTN"},
-                "body": {"text": f"📍 *{config['titulo']}*\nElegí una opción:"},
-                "action": {"button": "Ver Opciones", "sections": [{"title": "Lista", "rows": opciones_visibles}]}
+                "body": {"text": texto_cuerpo},
+                "action": {
+                    "button": "Ver Opciones", 
+                    "sections": [{"title": config['titulo'], "rows": opciones_visibles}]
+                }
             }
         })
+
         return [SlotSet("numero_opcion", None)]
+
 
 class ActionManejarMenu(Action):
     def name(self) -> Text:
         return "action_manejar_menu"
 
-    def run(self, dispatcher, tracker, domain):
-        opcion_raw = tracker.get_slot("numero_opcion") or tracker.latest_message.get('text')
-        contexto = tracker.get_slot("contexto_menu") or "principal"
-        pagina = int(tracker.get_slot("pagina_menu") or 1)
-
-        if not opcion_raw:
-            return [FollowupAction("action_mostrar_menu_actual")]
-
-        opcion_str = str(opcion_raw).lower().strip()
-
-        # 1. LÓGICA DE NAVEGACIÓN
-        if any(x in opcion_str for x in ["next", "ver más", "ver mas"]):
-            return [SlotSet("pagina_menu", pagina + 1), FollowupAction("action_mostrar_menu_actual")]
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        if any(x in opcion_str for x in ["prev", "anterior"]):
-            return [SlotSet("pagina_menu", max(1, pagina - 1)), FollowupAction("action_mostrar_menu_actual")]
-            
-        if "99" in opcion_str or "principal" in opcion_str:
-            return [SlotSet("contexto_menu", "principal"), SlotSet("pagina_menu", 1), FollowupAction("action_mostrar_menu_actual")]
+        texto_raw = tracker.latest_message.get('text', "")
+        id_boton = tracker.get_slot("numero_opcion")
+        contexto_actual = tracker.get_slot("contexto_menu") or "principal"
+        pagina_actual = int(tracker.get_slot("pagina_menu") or 1)
 
-        # 2. SELECCIÓN DE CATEGORÍAS (DESDE PRINCIPAL)
-        if contexto == "principal":
-            mapa = {"1":"becas","2":"boleto_estudiantil","3":"deportes","4":"comedor","5":"bolsa_trabajo","6":"pasantias"}
-            if opcion_str in mapa:
-                return [SlotSet("contexto_menu", mapa[opcion_str]), SlotSet("pagina_menu", 1), FollowupAction("action_mostrar_menu_actual")]
-            
-            # Buscar por nombre si no mandó el número
-            for num_map, ctx_map in mapa.items():
-                if ctx_map.replace("_", " ") in opcion_str:
-                    return [SlotSet("contexto_menu", ctx_map), SlotSet("pagina_menu", 1), FollowupAction("action_mostrar_menu_actual")]
+        def normalizar(t):
+            if not t: return ""
+            t = t.lower()
+            t = ''.join(c for c in unicodedata.normalize('NFD', t)
+                       if unicodedata.category(c) != 'Mn')
+            return t.strip()
 
-            if "7" in opcion_str or "salir" in opcion_str:
-                dispatcher.utter_message(text="¡Chau! Escribí 'Hola' para volver.")
-                return [SlotSet("modo_conversacion", "libre")]
+        texto_usuario = normalizar(texto_raw)
 
-        # 3. RESPUESTAS DE PREGUNTAS (DESDE SUBMENÚS)
-        else:
-            try:
-                num = int(opcion_str)
-                respuesta = FAQ_RESPUESTAS.get(contexto, {}).get(num)
-                if respuesta:
-                    dispatcher.utter_message(text=f"📌 *{FAQ_TITULOS[contexto][num]}*\n\n{respuesta}")
-                    return [FollowupAction("action_mostrar_menu_actual")]
-            except ValueError:
-                # Búsqueda por texto del título
-                titulos_area = FAQ_TITULOS.get(contexto, {})
-                for n_op, t_tit in titulos_area.items():
-                    if t_tit.lower() in opcion_str:
-                        res = FAQ_RESPUESTAS[contexto][n_op]
-                        dispatcher.utter_message(text=f"📌 *{t_tit}*\n\n{res}")
-                        return [FollowupAction("action_mostrar_menu_actual")]
+        # --- PRIORIDAD 0: RESET TOTAL ---
+        palabras_volver = ["menu", "inicio", "principal", "99", "volver"]
+        if any(x in texto_usuario for x in palabras_volver):
+            return [
+                SlotSet("contexto_menu", "principal"),
+                SlotSet("pagina_menu", 1),
+                SlotSet("numero_opcion", None)
+            ]
 
-        return [FollowupAction("action_mostrar_menu_actual")]
+        # --- PRIORIDAD 1: TEMAS ---
+        mapa_temas = {
+            "beca": "becas",
+            "boleto": "boleto_estudiantil",
+            "deporte": "deportes",
+            "comedor": "comedor",
+            "bolsa": "bolsa_trabajo",
+            "pasant": "pasantias"
+        }
+        for clave, nuevo_contexto in mapa_temas.items():
+            if clave in texto_usuario:
+                return [
+                    SlotSet("contexto_menu", nuevo_contexto),
+                    SlotSet("pagina_menu", 1),
+                    SlotSet("numero_opcion", None)
+                ]
+
+        # --- PRIORIDAD 2: MANEJO DE NÚMEROS / SELECCIÓN ---
+        opcion = id_boton if id_boton else (texto_usuario if texto_usuario.isdigit() else None)
+
+        if opcion:
+            if contexto_actual == "principal":
+                mapa_principal = {
+                    "1": "becas", "2": "boleto_estudiantil", "3": "deportes",
+                    "4": "comedor", "5": "bolsa_trabajo", "6": "pasantias"
+                }
+                if opcion in mapa_principal:
+                    return [
+                        SlotSet("contexto_menu", mapa_principal[opcion]),
+                        SlotSet("pagina_menu", 1),
+                        SlotSet("numero_opcion", None)
+                    ]
+            else:
+                titulos_area = FAQ_TITULOS.get(contexto_actual, {})
+                respuestas_area = FAQ_RESPUESTAS.get(contexto_actual, {})
+                
+                try:
+                    opcion_int = int(opcion)
+                    if opcion_int in respuestas_area:
+                        dispatcher.utter_message(
+                            text=f"📌 *{titulos_area[opcion_int]}*\n\n{respuestas_area[opcion_int]}"
+                        )
+                        return [SlotSet("numero_opcion", None)]
+                except (ValueError, KeyError):
+                    pass
+
+        # --- PRIORIDAD 3: NAVEGACIÓN DE PÁGINAS ---
+        if any(x in texto_usuario for x in ["siguiente", "ver mas", "mas", "next"]):
+            return [SlotSet("pagina_menu", pagina_actual + 1), SlotSet("numero_opcion", None)]
+        
+        if any(x in texto_usuario for x in ["anterior", "atras", "prev"]):
+            return [SlotSet("pagina_menu", max(1, pagina_actual - 1)), SlotSet("numero_opcion", None)]
+
+        return [SlotSet("numero_opcion", None)]
 
 # =======================================================
-# 2. OTRAS ACCIONES
+# LÓGICA DE MODO LIBRE Y RESETS
 # =======================================================
 
 class ActionResponderModoLibre(Action):
@@ -300,6 +359,7 @@ class ActionResponderModoLibre(Action):
 
     def run(self, dispatcher, tracker, domain):
         intent = tracker.latest_message['intent'].get('name')
+        # Mapeo de intents NLU a respuestas directas
         mapeo = {
             "preguntar_becas_tipos": ("becas", 1), "preguntar_becas_inscripcion": ("becas", 2),
             "preguntar_becas_requisitos": ("becas", 3), "preguntar_becas_documentacion": ("becas", 4),
@@ -315,18 +375,27 @@ class ActionResponderModoLibre(Action):
             res = FAQ_RESPUESTAS[ctx][num]
             tit = FAQ_TITULOS[ctx][num]
             dispatcher.utter_message(text=f"📌 *{tit}*\n\n{res}")
+            return [SlotSet("modo_conversacion", "libre")]
         else:
-            dispatcher.utter_message(text="No entiendo esa pregunta específica, pero podés buscarla en el menú.")
+            dispatcher.utter_message(text="No entiendo esa pregunta específica, pero podés buscarla en el menú:")
             return [FollowupAction("action_reset_context_and_show_main_menu")]
 
-        return [SlotSet("modo_conversacion", "libre")]
 
 class ActionDetectarModo(Action):
     def name(self) -> Text: return "action_detectar_modo"
     def run(self, dispatcher, tracker, domain):
         return [SlotSet("modo_conversacion", "menu")]
 
+
 class ActionResetContextAndShowMainMenu(Action):
-    def name(self) -> Text: return "action_reset_context_and_show_main_menu"
+    def name(self) -> Text:
+        return "action_reset_context_and_show_main_menu"
+
     def run(self, dispatcher, tracker, domain):
-        return [SlotSet("contexto_menu", "principal"), SlotSet("pagina_menu", 1), FollowupAction("action_mostrar_menu_actual")]
+        return [
+            SlotSet("contexto_menu", "principal"),
+            SlotSet("pagina_menu", 1),
+            SlotSet("numero_opcion", None),
+            SlotSet("modo_conversacion", "menu"),
+            FollowupAction("action_mostrar_menu_actual")
+        ]
