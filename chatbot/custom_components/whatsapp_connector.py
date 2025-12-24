@@ -33,21 +33,20 @@ class WhatsAppOutput(OutputChannel):
             logger.error(f"Error enviando texto a WhatsApp: {r.text}")
 
     async def send_text_with_buttons(self, recipient_id, text, buttons, **kwargs):
-        """Traduce los botones de Rasa a botones de respuesta de WhatsApp (máx 3)"""
+        """Traduce los botones de Rasa a botones de respuesta rápida de WhatsApp (máx 3)"""
         url = f"https://graph.facebook.com/v21.0/{self.phone_number_id}/messages"
         headers = {
             "Authorization": f"Bearer {self.access_token}",
             "Content-Type": "application/json",
         }
         
-        # WhatsApp solo permite hasta 3 botones de respuesta rápida
         whatsapp_buttons = []
         for b in buttons[:3]:
             whatsapp_buttons.append({
                 "type": "reply",
                 "reply": {
                     "id": b.get("payload"),
-                    "title": b.get("title")[:20] # Límite de 20 caracteres
+                    "title": b.get("title")[:20] 
                 }
             })
 
@@ -65,6 +64,25 @@ class WhatsAppOutput(OutputChannel):
         if r.status_code != 200:
             logger.error(f"Error enviando botones a WhatsApp: {r.text}")
 
+    async def send_custom_json(self, recipient_id, json_message, **kwargs):
+        """
+        NUEVO: Permite enviar payloads complejos (como Listas) desde las Actions
+        usando dispatcher.utter_message(json_message=...)
+        """
+        url = f"https://graph.facebook.com/v21.0/{self.phone_number_id}/messages"
+        headers = {
+            "Authorization": f"Bearer {self.access_token}",
+            "Content-Type": "application/json",
+        }
+        
+        # Inyectamos el destinatario y el producto en el payload si no vienen
+        json_message["messaging_product"] = "whatsapp"
+        json_message["to"] = recipient_id
+        
+        r = requests.post(url, headers=headers, json=json_message)
+        if r.status_code != 200:
+            logger.error(f"Error enviando Custom JSON a WhatsApp: {r.text}")
+
 class WhatsAppInput(InputChannel):
     """Maneja la recepción de mensajes desde WhatsApp hacia Rasa"""
     @classmethod
@@ -78,7 +96,6 @@ class WhatsAppInput(InputChannel):
 
     @classmethod
     def from_credentials(cls, credentials):
-        """Este método es VITAL para que Rasa cargue las credenciales del credentials.yml"""
         if not credentials:
             cls.raise_missing_credentials_error()
 
@@ -109,22 +126,35 @@ class WhatsAppInput(InputChannel):
                 entry = payload.get("entry", [{}])[0]
                 changes = entry.get("changes", [{}])[0]
                 value = changes.get("value", {})
-                message = value.get("messages", [{}])[0]
+                messages = value.get("messages", [])
                 
-                if message:
+                if messages:
+                    message = messages[0]
                     sender_id = message.get("from")
                     text = None
+                    msg_type = message.get("type")
 
-                    # Detectar si es un mensaje de texto normal o un clic en un botón
-                    if message.get("type") == "text":
+                    # 1. Mensaje de Texto Simple
+                    if msg_type == "text":
                         text = message.get("text", {}).get("body")
-                    elif message.get("type") == "interactive":
-                        # Captura el payload del botón clickeado
-                        text = message.get("interactive", {}).get("button_reply", {}).get("id")
+                    
+                    # 2. Mensaje Interactivo (Botones o Listas)
+                    elif msg_type == "interactive":
+                        interactive = message.get("interactive", {})
+                        int_type = interactive.get("type")
+                        
+                        if int_type == "button_reply":
+                            # Clic en botones de respuesta rápida (máx 3)
+                            text = interactive.get("button_reply", {}).get("id")
+                        elif int_type == "list_reply":
+                            # Clic en una opción de la LISTA (máx 10)
+                            text = interactive.get("list_reply", {}).get("id")
 
                     if text and sender_id:
                         out_channel = WhatsAppOutput(self.access_token, self.phone_number_id)
+                        # Enviamos el 'id' del botón/lista como si fuera el texto del usuario
                         await on_new_message(UserMessage(text, out_channel, sender_id, input_channel=self.name()))
+            
             except Exception as e:
                 logger.error(f"Error procesando mensaje de WhatsApp: {e}")
             

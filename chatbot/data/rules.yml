@@ -5,7 +5,7 @@ rules:
 - rule: Mostrar menu principal al inicio
   steps:
     - intent: greet
-    - action: utter_menu_principal
+    - action: action_reset_context_and_show_main_menu
 
 # --- NAVEGACIÓN UNIVERSAL (VOLVER ATRÁS) ---
 - rule: Manejar comando de volver a menu principal
@@ -14,12 +14,14 @@ rules:
   - action: action_reset_context_and_show_main_menu 
   - action: action_listen
 
-# --- MODO MENÚ (Selección por número o palabra) ---
-- rule: Detectar modo y manejar opciones
+# --- FLUJO DINÁMICO DE MENÚS  ---
+- rule: Ciclo de Menu Infinito
   steps:
     - intent: elegir_opcion 
     - action: action_detectar_modo 
     - action: action_manejar_menu
+    - action: action_mostrar_menu_actual
+    - action: action_listen
 
 # --- SALIDA DE LA CONVERSACIÓN (USANDO UTTER_SALIR) ---
 - rule: Salir de la Conversación

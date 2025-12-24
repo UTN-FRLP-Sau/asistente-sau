@@ -3,14 +3,75 @@ version: "3.1"
 intents:
   - greet
   - elegir_opcion
-  - preguntar_becas
-  - preguntar_boleto_estudiantil
-  - preguntar_deportes
-  - preguntar_comedor
-  - preguntar_bolsa_trabajo
-  - preguntar_pasantias
+  - volver_atras
   - salir_menu
   - out_of_scope
+  # Modo Libre: Becas
+  - preguntar_becas_tipos
+  - preguntar_becas_inscripcion
+  - preguntar_becas_requisitos
+  - preguntar_becas_documentacion
+  - preguntar_becas_fechas
+  - preguntar_becas_varias
+  - preguntar_becas_seleccion
+  - preguntar_becas_renovacion
+  # Modo Libre: Boleto
+  - preguntar_boleto_solicitud
+  - preguntar_boleto_requisitos
+  - preguntar_boleto_tramite_lugar
+  - preguntar_boleto_habilitacion_tiempo
+  - preguntar_boleto_perdida
+  - preguntar_boleto_vencimiento
+  - preguntar_boleto_renovacion
+  - preguntar_boleto_viajes
+  - preguntar_boleto_aplicacion
+  - preguntar_boleto_cambio_carrera
+  - preguntar_boleto_contacto_problemas
+  # Modo Libre: Deportes
+  - preguntar_deportes_oferta
+  - preguntar_deportes_horarios
+  - preguntar_deportes_documentacion
+  - preguntar_deportes_competencias
+  - preguntar_deportes_varios
+  - preguntar_deportes_experiencia
+  - preguntar_deportes_obligacion
+  # Modo Libre: Comedor
+  - preguntar_comedor_horarios
+  - preguntar_comedor_precios
+  - preguntar_comedor_menu
+  - preguntar_comedor_inscripcion
+  - preguntar_comedor_compra
+  - preguntar_comedor_reserva
+  - preguntar_comedor_contacto
+  # Modo Libre: Bolsa
+  - preguntar_bolsa_inscripcion
+  - preguntar_bolsa_cv_subida
+  - preguntar_bolsa_ofertas
+  - preguntar_bolsa_postulacion_multiple
+  - preguntar_bolsa_contacto_empresa
+  - preguntar_bolsa_eliminar_datos
+  - preguntar_bolsa_cv_actualizar
+  # Modo Libre: Pasantías
+  - preguntar_pasantias_que_son
+  - preguntar_pasantias_inscripcion
+  - preguntar_pasantias_requisitos
+  - preguntar_pasantias_publicacion
+  - preguntar_pasantias_documentacion
+  - preguntar_pasantias_multiple
+  - preguntar_pasantias_remuneracion
+  - preguntar_pasantias_duracion
+  - preguntar_pasantias_horas_semanales
+  - preguntar_pasantias_cursada
+  - preguntar_pasantias_certificacion
+  - preguntar_pasantias_seguimiento
+  - preguntar_pasantias_ley_proteccion
+  - preguntar_pasantias_utilidad
+  - preguntar_pasantias_exceso_horas
+  - preguntar_pasantias_contacto_problema
+  - preguntar_pasantias_proceso_gestion
+  - preguntar_pasantias_elegir_empresa
+  - preguntar_pasantias_baja
+  - preguntar_pasantias_baja_base_datos
 
 entities:
   - numero_opcion
@@ -22,165 +83,39 @@ slots:
     mappings:
       - type: from_entity
         entity: numero_opcion
+      - type: from_text
+        intent: elegir_opcion
 
   modo_conversacion:
     type: text
     influence_conversation: true
     initial_value: "menu"
-    mappings: []
+    mappings:
+      - type: custom
 
   contexto_menu:
     type: text
-    # Este slot rastrea en qué menú (principal, becas, deportes) está el usuario.
     influence_conversation: true 
-    initial_value: "principal" # Asumimos que inicia en el principal
-    mappings: []
+    initial_value: "principal"
+    mappings:
+      - type: custom
 
-  texto_opcion:
-    type: text
-    # Este slot almacena el texto ingresado en modo libre
-    influence_conversation: false
-    mappings: []
-
-forms:
-  menu_form:
-    required_slots:
-      - numero_opcion
+  pagina_menu:
+    type: float
+    influence_conversation: true
+    initial_value: 1
+    mappings:
+      - type: custom
 
 responses:
-  # MENÚ PRINCIPAL (6 áreas + Salir)
-  utter_menu_principal:
-    - text: |
-        👋 ¡Bienvenido! Por favor, elegí un área de interés:
-        1. Becas 
-        2. Boleto Estudiantil
-        3. Deportes
-        4. Comedor
-        5. Bolsa de Trabajo
-        6. Pasantías
-        7. Salir
-
-
-  utter_menu_becas:
-    - text: |
-        📚 Área de Becas:
-        1. ¿Qué tipos de becas existen?
-        2. ¿Cómo me inscribo para solicitar una beca?
-        3. ¿Cuáles son los requisitos para solicitar una beca?
-        4. ¿Qué documentación necesito para inscribirme a una beca?
-        5. ¿Dónde puedo consultar las fechas de apertura para las convocatorias de becas?
-        6. ¿Puedo postularme a más de una beca al mismo tiempo?
-        7. ¿Cómo me entero si fui seleccionado para una beca?
-        8. ¿Puedo renovar mi beca para el año siguiente?
-        9. Volver al menú principal
-
-  utter_menu_boleto_estudiantil:
-    - text: |
-        🚌 Área de Boleto Estudiantil:
-        1. ¿Cómo solicito el boleto estudiantil?
-        2. ¿Cuáles son los requisitos que necesito para tramitarlo?
-        3. ¿Dónde se realiza el trámite para obtener el boleto estudiantil?
-        4. ¿Cuánto tarda en habilitarse el boleto después de tramitarlo?
-        5. ¿Qué debo hacer si pierdo o daño mi tarjeta del boleto?
-        6. ¿El boleto tiene fecha de vencimiento?
-        7. ¿Puedo renovar el boleto cada año?
-        8. ¿Cuántos viajes incluye?
-        9. ¿Aplica en subte, tren, colectivo?
-        10. ¿Qué pasa si cambio de carrera?
-        11. Tengo problemas con mi boleto ¿Con quien puedo contactarme?
-        12. Volver al menú principal
-
-  utter_menu_deportes:
-    - text: |
-        🏀 Área de Deportes:
-        1. ¿Qué deportes ofrece la facultad durante el año?
-        2. ¿Dónde puedo consultar los días y horarios de entrenamiento?
-        3. ¿Qué documentación necesito para inscribirme en una actividad deportiva?
-        4. ¿Cómo me entero de las próximas competencias internas o externas?
-        5. ¿Puedo inscribirme en más de un deporte?
-        6. ¿Debo tener experiencia previa en el deporte?
-        7. ¿Es obligatorio participar en las competencias que organiza la facultad?
-        8. Volver al menú principal
-
-  utter_menu_comedor:
-    - text: |
-        🍽️ Área de Comedor:
-        1. ¿Cuáles son los horarios del comedor universitario?
-        2. ¿Cuánto cuestan las viandas?
-        3. ¿Qué incluye el menú diario?
-        4. ¿Cómo me inscribo para poder usar el comedor universitario?
-        5. ¿Cómo se realiza la compra?
-        6. ¿Hay que reservar el almuerzo con anticipación?
-        7. ¿Dónde me puedo comunicar ante cualquier consulta?
-        8. Volver al menú principal
-
-  utter_menu_bolsa_trabajo:
-    - text: |
-        💼 Área de Bolsa de Trabajo:
-        1. ¿Cómo me inscribo en la bolsa de trabajo?
-        2. ¿Dónde subo mi currículum vitae?
-        3. ¿Cómo me entero de las ofertas laborales disponibles?
-        4. ¿Puedo postularme a más de una oferta a la vez?
-        5. ¿Las empresas me contactan directamente a mí o lo hacen a través de la facultad?
-        6. ¿Cómo elimino mis datos de la bolsa de trabajo si ya no quiero recibir propuestas?
-        7. ¿Puedo actualizar mi CV después de haberlo enviado?
-        8. Volver al menú principal
-
-  utter_menu_pasantias:
-    - text: |
-        🎓 Área de Pasantías:
-        1. ¿Qué son las pasantías y quiénes pueden realizarlas?
-        2. ¿Cómo me inscribo para una pasantía?
-        3. ¿Qué requisitos debo cumplir para postularme?
-        4. ¿Dónde se publican las ofertas de pasantías disponibles?
-        5. ¿Qué documentación debo presentar para inscribirme?
-        6. ¿Puedo postularme a más de una pasantía al mismo tiempo?
-        7. ¿Las pasantías son remuneradas?
-        8. ¿Cuánto dura una pasantía?
-        9. ¿Cuántas horas semanales debo cumplir en una pasantía?
-        10. ¿La pasantía se puede hacer durante el período de cursada?
-        11. ¿Las pasantías otorgan algún tipo de certificación?
-        12. ¿La facultad realiza seguimiento durante la pasantía?
-        13. ¿Existe alguna ley que me proteja ante cualquier inconveniente?
-        14. ¿Para qué me sirve hacer una pasantía?
-        15. ¿Me pueden llegar a exigir más horas que las estipuladas en la ley de pasantías?
-        16. ¿Ante cualquier inconveniente con quien puedo comunicarme?
-        17. ¿Cómo es el proceso de gestión de pasantías?
-        18. ¿Puedo elegir la empresa que me interese?
-        19. ¿Qué pasa si me quiero dar de baja de una pasantía?
-        20. ¿Cómo hago si me quiero dar de baja de la base de datos de pasantías?
-        21. Volver al menú principal
-
-  # RESPUESTAS GENÉRICAS PARA MODO LIBRE 
-  utter_respuesta_becas:
-    - text: "He detectado una pregunta sobre becas. Si deseas más detalles, puedes ver el menú completo de becas eligiendo la opción 1."
-  
-  utter_respuesta_boleto_estudiantil:
-    - text: "He detectado una pregunta sobre boleto estudiantil. Si deseas más detalles, puedes ver el menú completo de boleto estudiantil eligiendo la opción 2."
-
-  utter_respuesta_comedor:
-    - text: "He detectado una pregunta sobre comedor. Si deseas más detalles, puedes ver el menú completo de comedor eligiendo la opción 4."
-
-  utter_respuesta_deportes:
-    - text: "He detectado una pregunta sobre deportes. Si deseas más detalles, puedes ver el menú completo de deportes eligiendo la opción 3."
-  
-  utter_respuesta_bolsa_trabajo:
-    - text: "He detectado una pregunta sobre bolsa de trabajo. Si deseas más detalles, puedes ver el menú completo de bolsa de trabajo eligiendo la opción 5."
-
-  utter_respuesta_pasantias:
-    - text: "He detectado una pregunta sobre pasantías. Si deseas más detalles, puedes ver el menú completo de pasantías eligiendo la opción 6."
-    
   utter_salir:
-    - text: "👋 ¡Gracias por usar el asistente! Podés escribir cualquier pregunta si querés seguir chateando."
-
+    - text: "👋 ¡Gracias por usar el asistente! Si necesitás algo más, escribí 'Hola'."
   utter_modo_libre:
-    - text: "Estoy en modo conversación libre. Podés hacerme cualquier pregunta 😊"
-    
-  utter_fallback:
-    - text: "Disculpa, no entendí tu solicitud. Por favor, elegí un número de las opciones del menú actual, o haceme una pregunta específica."
+    - text: "Entendido. Podés hacerme preguntas abiertas sobre Becas, Pasantías, Comedor, etc. 😊"
 
 actions:
   - action_manejar_menu
   - action_detectar_modo
   - action_responder_modo_libre
   - action_reset_context_and_show_main_menu
+  - action_mostrar_menu_actual
