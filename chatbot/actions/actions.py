@@ -11,39 +11,39 @@ import unicodedata
 MENSAJES_AYUDA = {
     "principal": "👋 ¡Hola! Soy el asistente de la SAU. ¿Sobre qué tema necesitás información hoy?",
     "becas": "🎓 *Becas*: Consultá montos, requisitos y fechas de inscripción aquí:",
-    "boleto_estudiantil": "🚌 *Boleto*: Recordá que debés ser alumno regular para solicitarlo. ¿Qué duda tenés?",
+    "boleto_estudiantil": "🚌 *Boleto*: Consultá requisitos, trámites por pérdida, renovación y demás. ¿Qué duda tenés?",
     "deportes": "⚽ *Deportes*: ¡Sumate a los equipos de la facu! Seleccioná una opción:",
-    "comedor": "🍴 *Comedor*: Las viandas se reservan con anticipación. Mirá los detalles:",
-    "bolsa_trabajo": "💼 *Bolsa de Trabajo*: Aquí podés saber cómo cargar tu CV y recibir ofertas:",
+    "comedor": "🍴 *Comedor*: Consultá horarios, precios y menu . ¿Qué duda tenés?",
+    "bolsa_trabajo": "💼 *Bolsa de Trabajo*: Aquí podés saber cómo cargar tu CV y postularte:",
     "pasantias": "📑 *Pasantías*: Info sobre convenios, carga horaria y pagos:"
 }
 
 FAQ_TITULOS = {
     "becas": {
-        1: "Tipos de Becas (Nac.)", 
-        2: "Inscripción (Pasos)", 
-        3: "Requisitos (Gral.)", 
+        1: "Tipos de Becas", 
+        2: "Inscripción", 
+        3: "Requisitos", 
         4: "Documentos a llevar",
-        5: "Fechas (Calendario)", 
+        5: "Fechas", 
         6: "Múltiple Postulación", 
         7: "Ver Resultados", 
-        8: "Renovación (Anual)"
+        8: "Renovación"
     },
     "boleto_estudiantil": {
         1: "Cómo solicitarlo", 
         2: "Requisitos y Distancia", 
         3: "Sedes de trámite", 
         4: "¿Cuándo se activa?",
-        5: "Pérdida (Sube/Robo)", 
-        6: "Vencimiento (Días)", 
-        7: "Renovación (Manual)", 
+        5: "Pérdida", 
+        6: "Vencimiento", 
+        7: "Renovación", 
         8: "Viajes permitidos",
         9: "Trenes y Colectivos", 
         10: "Cambio de Carrera", 
-        11: "Problemas (Denuncias)"
+        11: "Problemas y denuncias"
     },
     "deportes": {
-        1: "Disciplinas (Oferta)", 
+        1: "Disciplinas", 
         2: "Horarios y Lugar", 
         3: "Inscripción (Médico)", 
         4: "Torneos y Competencia",
@@ -52,18 +52,18 @@ FAQ_TITULOS = {
         7: "¿Es obligatorio?"
     },
     "comedor": {
-        1: "Horarios (Viandas)", 
-        2: "Precio ($2500)", 
+        1: "Horarios", 
+        2: "Precio", 
         3: "Menú (Opciones)", 
-        4: "Registro (Usuario)",
+        4: "Registro",
         5: "Comprar y Pagar", 
-        6: "Reserva (Anticipada)", 
+        6: "Reserva", 
         7: "Mail de contacto"
     },
     "bolsa_trabajo": {
         1: "Cómo Inscribirse", 
-        2: "Subir CV (Archivo)", 
-        3: "Ofertas (Mail)", 
+        2: "Subir CV", 
+        3: "Ofertas", 
         4: "Postulación Múltiple",
         5: "Nexo con Empresas", 
         6: "Darse de Baja", 
@@ -74,21 +74,21 @@ FAQ_TITULOS = {
         2: "Cómo empezar (Pasos)", 
         3: "Requisitos (Empresa)", 
         4: "¿Dónde se ven?",
-        5: "Convenios (Firmas)", 
+        5: "Convenios", 
         6: "Hacer 2 pasantías", 
         7: "Pago (Sueldo)", 
-        8: "Duración (Meses)",
-        9: "Carga Horaria (20hs)", 
+        8: "Duración",
+        9: "Carga Horaria", 
         10: "Pasantía y Cursada", 
         11: "Certificado Final", 
         12: "Control de la SAU",
         13: "Ley Nacional 26.427", 
         14: "Ventajas/Beneficios", 
         15: "Exceso de Horas", 
-        16: "Consultas (Dudas)",
+        16: "Consultas",
         17: "Gestión (Empresas)", 
-        18: "Elegir entre 2 op.", 
-        19: "Renunciar (Adenda)", 
+        18: "Elegir entre 2 opciones.", 
+        19: "Renunciar", 
         20: "Baja de Base Datos"
     }
 }
@@ -98,11 +98,11 @@ FAQ_RESPUESTAS = {
         1: (
             "En nuestra facultad contamos con:\n"
             "Becas Nacionales: como la Beca Manuel Belgrano, la Beca Progresar y las Becas de YPF.\n\n"
-            "Becas de Rectorado: como las de investigación, de servicio y las Becas BASE (Becas de Ayuda Socio-Económica).\n"
+            "Becas de Rectorado: como las de investigación, de servicio y las Becas BASE (Becas de Ayuda Socio-Económica).\n\n"
             "En cuanto a las becas nacionales:\n"
-            "La Beca Manuel Belgrano tiene una duración inicial de 12 meses, renovable hasta 3 años para carreras de pregrado y hasta 5 años para carreras de grado universitario. El monto mensual es de $81.685, y algunos requisitos generales son: ser argentino/a (nativo o naturalizado, con DNI), ser estudiante regular (ingresante o cursante) en universidad pública (nacional o provincial) en alguna carrera considerada estratégica. Y en cuanto a la edad: si sos ingresante: entre 18 y 30 años, si sos estudiante avanzado: hasta 35 años y sin límite de edad para personas con discapacidad o familias monoparentales con hijos menores (con documentación que lo respalde). En cuanto a la condición socioeconómica: los ingresos del hogar no deben superar los 3 Salarios Mínimos, Vitales y Móviles. Requisito académico para cursantes: haber aprobado al menos 2 materias cuatrimestrales o 1 materia anual durante 2024. Los ingresantes del primer semestre 2025 quedan exentos de ese requisito.\n"
-            "La Beca Fundación YPF, tiene una duración anual de 12 meses, con posibilidad de renovación si se cumplen los requisitos, el monto de la beca es de $335.000 en 9 cuotas mensuales de abril a diciembre. Los requisitos son: ser argentino nativo o por opción, si sos ingresante hasta los 24 años, si sos estudiante avanzado hasta los 26 años, Cursar una carrera de grado vinculada a ingeniería, ciencias de la tierra, tecnología o gestión ambiental en una universidad pública.\n"
-            "Para los ingresantes: ser egresado del nivel medio sin adeudar materias y para los estudiantes avanzados: tener entre 35 % y 50 % del plan de estudios aprobado. Se debe presentar carta de recomendación, carta de interés y documentación respaldatoria.\n"
+            "La Beca Manuel Belgrano tiene una duración inicial de 12 meses, renovable hasta 3 años para carreras de pregrado y hasta 5 años para carreras de grado universitario. El monto mensual es de $81.685, y algunos requisitos generales son: ser argentino/a (nativo o naturalizado, con DNI), ser estudiante regular (ingresante o cursante) en universidad pública (nacional o provincial) en alguna carrera considerada estratégica. Y en cuanto a la edad: si sos ingresante: entre 18 y 30 años, si sos estudiante avanzado: hasta 35 años y sin límite de edad para personas con discapacidad o familias monoparentales con hijos menores (con documentación que lo respalde). En cuanto a la condición socioeconómica: los ingresos del hogar no deben superar los 3 Salarios Mínimos, Vitales y Móviles. Requisito académico para cursantes: haber aprobado al menos 2 materias cuatrimestrales o 1 materia anual durante 2024. Los ingresantes del primer semestre 2025 quedan exentos de ese requisito.\n\n"
+            "La Beca Fundación YPF, tiene una duración anual de 12 meses, con posibilidad de renovación si se cumplen los requisitos, el monto de la beca es de $335.000 en 9 cuotas mensuales de abril a diciembre. Los requisitos son: ser argentino nativo o por opción, si sos ingresante hasta los 24 años, si sos estudiante avanzado hasta los 26 años, Cursar una carrera de grado vinculada a ingeniería, ciencias de la tierra, tecnología o gestión ambiental en una universidad pública.\n\n"
+            "Para los ingresantes: ser egresado del nivel medio sin adeudar materias y para los estudiantes avanzados: tener entre 35 % y 50 % del plan de estudios aprobado. Se debe presentar carta de recomendación, carta de interés y documentación respaldatoria.\n\n"
             "La Beca Progresar tiene un monto base mensual de $35.000, pero tenemos las retenciones y esquema de pago, para estudiantes ingresantes: se paga el 80% mensualmente, es decir, $28.000, reteniéndose el 20% hasta completar tres certificaciones anuales; luego se libera con 3 cuotas estímulo adicionales al año, para estudiantes avanzados: cobran el 100% del monto desde la primera cuota, y también reciben esas 3 cuotas estímulo tras la tercera certificación académica, como requisitos generales para los ingresantes: entre 17 y 24 años y para estudiantes avanzados hasta los 30 años."
         ),
         2: "La inscripción se realiza de manera online a través de los formularios oficiales publicados en la convocatoria correspondiente. El enlace y las instrucciones se comparten en los canales oficiales de la Secretaría de Asuntos Universitarios.",
@@ -210,12 +210,12 @@ class ActionMostrarMenuActual(Action):
         
         mensajes_ayuda = {
             "principal": "👋 ¡Hola! Soy el asistente de la SAU. ¿Sobre qué tema necesitás información hoy? Seleccioná una categoría:",
-            "becas": "🎓 *Becas*: Aquí tenés detalles sobre montos y trámites. ¿Qué necesitás consultar?",
-            "boleto_estudiantil": "🚌 *Boleto Estudiantil*: Recordá tener tu SUBE registrada a tu nombre. Seleccioná una opción:",
+            "becas": "🎓 *Becas*: Aquí tenés detalles sobre montos, requisitos y fechas de inscripción. ¿Qué necesitás consultar?",
+            "boleto_estudiantil": "🚌 *Boleto Estudiantil*: Aquí tenés info. sobre requisitos, trámites por pérdida, renovación y demás. ¿Qué necesitás consultar?",
             "deportes": "⚽ *Deportes*: ¡Sumate a los entrenamientos! Elegí una disciplina para ver horarios y requisitos:",
-            "comedor": "🍴 *Comedor*: Las viandas se reservan con una semana de anticipación. ¿Qué duda tenés?",
-            "bolsa_trabajo": "💼 *Bolsa de Trabajo*: Cargá tu CV para recibir ofertas laborales. Seleccioná una opción:",
-            "pasantias": "📑 *Pasantías*: Información sobre convenios, pagos y carga horaria (20hs). ¿Qué buscás saber?"
+            "comedor": "🍴 *Comedor*: Consultá horarios, precios y menu. ¿Qué necesitás consultar?",
+            "bolsa_trabajo": "💼 *Bolsa de Trabajo*: Aquí podés saber cómo cargar tu CV y postularte. ¿Qué necesitás consultar?",
+            "pasantias": "📑 *Pasantías*: Información sobre convenios, pagos y carga horaria. ¿Qué buscás saber?"
         }
         
         texto_cuerpo = mensajes_ayuda.get(contexto, f"📍 *{config['titulo']}*\nSeleccioná una opción de la lista:")
@@ -286,12 +286,13 @@ class ActionManejarMenu(Action):
         texto_usuario = normalizar(texto_raw)
 
         # --- PRIORIDAD 0: RESET TOTAL ---
-        palabras_volver = ["menu", "inicio", "principal", "99", "volver"]
+        palabras_volver = ["menu", "inicio", "principal", "99", "volver", "atras", "home"]
         if any(x in texto_usuario for x in palabras_volver):
             return [
                 SlotSet("contexto_menu", "principal"),
                 SlotSet("pagina_menu", 1),
-                SlotSet("numero_opcion", None)
+                SlotSet("numero_opcion", None),
+                SlotSet("modo_conversacion", "menu")
             ]
 
         # --- PRIORIDAD 1: TEMAS ---

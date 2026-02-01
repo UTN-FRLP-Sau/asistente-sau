@@ -88,3 +88,12 @@ http://localhost:8000/
 Mostrar logs del pod:
 kubectl logs -f $(kubectl get pods -l app=rasa -o jsonpath="{.items[0].metadata.name}")
 
+
+# Construir la imagen docker localmente
+docker build -t manuelmorullo/rasa-chatbot:latest .
+
+# Iniciar sesión (si no lo has hecho ya)
+docker login
+
+# Subir la imagen
+docker push manuelmorullo/rasa-chatbot:latest

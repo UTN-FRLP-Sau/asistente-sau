@@ -11,7 +11,8 @@ rules:
 - rule: Manejar comando de volver a menu principal
   steps:
   - intent: volver_atras
-  - action: action_reset_context_and_show_main_menu
+  - action: action_manejar_menu
+  - action: action_mostrar_menu_actual
   - action: action_listen
 
 # --- FLUJO DINÁMICO DE MENÚS  ---

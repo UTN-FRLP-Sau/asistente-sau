@@ -5,7 +5,9 @@ messages = [
     "cuando abre el comedor universitario?",
     "que deportes puedo practicar?",
     "como me inscribo a una beca?",
-    "a que hora hay futbol?",
+    "que becas tienen",
+    "que es una pasantia",
+    "como me anoto en la bolsa de trabajo",
 ]
 
 class RasaBotUser(HttpUser):
