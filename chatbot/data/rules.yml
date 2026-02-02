@@ -345,6 +345,12 @@ rules:
     - intent: preguntar_pasantias_baja_base_datos
     - action: action_responder_modo_libre
 
+
+- rule: Fallback de seguridad
+  steps:
+    - intent: nlu_fallback
+    - action: action_responder_modo_libre
+
 # --- FALLBACK (La IA no entiende nada) ---
 - rule: Fallback general (out_of_scope)
   steps:

@@ -1568,6 +1568,9 @@ nlu:
     - salir del menu
     - finalizar
     
+
+
+
 # --- INTENT DE FALLBACK (FUERA DE ALCANCE) ---
 - intent: out_of_scope
   examples: |

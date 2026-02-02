@@ -1,5 +1,5 @@
 from rasa_sdk import Action, Tracker
-from rasa_sdk.events import SlotSet, FollowupAction, ActionExecuted
+from rasa_sdk.events import SlotSet, FollowupAction, ActionExecuted, UserUtteranceReverted
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Text, List, Any, Dict
 import unicodedata
@@ -27,7 +27,7 @@ FAQ_TITULOS = {
         5: "Fechas", 
         6: "Múltiple Postulación", 
         7: "Ver Resultados", 
-        8: "Renovación"
+        8: "¿Puedo renovarla?"
     },
     "boleto_estudiantil": {
         1: "Cómo solicitarlo", 
@@ -36,7 +36,7 @@ FAQ_TITULOS = {
         4: "¿Cuándo se activa?",
         5: "Pérdida", 
         6: "Vencimiento", 
-        7: "Renovación", 
+        7: "¿Debo renovarlo?", 
         8: "Viajes permitidos",
         9: "Trenes y Colectivos", 
         10: "Cambio de Carrera", 
@@ -47,9 +47,9 @@ FAQ_TITULOS = {
         2: "Horarios y Lugar", 
         3: "Inscripción (Médico)", 
         4: "Torneos y Competencia",
-        5: "Hacer 2 deportes", 
-        6: "Sin exp. previa", 
-        7: "¿Es obligatorio?"
+        5: "¿Puedo hacer 2 deportes?", 
+        6: "¿Necesito experiencia?", 
+        7: "¿Es obligatorio competir?"
     },
     "comedor": {
         1: "Horarios", 
@@ -75,7 +75,7 @@ FAQ_TITULOS = {
         3: "Requisitos (Empresa)", 
         4: "¿Dónde se ven?",
         5: "Convenios", 
-        6: "Hacer 2 pasantías", 
+        6: "Doble pasantía", 
         7: "Pago (Sueldo)", 
         8: "Duración",
         9: "Carga Horaria", 
@@ -122,7 +122,7 @@ FAQ_RESPUESTAS = {
         6: "Sí. El beneficio es válido únicamente durante el ciclo lectivo y de lunes a viernes, quedando inactivo los fines de semana y feriados. La fecha exacta de vencimiento depende de la jurisdicción, pero en general es el último día hábil del ciclo escolar o académico.",
         7: "En muchos casos, la renovación es automática si ya fuiste beneficiario el año anterior. Pero en algunas provincias o municipios es necesario volver a validar la tarjeta o inscribirse nuevamente. Si tu provincia o ciudad no requiere reinscripción, solo deberás pasar la tarjeta SUBE por una Terminal Automática para habilitar la carga mensual de viajes. En los casos donde sí se requiere reinscripción, deberás completar nuevamente el formulario de solicitud en el sitio oficial.",
         8: "La cantidad de viajes depende de la jurisdicción y el nivel educativo. En la Provincia de Buenos Aires, los estudiantes universitarios y terciarios cuentan con hasta 45 viajes mensuales con tarifa subsidiada.",
-        9: "Sí, el Boleto Estudiantil se puede utilizar en colectivos, trenes y subtes que acepten la tarjeta SUBE, siempre dentro de la jurisdicción donde se otorgó el beneficio.",
+        9: "El Boleto Estudiantil se puede utilizar en colectivos, trenes y subtes que acepten la tarjeta SUBE, siempre dentro de la jurisdicción donde se otorgó el beneficio.",
         10: "Debés informar el cambio en la plataforma del Boleto Estudiantil o en el punto de atención donde tramitaste el beneficio. Si seguís cumpliendo los requisitos y estudiando en una institución habilitada, podrás mantener el boleto activo.",
         11: "Podes acercarte a la Secretaría de Asuntos Universitarios o realizar la denuncia a través de la pagina de denuncias del boleto especial estudiantil: https://denuncias-bes.transporte.gba.gob.ar/denunciasboleto.php"
     },
@@ -263,6 +263,11 @@ class ActionMostrarMenuActual(Action):
         return [SlotSet("numero_opcion", None)]
 
 
+
+# =======================================================
+# ACCIÓN: MANEJAR SELECCIÓN DEL USUARIO
+# =======================================================
+
 class ActionManejarMenu(Action):
     def name(self) -> Text:
         return "action_manejar_menu"
@@ -271,8 +276,11 @@ class ActionManejarMenu(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
+        # 1. Obtener datos del mensaje y slots
         texto_raw = tracker.latest_message.get('text', "")
-        id_boton = tracker.get_slot("numero_opcion")
+        metadata = tracker.latest_message.get('metadata', {})
+        id_boton = metadata.get('payload') if metadata else None
+        
         contexto_actual = tracker.get_slot("contexto_menu") or "principal"
         pagina_actual = int(tracker.get_slot("pagina_menu") or 1)
 
@@ -284,38 +292,31 @@ class ActionManejarMenu(Action):
             return t.strip()
 
         texto_usuario = normalizar(texto_raw)
-
-        # --- PRIORIDAD 0: RESET TOTAL ---
-        palabras_volver = ["menu", "inicio", "principal", "99", "volver", "atras", "home"]
-        if any(x in texto_usuario for x in palabras_volver):
-            return [
-                SlotSet("contexto_menu", "principal"),
-                SlotSet("pagina_menu", 1),
-                SlotSet("numero_opcion", None),
-                SlotSet("modo_conversacion", "menu")
-            ]
-
-        # --- PRIORIDAD 1: TEMAS ---
-        mapa_temas = {
-            "beca": "becas",
-            "boleto": "boleto_estudiantil",
-            "deporte": "deportes",
-            "comedor": "comedor",
-            "bolsa": "bolsa_trabajo",
-            "pasant": "pasantias"
-        }
-        for clave, nuevo_contexto in mapa_temas.items():
-            if clave in texto_usuario:
-                return [
-                    SlotSet("contexto_menu", nuevo_contexto),
-                    SlotSet("pagina_menu", 1),
-                    SlotSet("numero_opcion", None)
-                ]
-
-        # --- PRIORIDAD 2: MANEJO DE NÚMEROS / SELECCIÓN ---
+        # Priorizamos el ID del botón (WhatsApp) sobre el texto escrito
         opcion = id_boton if id_boton else (texto_usuario if texto_usuario.isdigit() else None)
 
+        # --- 2. NAVEGACIÓN DIRECTA POR NOMBRE (Global) ---
+        mapa_temas = {
+            "becas": "becas",
+            "boleto estudiantil": "boleto_estudiantil",
+            "deportes": "deportes",
+            "comedor": "comedor",
+            "bolsa de trabajo": "bolsa_trabajo",
+            "pasantias": "pasantias"
+        }
+
+        if texto_usuario in mapa_temas:
+            return [
+                SlotSet("contexto_menu", mapa_temas[texto_usuario]),
+                SlotSet("modo_conversacion", "sub_menu"),
+                SlotSet("pagina_menu", 1),
+                SlotSet("numero_opcion", None),
+                FollowupAction("action_mostrar_menu_actual")
+            ]
+
+        # --- 3. MANEJO DE SELECCIÓN POR NÚMERO ---
         if opcion:
+            # Caso A: Estamos en el Menú Principal
             if contexto_actual == "principal":
                 mapa_principal = {
                     "1": "becas", "2": "boleto_estudiantil", "3": "deportes",
@@ -324,69 +325,109 @@ class ActionManejarMenu(Action):
                 if opcion in mapa_principal:
                     return [
                         SlotSet("contexto_menu", mapa_principal[opcion]),
+                        SlotSet("modo_conversacion", "sub_menu"),
                         SlotSet("pagina_menu", 1),
-                        SlotSet("numero_opcion", None)
+                        FollowupAction("action_mostrar_menu_actual")
                     ]
+            
+            # Caso B: Estamos dentro de un Submenú (FAQ)
             else:
                 titulos_area = FAQ_TITULOS.get(contexto_actual, {})
                 respuestas_area = FAQ_RESPUESTAS.get(contexto_actual, {})
-                
                 try:
                     opcion_int = int(opcion)
                     if opcion_int in respuestas_area:
-                        dispatcher.utter_message(
-                            text=f"📌 *{titulos_area[opcion_int]}*\n\n{respuestas_area[opcion_int]}"
-                        )
-                        return [SlotSet("numero_opcion", None)]
+                        dispatcher.utter_message(text=f"📌 *{titulos_area[opcion_int]}*\n\n{respuestas_area[opcion_int]}")
+                        return [
+                            SlotSet("numero_opcion", None),
+                            FollowupAction("action_mostrar_menu_actual")
+                        ]
                 except (ValueError, KeyError):
                     pass
 
-        # --- PRIORIDAD 3: NAVEGACIÓN DE PÁGINAS ---
-        if any(x in texto_usuario for x in ["siguiente", "ver mas", "mas", "next"]):
-            return [SlotSet("pagina_menu", pagina_actual + 1), SlotSet("numero_opcion", None)]
+        # --- 4. RESET Y NAVEGACIÓN ---
+        if any(x in texto_usuario for x in ["menu", "inicio", "99", "home"]) or opcion == "99":
+            return [
+                SlotSet("contexto_menu", "principal"),
+                SlotSet("modo_conversacion", "menu"),
+                SlotSet("pagina_menu", 1),
+                SlotSet("numero_opcion", None),
+                FollowupAction("action_mostrar_menu_actual")
+            ]
+
+        # Paginación
+        if any(x in texto_usuario for x in ["siguiente", "mas", "next"]):
+            return [SlotSet("pagina_menu", pagina_actual + 1), FollowupAction("action_mostrar_menu_actual")]
         
         if any(x in texto_usuario for x in ["anterior", "atras", "prev"]):
-            return [SlotSet("pagina_menu", max(1, pagina_actual - 1)), SlotSet("numero_opcion", None)]
+            return [SlotSet("pagina_menu", max(1, pagina_actual - 1)), FollowupAction("action_mostrar_menu_actual")]
 
         return [SlotSet("numero_opcion", None)]
 
-# =======================================================
-# LÓGICA DE MODO LIBRE Y RESETS
-# =======================================================
 
 class ActionResponderModoLibre(Action):
     def name(self) -> Text:
         return "action_responder_modo_libre"
 
-    def run(self, dispatcher, tracker, domain):
-        intent = tracker.latest_message['intent'].get('name')
-        # Mapeo de intents NLU a respuestas directas
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Obtenemos el intent y el contexto actual
+        intent = tracker.latest_message.get('intent', {}).get('name')
+        contexto_actual = tracker.get_slot("contexto_menu") or "principal"
+        
+        # Mapeo de intents a respuestas directas
         mapeo = {
-            "preguntar_becas_tipos": ("becas", 1), "preguntar_becas_inscripcion": ("becas", 2),
-            "preguntar_becas_requisitos": ("becas", 3), "preguntar_becas_documentacion": ("becas", 4),
-            "preguntar_becas_fechas": ("becas", 5), "preguntar_becas_varias": ("becas", 6),
-            "preguntar_becas_seleccion": ("becas", 7), "preguntar_becas_renovacion": ("becas", 8),
-            "preguntar_boleto_solicitud": ("boleto_estudiantil", 1), "preguntar_boleto_requisitos": ("boleto_estudiantil", 2),
-            "preguntar_comedor_horarios": ("comedor", 1), "preguntar_comedor_precios": ("comedor", 2),
-            "preguntar_pasantias_que_son": ("pasantias", 1), "preguntar_pasantias_inscripcion": ("pasantias", 2)
+            "preguntar_becas_tipos": ("becas", 1), 
+            "preguntar_becas_inscripcion": ("becas", 2),
+            "preguntar_becas_requisitos": ("becas", 3), 
+            "preguntar_becas_documentacion": ("becas", 4),
+            "preguntar_becas_fechas": ("becas", 5), 
+            "preguntar_becas_varias": ("becas", 6),
+            "preguntar_becas_seleccion": ("becas", 7), 
+            "preguntar_becas_renovacion": ("becas", 8),
+            "preguntar_boleto_solicitud": ("boleto_estudiantil", 1), 
+            "preguntar_boleto_requisitos": ("boleto_estudiantil", 2),
+            "preguntar_comedor_horarios": ("comedor", 1), 
+            "preguntar_comedor_precios": ("comedor", 2),
+            "preguntar_pasantias_que_son": ("pasantias", 1), 
+            "preguntar_pasantias_inscripcion": ("pasantias", 2)
         }
 
-        if intent in mapeo:
-            ctx, num = mapeo[intent]
-            res = FAQ_RESPUESTAS[ctx][num]
-            tit = FAQ_TITULOS[ctx][num]
-            dispatcher.utter_message(text=f"📌 *{tit}*\n\n{res}")
-            return [SlotSet("modo_conversacion", "libre")]
-        else:
-            dispatcher.utter_message(text="No entiendo esa pregunta específica, pero podés buscarla en el menú:")
-            return [FollowupAction("action_reset_context_and_show_main_menu")]
+        try:
+            # 1. Intentamos responder si el intent está en el mapa
+            if intent in mapeo:
+                ctx, num = mapeo[intent]
+                # Verificamos que existan las keys en las constantes para evitar KeyError
+                if ctx in FAQ_RESPUESTAS and num in FAQ_RESPUESTAS[ctx]:
+                    res = FAQ_RESPUESTAS[ctx][num]
+                    tit = FAQ_TITULOS[ctx][num]
+                    dispatcher.utter_message(text=f"📌 *{tit}*\n\n{res}")
+                    return [SlotSet("modo_conversacion", "libre")]
+                else:
+                    # Si el intent existe pero no la respuesta, forzamos el error para ir al except
+                    raise KeyError("Respuesta no encontrada en constantes")
+            
+            # 2. Si el intent no está mapeado, lanzamos error para ejecutar el fallback del except
+            else:
+                raise ValueError("Intent no reconocido o fuera de mapeo")
 
+        except Exception as e:
+            # SALIDA DE EMERGENCIA: Si algo falla arriba, el bot SIEMPRE responde esto
+            dispatcher.utter_message(text="No estoy seguro de haber entendido, pero podés buscar la información en este menú:")
+            
+            nuevo_modo = "menu" if contexto_actual == "principal" else "sub_menu"
+            
+            return [
+                SlotSet("modo_conversacion", nuevo_modo),
+                FollowupAction("action_mostrar_menu_actual"),
+            ]
 
 class ActionDetectarModo(Action):
     def name(self) -> Text: return "action_detectar_modo"
     def run(self, dispatcher, tracker, domain):
         return [SlotSet("modo_conversacion", "menu")]
-
 
 class ActionResetContextAndShowMainMenu(Action):
     def name(self) -> Text:
@@ -395,8 +436,8 @@ class ActionResetContextAndShowMainMenu(Action):
     def run(self, dispatcher, tracker, domain):
         return [
             SlotSet("contexto_menu", "principal"),
+            SlotSet("modo_conversacion", "menu"),
             SlotSet("pagina_menu", 1),
             SlotSet("numero_opcion", None),
-            SlotSet("modo_conversacion", "menu"),
-            FollowupAction("action_mostrar_menu_actual")
+            FollowupAction("action_mostrar_menu_actual"),
         ]
