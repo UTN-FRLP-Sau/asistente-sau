@@ -322,6 +322,15 @@ class ActionManejarMenu(Action):
                     "1": "becas", "2": "boleto_estudiantil", "3": "deportes",
                     "4": "comedor", "5": "bolsa_trabajo", "6": "pasantias"
                 }
+
+                # Opcion Salir
+                if opcion == "7":
+                    return [
+                        SlotSet("contexto_menu", "principal"),
+                        SlotSet("modo_conversacion", "libre"),
+                        FollowupAction("utter_salir")
+                    ]
+
                 if opcion in mapa_principal:
                     return [
                         SlotSet("contexto_menu", mapa_principal[opcion]),
