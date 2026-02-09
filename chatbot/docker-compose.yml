@@ -1,0 +1,50 @@
+services:
+  redis-service:
+    image: redis:7-alpine
+    container_name: redis-service
+    ports:
+      - "6379:6379"
+
+  rasa-action-server:
+    image: manuelmorullo/rasa-chatbot:latest
+    container_name: rasa-action-server
+    command: ["run", "actions", "--port", "5055"]
+    ports:
+      - "5055:5055"
+    volumes:
+      - ./actions:/app/actions
+    restart: unless-stopped
+
+  rasa:
+    image: manuelmorullo/rasa-chatbot:latest
+    container_name: rasa
+    command:
+      - run
+      - --enable-api
+      - --cors
+      - "*"
+      - --port
+      - "5005"
+      - --credentials
+      - credentials.yml
+      - --endpoints
+      - endpoints.yml
+    ports:
+      - "5005:5005"
+    environment:
+      SANIC_WORKERS: "2"
+      REDIS_URL: "redis://redis-service:6379"
+      TELEGRAM_TOKEN: "${TELEGRAM_TOKEN}"
+      TELEGRAM_BOT_USERNAME: "${TELEGRAM_BOT_USERNAME}"
+      TELEGRAM_WEBHOOK_URL: "${TELEGRAM_WEBHOOK_URL}"
+      WHATSAPP_ACCESS_TOKEN: "${WHATSAPP_ACCESS_TOKEN}"
+      WHATSAPP_PHONE_ID: "${WHATSAPP_PHONE_ID}"
+      WHATSAPP_VERIFY_TOKEN: "${WHATSAPP_VERIFY_TOKEN}"
+    volumes:
+      - ./models:/app/models
+      - ./credentials.yml:/app/credentials.yml:ro
+      - ./endpoints.yml:/app/endpoints.yml:ro
+    depends_on:
+      - redis-service
+      - rasa-action-server
+    restart: unless-stopped
