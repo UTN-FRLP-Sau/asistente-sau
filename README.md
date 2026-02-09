@@ -97,3 +97,7 @@ docker login
 
 # Subir la imagen
 docker push manuelmorullo/rasa-chatbot:latest
+
+
+Salida consola rasa:
+journalctl -u rasa -f
