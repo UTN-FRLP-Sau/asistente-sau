@@ -12,6 +12,7 @@ chatbot/models/
 chatbot/.rasa/
 chatbot/.rasa_cache/
 chatbot/.DS_Store
+chatbot/credentials.yml
 
 # Logs
 *.log
