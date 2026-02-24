@@ -1,4 +1,6 @@
 import logging
+import hashlib
+import hmac
 import requests
 from sanic import Blueprint, response
 from rasa.core.channels.channel import InputChannel, OutputChannel, UserMessage
@@ -89,10 +91,35 @@ class WhatsAppInput(InputChannel):
     def name(cls):
         return "whatsapp_connector.WhatsAppInput"
 
-    def __init__(self, access_token, phone_number_id, verify_token):
+    def __init__(self, access_token, phone_number_id, verify_token, app_secret):
         self.access_token = access_token
         self.phone_number_id = phone_number_id
         self.verify_token = verify_token
+        self.app_secret = app_secret
+
+    def _is_valid_signature(self, request) -> bool:
+        """Valida la firma X-Hub-Signature-256 enviada por Meta."""
+        if not self.app_secret:
+            logger.error("Falta app_secret para validar firma del webhook de WhatsApp.")
+            return False
+
+        signature = request.headers.get("X-Hub-Signature-256", "")
+        if not signature.startswith("sha256="):
+            logger.warning("Webhook rechazado: header X-Hub-Signature-256 ausente o inválido.")
+            return False
+
+        incoming_digest = signature.split("=", 1)[1]
+        expected_digest = hmac.new(
+            self.app_secret.encode("utf-8"),
+            request.body,
+            hashlib.sha256,
+        ).hexdigest()
+
+        if not hmac.compare_digest(incoming_digest, expected_digest):
+            logger.warning("Webhook rechazado: firma HMAC inválida.")
+            return False
+
+        return True
 
     @classmethod
     def from_credentials(cls, credentials):
@@ -102,7 +129,8 @@ class WhatsAppInput(InputChannel):
         return cls(
             access_token=credentials.get("access_token"),
             phone_number_id=credentials.get("phone_number_id"),
-            verify_token=credentials.get("verify_token")
+            verify_token=credentials.get("verify_token"),
+            app_secret=credentials.get("app_secret"),
         )
 
     def blueprint(self, on_new_message):
@@ -121,6 +149,9 @@ class WhatsAppInput(InputChannel):
 
         @custom_webhook.route("/webhook", methods=["POST"])
         async def receive(request):
+            if not self._is_valid_signature(request):
+                return response.text("Firma inválida", 403)
+
             payload = request.json
             try:
                 entry = payload.get("entry", [{}])[0]
