@@ -5,7 +5,7 @@ from typing import Text, List, Any, Dict
 import unicodedata
 
 # =======================================================
-# 0. TÍTULOS Y RESPUESTAS (OPTIMIZADO PARA UX)
+# 0. TÍTULOS Y RESPUESTAS
 # =======================================================
 
 MENSAJES_AYUDA = {
@@ -209,7 +209,7 @@ class ActionMostrarMenuActual(Action):
         config = MENUS_CONFIG.get(contexto, MENUS_CONFIG["principal"])
         
         mensajes_ayuda = {
-            "principal": "👋 ¡Hola! Soy el asistente de la SAU. ¿Sobre qué tema necesitás información hoy? Seleccioná una categoría:",
+            "principal": "👋 ¡Hola! Soy el asistente de la SAU. ¿Sobre qué tema necesitás información? Pregúntame directamente o selecciona una categoría:",
             "becas": "🎓 *Becas*: Aquí tenés detalles sobre montos, requisitos y fechas de inscripción. ¿Qué necesitás consultar?",
             "boleto_estudiantil": "🚌 *Boleto Estudiantil*: Aquí tenés info. sobre requisitos, trámites por pérdida, renovación y demás. ¿Qué necesitás consultar?",
             "deportes": "⚽ *Deportes*: ¡Sumate a los entrenamientos! Elegí una disciplina para ver horarios y requisitos:",
@@ -386,8 +386,9 @@ class ActionResponderModoLibre(Action):
         intent = tracker.latest_message.get('intent', {}).get('name')
         contexto_actual = tracker.get_slot("contexto_menu") or "principal"
         
-        # Mapeo de intents a respuestas directas
+        # Mapeo completo de intents a respuestas directas
         mapeo = {
+            # BECAS
             "preguntar_becas_tipos": ("becas", 1), 
             "preguntar_becas_inscripcion": ("becas", 2),
             "preguntar_becas_requisitos": ("becas", 3), 
@@ -396,12 +397,68 @@ class ActionResponderModoLibre(Action):
             "preguntar_becas_varias": ("becas", 6),
             "preguntar_becas_seleccion": ("becas", 7), 
             "preguntar_becas_renovacion": ("becas", 8),
+
+            # BOLETO ESTUDIANTIL
             "preguntar_boleto_solicitud": ("boleto_estudiantil", 1), 
             "preguntar_boleto_requisitos": ("boleto_estudiantil", 2),
+            "preguntar_boleto_sedes": ("boleto_estudiantil", 3),
+            "preguntar_boleto_activacion": ("boleto_estudiantil", 4),
+            "preguntar_boleto_perdida": ("boleto_estudiantil", 5),
+            "preguntar_boleto_vencimiento": ("boleto_estudiantil", 6),
+            "preguntar_boleto_renovacion": ("boleto_estudiantil", 7),
+            "preguntar_boleto_viajes": ("boleto_estudiantil", 8),
+            "preguntar_boleto_transporte": ("boleto_estudiantil", 9),
+            "preguntar_boleto_cambio_carrera": ("boleto_estudiantil", 10),
+            "preguntar_boleto_problemas": ("boleto_estudiantil", 11),
+
+            # DEPORTES
+            "preguntar_deportes_oferta": ("deportes", 1),
+            "preguntar_deportes_horarios": ("deportes", 2),
+            "preguntar_deportes_inscripcion": ("deportes", 3),
+            "preguntar_deportes_torneos": ("deportes", 4),
+            "preguntar_deportes_cantidad": ("deportes", 5),
+            "preguntar_deportes_experiencia": ("deportes", 6),
+            "preguntar_deportes_competencia": ("deportes", 7),
+
+            # COMEDOR
             "preguntar_comedor_horarios": ("comedor", 1), 
             "preguntar_comedor_precios": ("comedor", 2),
+            "preguntar_comedor_menu": ("comedor", 3),
+            "preguntar_comedor_registro": ("comedor", 4),
+            "preguntar_comedor_pago": ("comedor", 5),
+            "preguntar_comedor_reserva": ("comedor", 6),
+            "preguntar_comedor_contacto": ("comedor", 7),
+
+            # BOLSA DE TRABAJO
+            "preguntar_bolsa_inscripcion": ("bolsa_trabajo", 1),
+            "preguntar_bolsa_cv": ("bolsa_trabajo", 2),
+            "preguntar_bolsa_ofertas": ("bolsa_trabajo", 3),
+            "preguntar_bolsa_postulacion": ("bolsa_trabajo", 4),
+            "preguntar_bolsa_contacto": ("bolsa_trabajo", 5),
+            "preguntar_bolsa_baja": ("bolsa_trabajo", 6),
+            "preguntar_bolsa_actualizar": ("bolsa_trabajo", 7),
+
+            # PASANTÍAS
             "preguntar_pasantias_que_son": ("pasantias", 1), 
-            "preguntar_pasantias_inscripcion": ("pasantias", 2)
+            "preguntar_pasantias_inscripcion": ("pasantias", 2),
+            "preguntar_pasantias_requisitos": ("pasantias", 3),
+            "preguntar_pasantias_donde_ver": ("pasantias", 4),
+            "preguntar_pasantias_convenios": ("pasantias", 5),
+            "preguntar_pasantias_cantidad": ("pasantias", 6),
+            "preguntar_pasantias_pago": ("pasantias", 7),
+            "preguntar_pasantias_duracion": ("pasantias", 8),
+            "preguntar_pasantias_carga_horaria": ("pasantias", 9),
+            "preguntar_pasantias_cursada": ("pasantias", 10),
+            "preguntar_pasantias_certificado": ("pasantias", 11),
+            "preguntar_pasantias_seguimiento": ("pasantias", 12),
+            "preguntar_pasantias_ley": ("pasantias", 13),
+            "preguntar_pasantias_beneficios": ("pasantias", 14),
+            "preguntar_pasantias_exceso_horas": ("pasantias", 15),
+            "preguntar_pasantias_consultas": ("pasantias", 16),
+            "preguntar_pasantias_gestion": ("pasantias", 17),
+            "preguntar_pasantias_eleccion": ("pasantias", 18),
+            "preguntar_pasantias_renunciar": ("pasantias", 19),
+            "preguntar_pasantias_baja_base": ("pasantias", 20)
         }
 
         try:
