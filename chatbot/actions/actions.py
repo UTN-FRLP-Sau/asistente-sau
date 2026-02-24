@@ -9,13 +9,13 @@ import unicodedata
 # =======================================================
 
 MENSAJES_AYUDA = {
-    "principal": "👋 ¡Hola! Soy el asistente de la SAU. ¿Sobre qué tema necesitás información hoy?",
-    "becas": "🎓 *Becas*: Consultá montos, requisitos y fechas de inscripción aquí:",
-    "boleto_estudiantil": "🚌 *Boleto*: Consultá requisitos, trámites por pérdida, renovación y demás. ¿Qué duda tenés?",
-    "deportes": "⚽ *Deportes*: ¡Sumate a los equipos de la facu! Seleccioná una opción:",
-    "comedor": "🍴 *Comedor*: Consultá horarios, precios y menu . ¿Qué duda tenés?",
-    "bolsa_trabajo": "💼 *Bolsa de Trabajo*: Aquí podés saber cómo cargar tu CV y postularte:",
-    "pasantias": "📑 *Pasantías*: Info sobre convenios, carga horaria y pagos:"
+    "principal": "👋 ¡Hola! Soy el asistente de la SAU. ¿Sobre qué tema necesitás información? Pregúntame directamente o selecciona una categoría:",
+    "becas": "🎓 *Becas*: Aquí tenés detalles sobre montos, requisitos y fechas de inscripción. ¿Qué necesitás consultar?",
+    "boleto_estudiantil": "🚌 *Boleto Estudiantil*: Aquí tenés info. sobre requisitos, trámites por pérdida, renovación y demás. ¿Qué necesitás consultar?",
+    "deportes": "⚽ *Deportes*: ¡Sumate a los entrenamientos! Elegí una disciplina para ver horarios y requisitos:",
+    "comedor": "🍴 *Comedor*: Consultá horarios, precios y menu. ¿Qué necesitás consultar?",
+    "bolsa_trabajo": "💼 *Bolsa de Trabajo*: Aquí podés saber cómo cargar tu CV y postularte. ¿Qué necesitás consultar?",
+    "pasantias": "📑 *Pasantías*: Información sobre convenios, pagos y carga horaria. ¿Qué buscás saber?"
 }
 
 FAQ_TITULOS = {
@@ -208,17 +208,8 @@ class ActionMostrarMenuActual(Action):
         pagina = int(tracker.get_slot("pagina_menu") or 1)
         config = MENUS_CONFIG.get(contexto, MENUS_CONFIG["principal"])
         
-        mensajes_ayuda = {
-            "principal": "👋 ¡Hola! Soy el asistente de la SAU. ¿Sobre qué tema necesitás información? Pregúntame directamente o selecciona una categoría:",
-            "becas": "🎓 *Becas*: Aquí tenés detalles sobre montos, requisitos y fechas de inscripción. ¿Qué necesitás consultar?",
-            "boleto_estudiantil": "🚌 *Boleto Estudiantil*: Aquí tenés info. sobre requisitos, trámites por pérdida, renovación y demás. ¿Qué necesitás consultar?",
-            "deportes": "⚽ *Deportes*: ¡Sumate a los entrenamientos! Elegí una disciplina para ver horarios y requisitos:",
-            "comedor": "🍴 *Comedor*: Consultá horarios, precios y menu. ¿Qué necesitás consultar?",
-            "bolsa_trabajo": "💼 *Bolsa de Trabajo*: Aquí podés saber cómo cargar tu CV y postularte. ¿Qué necesitás consultar?",
-            "pasantias": "📑 *Pasantías*: Información sobre convenios, pagos y carga horaria. ¿Qué buscás saber?"
-        }
         
-        texto_cuerpo = mensajes_ayuda.get(contexto, f"📍 *{config['titulo']}*\nSeleccioná una opción de la lista:")
+        texto_cuerpo = MENSAJES_AYUDA.get(contexto, f"📍 *{config['titulo']}*\nSeleccioná una opción de la lista:")
 
         opciones_visibles = []
         if contexto == "principal":
