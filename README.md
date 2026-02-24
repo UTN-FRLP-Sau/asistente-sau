@@ -37,7 +37,7 @@ Crear entorno virtual(recomendado)
 Activar entorno con: source venv/bin/activate
 Instalar Rasa,locust,Docker,K3s,Redis,Ngrok
 
-Crear confimaps:
+Crear configmaps:
 
 ConfigMap para credentials.yml.template
 kubectl create configmap rasa-credentials-template-cm --from-file=credentials.yml.template=./credentials.yml.template
@@ -84,6 +84,9 @@ locust -f locustfile.py
 Acceder a intefaz web mediante:
 http://localhost:8000/
 
+Ejecutar en consola el test de carga(u: cantidad de usuarios simultaneos, r: incremento de usuarios):
+locust -f locustfile.py --host http://localhost:5005 --headless -u 150 -r 10 --run-time 1m
+
 
 Mostrar logs del pod:
 kubectl logs -f $(kubectl get pods -l app=rasa -o jsonpath="{.items[0].metadata.name}")
@@ -98,6 +101,22 @@ docker login
 # Subir la imagen
 docker push manuelmorullo/rasa-chatbot:latest
 
+Para depurar access token:
+https://developers.facebook.com/tools/debug/accesstoken/
+
+Para configurar el webhook:
+https://developers.facebook.com/apps/1206692898068573/use_cases/customize/wa-settings/
+
+El access Token para que sea permanente se genera desde el user admin ya creado en la bussinees suite:
+https://business.facebook.com/latest/settings/system_users
+
+config de whatsapp:
+https://business.facebook.com/latest/settings/whatsapp_account/
+
 
 Salida consola rasa:
 journalctl -u rasa -f
+
+Reiniciar servicios (para produccion):
+sudo systemctl restart rasa
+sudo systemctl restart rasa-actions
