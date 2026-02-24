@@ -142,7 +142,7 @@ FAQ_RESPUESTAS = {
         4: "Debes registrar el usuario, si no estás registrado en el sistema completa el formulario de inscripción que se encuentra en el instagram de la secretaría de asuntos universitarios: @sau.utnfrlp, el alta de los usuarios se realiza de lunes a viernes a partir de las 10:00 hs, vas a recibir un correo con los datos correspondientes",
         5: (
             "Para comprar las viandas tenes que ingresar a: https://ticket.frlp.utn.edu.ar, luego elegís las viandas que quieras comprar y el turno en el cual vas a retirarla. "
-            "Si te quedo saldo cargado, lo usas para comprar las viandas, y en el caos de que no tengas saldo suficiente, deberás abonar la diferencia vía Mercado Pago, luego confirmas la compra y la plataforma del comedor te va a redirigir a Mercado Pago para que efectues el pago. "
+            "Si te quedo saldo cargado, lo usas para comprar las viandas, y en el caso de que no tengas saldo suficiente, deberás abonar la diferencia vía Mercado Pago, luego confirmas la compra y la plataforma del comedor te va a redirigir a Mercado Pago para que efectues el pago. "
             "Una vez hayas realizado esto, se te redirigirá automáticamente a la página del comedor, donde podrás visualizar las viandas que compraste y el estado de las mismas. "
             "La acreditación es automática, te llegará un mail a tu correo informando el pago, si está pendiente o fue rechazado. tener en cuenta que algunos medios de pago pueden tardar hasta una hora en acreditarse"
         ),
