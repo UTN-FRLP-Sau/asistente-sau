@@ -27,6 +27,7 @@ El desarrollo del chatbot se llevó a cabo utilizando las siguientes tecnología
 - **Redis**: base de datos en memoria de código abierto, utilizada principalmente por Rasa como lock store para gestionar el bloqueo de conversaciones y asegurar la consistencia del diálogo en entornos distribuidos.
 - **Locust**: herramienta de prueba de carga de código abierto, utilizada para simular usuarios concurrentes y medir el rendimiento del chatbot.
 - **Ngrok**: servicio de tunelización usado que expone servicios locales a Internet, facilitando la prueba de webhooks de Telegram y otras integraciones durante el desarrollo.
+- **Meta for Developers**: suite web para configurar chatbot en whatsapp
 - **Telegram Bot API**: para la integración del asistente con la aplicación de mensajería Telegram.
 - **HTML/CSS/JavaScript**: para el desarrollo del frontend web de interacción con el chatbot.
 
@@ -37,8 +38,41 @@ Crear entorno virtual(recomendado)
 Activar entorno con: source venv/bin/activate
 Instalar Rasa,locust,Docker,K3s,Redis,Ngrok
 
-Crear configmaps:
+Entrenar modelo de Rasa:
+rasa train
 
+Ejecutar test de carga con Locust(configurar ip del websocket en locustfile.py):
+locust -f locustfile.py
+
+
+Ejecutar en consola el test de carga(u: cantidad de usuarios simultaneos, r: incremento de usuarios):
+locust -f locustfile.py --host http://localhost:5005 --headless -u 150 -r 10 --run-time 1m
+
+##
+Para depurar access token:
+https://developers.facebook.com/tools/debug/accesstoken/
+
+Para configurar el webhook de wsp:
+https://developers.facebook.com/apps/1206692898068573/use_cases/customize/wa-settings/
+
+El access Token para que sea permanente se genera desde el user admin ya creado en la bussinees suite:
+https://business.facebook.com/latest/settings/system_users
+
+config de whatsapp:
+https://business.facebook.com/latest/settings/whatsapp_account/
+
+Salida consola rasa:
+journalctl -u rasa -f
+
+Reiniciar servicios (para produccion):
+sudo systemctl restart rasa
+sudo systemctl restart rasa-actions
+
+#
+## Comandos viejos de caracteristicas sin usar:
+estos comandos los use para cuando corria rasa usando K3s con varios pods para escalabilidad. Tambien hay otros relacionados caracteristicas que no estan en uso en produccion, como la interfaz web, o la configuracion del webhook de telegram. Los mantengo por si en un futuro se desea retomar la capacidad de escalar para permitir mas consultas en simultaneo al chatbot, permitir el acceso por pagina web o via socket, o habilitar telegram.
+
+Crear configmaps:
 ConfigMap para credentials.yml.template
 kubectl create configmap rasa-credentials-template-cm --from-file=credentials.yml.template=./credentials.yml.template
 
@@ -59,9 +93,6 @@ kubectl create secret generic telegram-secrets \
 Actualizar o Agregar por primera vez Webhook al Secret con el comando:
 ./actualizar_webhook.sh <pasar url que te genera ngrok como parametro>
 
-Entrenar modelo de Rasa:
-rasa train
-
 Actualizar la ruta del volumen montado de los rasa-deployment.yaml para que coincida con tu nombre de usuario:
 volumes:
         - name: models-volume
@@ -71,53 +102,27 @@ volumes:
 Aplicar redeploy de los pods con:
 ./redeploy-rasa.sh
 
+Mostrar logs del pod:
+kubectl logs -f $(kubectl get pods -l app=rasa -o jsonpath="{.items[0].metadata.name}")
+
 Configurar ip del websocket en el index.html:
 socketUrl: "http://'ip_de_tu_computadora':30001",
 
 Levantar servidor web python:
 python3 -m http.server 8000 --bind 0.0.0.0
 
-
-Ejecutar test de carga con Locust(configurar ip del websocket en locustfile.py):
-locust -f locustfile.py
-
 Acceder a intefaz web mediante:
 http://localhost:8000/
 
-Ejecutar en consola el test de carga(u: cantidad de usuarios simultaneos, r: incremento de usuarios):
-locust -f locustfile.py --host http://localhost:5005 --headless -u 150 -r 10 --run-time 1m
-
-
-Mostrar logs del pod:
-kubectl logs -f $(kubectl get pods -l app=rasa -o jsonpath="{.items[0].metadata.name}")
-
-
-# Construir la imagen docker localmente
+Construir la imagen docker localmente
 docker build -t manuelmorullo/rasa-chatbot:latest .
 
-# Iniciar sesión (si no lo has hecho ya)
+Iniciar sesión
 docker login
 
-# Subir la imagen
+Subir la imagen
 docker push manuelmorullo/rasa-chatbot:latest
 
-##
-Para depurar access token:
-https://developers.facebook.com/tools/debug/accesstoken/
 
-Para configurar el webhook:
-https://developers.facebook.com/apps/1206692898068573/use_cases/customize/wa-settings/
+''' 
 
-El access Token para que sea permanente se genera desde el user admin ya creado en la bussinees suite:
-https://business.facebook.com/latest/settings/system_users
-
-config de whatsapp:
-https://business.facebook.com/latest/settings/whatsapp_account/
-
-
-Salida consola rasa:
-journalctl -u rasa -f
-
-Reiniciar servicios (para produccion):
-sudo systemctl restart rasa
-sudo systemctl restart rasa-actions
